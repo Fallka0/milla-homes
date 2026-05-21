@@ -9,10 +9,10 @@ export function BrandLogo({ priority = false }: BrandLogoProps) {
     <span className="brand-logo-lockup">
       <Image
         className="brand-logo-image"
-        src="/logos/milla-homes-logo.png"
+        src="/logos/mh-logo.png"
         alt="Milla Homes"
-        width={2000}
-        height={2000}
+        width={1254}
+        height={1254}
         priority={priority}
       />
     </span>
