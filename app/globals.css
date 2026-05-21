@@ -762,20 +762,20 @@ textarea {
 .brand-logo-image {
   display: block;
   width: auto;
-  height: 4.8rem;
+  height: 7rem;
   object-fit: contain;
 }
 
 .public-header .brand-logo-image {
-  height: 6rem;
+  height: 8.5rem;
 }
 
 .public-header.compact-header .brand-logo-image {
-  height: 5.4rem;
+  height: 7.5rem;
 }
 
 .site-footer-copy .brand-logo-image {
-  height: 4rem;
+  height: 5.5rem;
 }
 
 .admin-brand-block {
