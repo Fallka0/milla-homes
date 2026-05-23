@@ -17,6 +17,7 @@ type ImageUploadFieldProps = {
   title: string;
   uploadCopy: {
     compressingImage: string;
+    convertingImage: string;
     fileTooLarge: string;
     imageUploaded: string;
     uploadFailed: string;
@@ -126,6 +127,25 @@ async function compressImageFile(file: File) {
   throw new Error("This image is still larger than 50 MB after compression.");
 }
 
+function isHeicFile(file: File) {
+  return (
+    file.type === "image/heic" ||
+    file.type === "image/heif" ||
+    /\.(heic|heif)$/i.test(file.name)
+  );
+}
+
+async function convertHeicToJpeg(file: File): Promise<File> {
+  const heic2any = (await import("heic2any")).default;
+  const result = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.9 });
+  const blob = Array.isArray(result) ? result[0] : result;
+
+  return new File([blob], replaceFileExtension(file.name, "jpg"), {
+    type: "image/jpeg",
+    lastModified: Date.now(),
+  });
+}
+
 export function ImageUploadField({
   accept = "image/*",
   defaultValue = "",
@@ -188,20 +208,27 @@ export function ImageUploadField({
   }
 
   async function prepareFile(file: File) {
-    if (file.size <= maxUploadSizeBytes) {
-      return file;
+    let processedFile = file;
+
+    if (isHeicFile(file)) {
+      setUploadState({ message: uploadCopy.convertingImage, type: "idle" });
+      processedFile = await convertHeicToJpeg(file);
     }
 
-    if (file.type.startsWith("image/")) {
+    if (processedFile.size <= maxUploadSizeBytes) {
+      return processedFile;
+    }
+
+    if (processedFile.type.startsWith("image/")) {
       setUploadState({
         message: uploadCopy.compressingImage,
         type: "idle",
       });
 
-      return compressImageFile(file);
+      return compressImageFile(processedFile);
     }
 
-    if (file.type.startsWith("video/")) {
+    if (processedFile.type.startsWith("video/")) {
       throw new Error(uploadCopy.videoTooLarge);
     }
 

@@ -158,6 +158,7 @@ export type AdminCopy = {
   };
   upload: {
     compressingImage: string;
+    convertingImage: string;
     fileTooLarge: string;
     galleryPlaceholder: string;
     imagePlaceholder: string;
@@ -336,6 +337,7 @@ export const adminCopy: Record<PublicLocale, AdminCopy> = {
     typeLabels: { apartment: "Apartment", bungalow: "Bungalow", finca: "Finca", penthouse: "Penthouse", townhouse: "Townhouse", villa: "Villa" },
     upload: {
       compressingImage: "Compressing large image before upload...",
+      convertingImage: "Converting HEIC image...",
       fileTooLarge: "Files must be 50 MB or smaller after compression.",
       galleryPlaceholder: "Upload images or videos, or paste one media URL per line.",
       imagePlaceholder: "Upload an image or paste an image URL",
@@ -504,6 +506,7 @@ export const adminCopy: Record<PublicLocale, AdminCopy> = {
     typeLabels: { apartment: "Apartamento", bungalow: "Bungaló", finca: "Finca", penthouse: "Ático", townhouse: "Adosado", villa: "Villa" },
     upload: {
       compressingImage: "Comprimiendo imagen grande antes de subir...",
+      convertingImage: "Convirtiendo imagen HEIC...",
       fileTooLarge: "Los archivos deben quedar en 50 MB o menos después de la compresión.",
       galleryPlaceholder: "Sube imágenes o vídeos, o pega una URL por línea.",
       imagePlaceholder: "Sube una imagen o pega una URL",
@@ -672,6 +675,7 @@ export const adminCopy: Record<PublicLocale, AdminCopy> = {
     typeLabels: { apartment: "Апартаменты", bungalow: "Бунгало", finca: "Финка", penthouse: "Пентхаус", townhouse: "Таунхаус", villa: "Вилла" },
     upload: {
       compressingImage: "Сжимаем большое изображение перед загрузкой...",
+      convertingImage: "Конвертируем HEIC-фото...",
       fileTooLarge: "Файл должен быть не больше 50 МБ после сжатия.",
       galleryPlaceholder: "Загрузите фото или видео либо вставьте по одной ссылке в строку.",
       imagePlaceholder: "Загрузите фото или вставьте URL",
