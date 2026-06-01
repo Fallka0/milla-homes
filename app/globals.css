@@ -2988,7 +2988,12 @@ textarea {
   .public-header {
     align-items: center;
     gap: 1rem;
-    padding: 1rem 0 0.9rem;
+    padding: 0.75rem 0 0.5rem;
+  }
+
+  .public-header .brand-logo-image,
+  .public-header.compact-header .brand-logo-image {
+    height: 6.5rem;
   }
 
   .mobile-menu-toggle {
@@ -3075,9 +3080,19 @@ textarea {
   }
 
   .hero-actions {
-    align-items: flex-start;
-    gap: 0.8rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
     margin-top: 1.5rem;
+  }
+
+  .hero-actions > .button,
+  .hero-actions .contact-actions {
+    width: 100%;
+  }
+
+  .hero-actions .contact-actions .button {
+    width: 100%;
   }
 
   .hero-primary-button {
