@@ -3046,6 +3046,10 @@ textarea {
     height: 6.5rem;
   }
 
+  .public-header.compact-header {
+    margin-bottom: 0.5rem;
+  }
+
   .mobile-menu-toggle {
     display: inline-flex;
     margin-left: auto;
@@ -3111,11 +3115,31 @@ textarea {
   }
 
   .homepage-intro {
-    padding-top: 0;
+    padding: 1.5rem 1.1rem 1.75rem;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
   }
 
   .homepage-hero-panel {
     padding-top: 0;
+  }
+
+  /* Remove nested card on mobile — side card sits inside homepage-intro card */
+  .hero-side-card {
+    background: rgba(18, 53, 36, 0.04);
+    border-color: rgba(18, 53, 36, 0.06);
+    box-shadow: none;
+  }
+
+  /* Let heading span full width so it flows in 3-4 lines instead of 8 */
+  .homepage-hero-copy h1 {
+    max-width: none;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
   }
 
   .hero-copy h1 {
