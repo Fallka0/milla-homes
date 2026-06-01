@@ -17,6 +17,7 @@ type ImageUploadFieldProps = {
   title: string;
   uploadCopy: {
     compressingImage: string;
+    convertingImage: string;
     fileTooLarge: string;
     imageUploaded: string;
     uploadFailed: string;
@@ -126,6 +127,45 @@ async function compressImageFile(file: File) {
   throw new Error("This image is still larger than 50 MB after compression.");
 }
 
+const extensionMimeMap: Record<string, string> = {
+  avif: "image/avif",
+  gif: "image/gif",
+  heic: "image/heic",
+  heif: "image/heif",
+  jpeg: "image/jpeg",
+  jpg: "image/jpeg",
+  png: "image/png",
+  webp: "image/webp",
+  m4v: "video/x-m4v",
+  mov: "video/quicktime",
+  mp4: "video/mp4",
+  ogg: "video/ogg",
+  webm: "video/webm",
+};
+
+function resolveContentType(file: File): string {
+  if (file.type) return file.type;
+  const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+  return extensionMimeMap[ext] ?? "";
+}
+
+function isHeicFile(file: File) {
+  const type = resolveContentType(file);
+  return type === "image/heic" || type === "image/heif";
+}
+
+async function convertHeicToJpeg(file: File): Promise<File> {
+  const mod = await import("heic2any");
+  const heic2any = mod.default ?? (mod as unknown as typeof mod.default);
+  const result = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.9 });
+  const blob = Array.isArray(result) ? result[0] : result;
+
+  return new File([blob], replaceFileExtension(file.name, "jpg"), {
+    type: "image/jpeg",
+    lastModified: Date.now(),
+  });
+}
+
 export function ImageUploadField({
   accept = "image/*",
   defaultValue = "",
@@ -143,13 +183,15 @@ export function ImageUploadField({
   const inputRef = useRef<HTMLInputElement>(null);
 
   async function uploadFile(file: File) {
+    const contentType = resolveContentType(file);
+
     const response = await fetch("/api/admin/uploads", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        contentType: file.type,
+        contentType,
         fileName: file.name,
         title,
       }),
@@ -176,7 +218,7 @@ export function ImageUploadField({
     const { error: uploadError } = await supabase.storage
       .from(data.bucketName)
       .uploadToSignedUrl(data.path, data.token, file, {
-        contentType: file.type,
+        contentType,
         upsert: false,
       });
 
@@ -188,20 +230,29 @@ export function ImageUploadField({
   }
 
   async function prepareFile(file: File) {
-    if (file.size <= maxUploadSizeBytes) {
-      return file;
+    let processedFile = file;
+
+    if (isHeicFile(file)) {
+      setUploadState({ message: uploadCopy.convertingImage, type: "idle" });
+      processedFile = await convertHeicToJpeg(file);
     }
 
-    if (file.type.startsWith("image/")) {
+    if (processedFile.size <= maxUploadSizeBytes) {
+      return processedFile;
+    }
+
+    const resolvedType = resolveContentType(processedFile);
+
+    if (resolvedType.startsWith("image/")) {
       setUploadState({
         message: uploadCopy.compressingImage,
         type: "idle",
       });
 
-      return compressImageFile(file);
+      return compressImageFile(processedFile);
     }
 
-    if (file.type.startsWith("video/")) {
+    if (resolvedType.startsWith("video/")) {
       throw new Error(uploadCopy.videoTooLarge);
     }
 
