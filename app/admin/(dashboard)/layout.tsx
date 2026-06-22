@@ -52,6 +52,7 @@ export default async function AdminDashboardLayout({
           <nav className="primary-nav" aria-label={copy.layout.adminLabel}>
             <Link href={getAdminSiteUrl("/admin")}>{copy.layout.dashboard}</Link>
             <Link href={getAdminSiteUrl("/admin/properties/new")}>{copy.layout.newListing}</Link>
+            <Link href={getAdminSiteUrl("/admin/window-sheets")}>Fichas escaparate</Link>
             <Link href={getPublicSiteUrl("/properties")}>{copy.layout.viewSite}</Link>
           </nav>
           <LanguageSwitcher currentLocale={locale} label={copy.languageLabel} locales={adminLocales} />
