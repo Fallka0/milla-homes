@@ -461,34 +461,46 @@ function parseInmovillaEscaparate(input: {
     .split(/\n{2,}/)
     .map((paragraph) => paragraph.replace(/\[[^\]]+\]\([^)]+\)/g, "").trim())
     .filter(Boolean)
-    .filter((paragraph) => !/^(Title:|URL Source:)/i.test(paragraph));
+    .filter((paragraph) => !/^(Title:|URL Source:)/i.test(paragraph))
+    // Drop link/URL-only lines so the cliente token can never leak into the copy.
+    .filter((paragraph) => !/^https?:\/\//i.test(paragraph));
 
   // The headline is the first substantial line; the rest is the description.
   const title = paragraphs.find((paragraph) => paragraph.length > 10) ?? "";
   const description = paragraphs.filter((paragraph) => paragraph !== title).join("\n\n");
-  const fullText = `${title}\n${description}`;
 
   if (!title) {
     throw new Error("We could not extract a property title from that source.");
   }
 
+  // Mine figures from a sanitised copy: strip every URL and any long digit run
+  // (e.g. the cliente token "…26201138060459946056M…") so they can't be misread
+  // as m² or price.
+  const proseForFigures = `${title}\n${description}`
+    .replace(/https?:\/\/\S+/gi, " ")
+    .replace(/\b\d{7,}\b/g, " ");
+
   // Figures out of the prose. Allow a few descriptive words between the number
   // and its noun ("3 amplios dormitorios", "2 baños completos").
   const bedrooms =
-    matchLeadingCount(fullText, "dormitorios?|habitaciones?") ??
-    extractLabeledNumber(fullText, ["dormitorios", "habitaciones", "bedrooms"]) ??
+    matchLeadingCount(proseForFigures, "dormitorios?|habitaciones?") ??
+    extractLabeledNumber(proseForFigures, ["dormitorios", "habitaciones", "bedrooms"]) ??
     0;
   const bathrooms =
-    matchLeadingCount(fullText, "ba[nñ]os?|aseos?") ??
-    extractLabeledNumber(fullText, ["baños", "banos", "aseos", "bathrooms"]) ??
+    matchLeadingCount(proseForFigures, "ba[nñ]os?|aseos?") ??
+    extractLabeledNumber(proseForFigures, ["baños", "banos", "aseos", "bathrooms"]) ??
     0;
-  const interiorSqm = extractSquareMeters(fullText);
-  const priceEuro = extractPrice(body) ?? 0;
-  const rentPriceEuro = inferRentPrice(body);
+  // Cap m² to a sane range — anything outside it is a mis-parse, not a property.
+  const rawSqm = extractSquareMeters(proseForFigures);
+  const interiorSqm = rawSqm && rawSqm > 0 && rawSqm <= 100_000 ? rawSqm : null;
+  // Cap price too: ignore absurd values (token noise) and the placeholder 0.
+  const rawPrice = extractPrice(proseForFigures);
+  const priceEuro = rawPrice && rawPrice >= 1_000 && rawPrice <= 100_000_000 ? rawPrice : 0;
+  const rentPriceEuro = inferRentPrice(proseForFigures);
   const listingMode = deriveListingMode(priceEuro, rentPriceEuro);
   const location = extractGenericLocation(title, description) ?? "Costa Blanca";
-  const type = mapPropertyType(fullText);
-  const features = inferFeatures(fullText);
+  const type = mapPropertyType(`${title} ${description}`);
+  const features = inferFeatures(`${title} ${description}`);
   const images = mergeImageUrls(
     extractHtmlImageUrls(html, resolvedUrl),
     extractMarkdownImageUrls(markdown),
@@ -496,24 +508,17 @@ function parseInmovillaEscaparate(input: {
   const hasImages = images.length > 0;
   const mainImageUrl = images[0] ?? "/logos/verdant-seal.svg";
 
-  const generatedContent = generateImportedPropertyContent({
-    bathrooms,
-    bedrooms,
-    features,
-    interiorSqm,
-    listingMode,
-    location,
-    priceEuro,
-    rentPriceEuro,
-    sourceDescription: description,
-    sourceTitle: title,
-    type,
-  });
+  // Keep the source's own (professional, Spanish) headline and body verbatim —
+  // the draft-copy generator would replace them with generic English text.
+  const shortDescription = truncateText(
+    description.split(/\n{2,}/).find((paragraph) => paragraph.length > 60) ?? description,
+    220,
+  );
 
   const property = createImportedPropertyRecord({
     bathrooms,
     bedrooms,
-    description: generatedContent.description,
+    description,
     features,
     galleryUrls: hasImages ? images.slice(1) : [],
     interiorSqm,
@@ -525,8 +530,8 @@ function parseInmovillaEscaparate(input: {
     referenceCode: createReferenceCodeFromUrl(resolvedUrl),
     rentPriceEuro,
     rentPricePeriod: rentPriceEuro ? "month" : null,
-    shortDescription: generatedContent.shortDescription,
-    title: generatedContent.title,
+    shortDescription,
+    title,
     type,
   });
 
