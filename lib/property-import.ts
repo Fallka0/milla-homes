@@ -149,7 +149,13 @@ async function resolveInmovillaPropertyUrl(sourceUrl: URL) {
   const iframeMatch = html.match(/<iframe[^>]+src=["']([^"']+)["']/i);
 
   if (iframeMatch?.[1]) {
-    return new URL(iframeMatch[1], sourceUrl).toString();
+    const target = new URL(iframeMatch[1], sourceUrl);
+    // The iframe URL carries a per-request cache-buster (&x=<timestamp>). Left
+    // in, every import hits a unique URL and the reader re-renders from scratch,
+    // frequently capturing the half-loaded skeleton instead of the finished
+    // page. Dropping it lets the reader serve a stable, fully-rendered result.
+    target.searchParams.delete("x");
+    return target.toString();
   }
 
   if (/Propiedad no disponible/i.test(html)) {
@@ -464,6 +470,26 @@ function parseInmovillaEscaparate(input: {
     .filter((paragraph) => !/^(Title:|URL Source:)/i.test(paragraph))
     // Drop link/URL-only lines so the cliente token can never leak into the copy.
     .filter((paragraph) => !/^https?:\/\//i.test(paragraph));
+
+  // The page sometimes comes back as its empty, un-hydrated template: blank "-"
+  // fields, the "marcar como vendida" confirm-dialog string as the heading, and
+  // a dash for the description. That means the reader grabbed the page before
+  // its JavaScript filled in the data — importing it would produce nonsense, so
+  // bail with a clear, actionable message instead.
+  const meaningfulText = paragraphs
+    .join(" ")
+    .replace(/[-–—¡!¿?·\s]/g, "")
+    .trim();
+  const looksLikeSkeleton =
+    /¿?Confirmas que quieres marcar/i.test(body) ||
+    /Habitaciones\s*-/i.test(body) ||
+    meaningfulText.length < 80;
+
+  if (looksLikeSkeleton) {
+    throw new Error(
+      "The source page didn't finish loading its details (it loads them with JavaScript). Please try importing again in a few seconds, or enter the details manually.",
+    );
+  }
 
   // The headline is the first substantial line; the rest is the description.
   const title = paragraphs.find((paragraph) => paragraph.length > 10) ?? "";
