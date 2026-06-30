@@ -43,12 +43,24 @@ export async function importPropertyFromUrl(rawUrl: string): Promise<ImportedPro
     throw new Error("This property is no longer publicly available in the source system.");
   }
 
-  const imported = parseInmovillaMarkdown({
-    html,
-    markdown,
-    resolvedUrl,
-    sourceUrl: sourceUrl.toString(),
-  });
+  // Two very different Inmovilla layouts: the agent CRM "ficha" (structured,
+  // labelled fields) and the client-facing "escaparate" (free-flowing prose).
+  // The /escaparatecliente/ page — which the info-home.link wrapper points at —
+  // is the prose format, so it needs the prose parser; the labelled parser
+  // finds none of its fields and produces an empty draft.
+  const imported = resolvedUrl.includes("/escaparatecliente/")
+    ? parseInmovillaEscaparate({
+        html,
+        markdown,
+        resolvedUrl,
+        sourceUrl: sourceUrl.toString(),
+      })
+    : parseInmovillaMarkdown({
+        html,
+        markdown,
+        resolvedUrl,
+        sourceUrl: sourceUrl.toString(),
+      });
 
   return mirrorImportedImages(imported);
 }
@@ -429,6 +441,120 @@ function parseInmovillaMarkdown(input: {
     resolvedUrl,
     sourceUrl,
   };
+}
+
+// The client-facing Inmovilla "escaparate" page is marketing prose, not a
+// labelled data sheet. We pull the headline + body text the reader returns and
+// mine the figures (rooms / baths / m² / price / town / features) out of the
+// running text, then let the shared content generator build the draft copy.
+function parseInmovillaEscaparate(input: {
+  html: string;
+  markdown: string;
+  resolvedUrl: string;
+  sourceUrl: string;
+}): ImportedPropertyPayload {
+  const { html, markdown, resolvedUrl, sourceUrl } = input;
+
+  // Everything the reader rendered, after its "Markdown Content:" header.
+  const body = markdown.split(/Markdown Content:\s*/i)[1] ?? markdown;
+  const paragraphs = body
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.replace(/\[[^\]]+\]\([^)]+\)/g, "").trim())
+    .filter(Boolean)
+    .filter((paragraph) => !/^(Title:|URL Source:)/i.test(paragraph));
+
+  // The headline is the first substantial line; the rest is the description.
+  const title = paragraphs.find((paragraph) => paragraph.length > 10) ?? "";
+  const description = paragraphs.filter((paragraph) => paragraph !== title).join("\n\n");
+  const fullText = `${title}\n${description}`;
+
+  if (!title) {
+    throw new Error("We could not extract a property title from that source.");
+  }
+
+  // Figures out of the prose. Allow a few descriptive words between the number
+  // and its noun ("3 amplios dormitorios", "2 baños completos").
+  const bedrooms =
+    matchLeadingCount(fullText, "dormitorios?|habitaciones?") ??
+    extractLabeledNumber(fullText, ["dormitorios", "habitaciones", "bedrooms"]) ??
+    0;
+  const bathrooms =
+    matchLeadingCount(fullText, "ba[nñ]os?|aseos?") ??
+    extractLabeledNumber(fullText, ["baños", "banos", "aseos", "bathrooms"]) ??
+    0;
+  const interiorSqm = extractSquareMeters(fullText);
+  const priceEuro = extractPrice(body) ?? 0;
+  const rentPriceEuro = inferRentPrice(body);
+  const listingMode = deriveListingMode(priceEuro, rentPriceEuro);
+  const location = extractGenericLocation(title, description) ?? "Costa Blanca";
+  const type = mapPropertyType(fullText);
+  const features = inferFeatures(fullText);
+  const images = mergeImageUrls(
+    extractHtmlImageUrls(html, resolvedUrl),
+    extractMarkdownImageUrls(markdown),
+  );
+  const hasImages = images.length > 0;
+  const mainImageUrl = images[0] ?? "/logos/verdant-seal.svg";
+
+  const generatedContent = generateImportedPropertyContent({
+    bathrooms,
+    bedrooms,
+    features,
+    interiorSqm,
+    listingMode,
+    location,
+    priceEuro,
+    rentPriceEuro,
+    sourceDescription: description,
+    sourceTitle: title,
+    type,
+  });
+
+  const property = createImportedPropertyRecord({
+    bathrooms,
+    bedrooms,
+    description: generatedContent.description,
+    features,
+    galleryUrls: hasImages ? images.slice(1) : [],
+    interiorSqm,
+    listingMode,
+    location,
+    mainImageUrl,
+    plotSqm: null,
+    priceEuro,
+    referenceCode: createReferenceCodeFromUrl(resolvedUrl),
+    rentPriceEuro,
+    rentPricePeriod: rentPriceEuro ? "month" : null,
+    shortDescription: generatedContent.shortDescription,
+    title: generatedContent.title,
+    type,
+  });
+
+  const notes = [
+    `Imported from ${resolvedUrl}`,
+    !hasImages
+      ? "No photos could be extracted automatically (this portal loads its gallery with JavaScript). Add the photos manually before publishing."
+      : null,
+    priceEuro === 0 && !rentPriceEuro
+      ? "No price was found in the source text — set it manually before publishing."
+      : null,
+  ].filter((note): note is string => Boolean(note));
+
+  return {
+    notes,
+    property,
+    provider: "inmovilla",
+    resolvedUrl,
+    sourceUrl,
+  };
+}
+
+// "3 amplios dormitorios" / "2 baños completos" → the leading number, allowing
+// up to two adjectives between the digit and the noun.
+function matchLeadingCount(text: string, nounPattern: string) {
+  const match = text.match(new RegExp(`(\\d+)\\s+(?:[\\p{L}]+\\s+){0,2}(?:${nounPattern})`, "iu"));
+
+  return match ? Number(match[1]) : null;
 }
 
 function parseGenericPropertyPage(input: {
