@@ -122,12 +122,18 @@ async function importGenericPropertyFromUrl(sourceUrl: URL) {
 }
 
 async function resolveInmovillaPropertyUrl(sourceUrl: URL) {
-  if (sourceUrl.pathname.includes("/escaparatecliente/")) {
+  // Both /escaparatecliente/ and /cliente/ are direct property-sheet pages in
+  // Inmovilla — parse them as-is instead of looking for an iframe inside them.
+  if (
+    sourceUrl.pathname.includes("/escaparatecliente/") ||
+    sourceUrl.pathname.includes("/cliente/")
+  ) {
     return sourceUrl.toString();
   }
 
   const html = await fetchText(sourceUrl.toString());
-  const iframeMatch = html.match(/<iframe[^>]+src="([^"]+)"/i);
+  // Match iframe src with either single or double quotes.
+  const iframeMatch = html.match(/<iframe[^>]+src=["']([^"']+)["']/i);
 
   if (iframeMatch?.[1]) {
     return new URL(iframeMatch[1], sourceUrl).toString();
@@ -137,7 +143,8 @@ async function resolveInmovillaPropertyUrl(sourceUrl: URL) {
     throw new Error("This property is no longer publicly available in the source system.");
   }
 
-  throw new Error("We could not find a public property page behind that link.");
+  // Last resort: parse the page we already fetched even without an iframe.
+  return sourceUrl.toString();
 }
 
 async function fetchReaderMarkdown(targetUrl: string) {
