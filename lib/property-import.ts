@@ -122,17 +122,18 @@ async function importGenericPropertyFromUrl(sourceUrl: URL) {
 }
 
 async function resolveInmovillaPropertyUrl(sourceUrl: URL) {
-  // Both /escaparatecliente/ and /cliente/ are direct property-sheet pages in
-  // Inmovilla — parse them as-is instead of looking for an iframe inside them.
-  if (
-    sourceUrl.pathname.includes("/escaparatecliente/") ||
-    sourceUrl.pathname.includes("/cliente/")
-  ) {
+  // crm.inmovilla.com/.../escaparatecliente/ is the real property sheet — parse
+  // it directly.
+  if (sourceUrl.pathname.includes("/escaparatecliente/")) {
     return sourceUrl.toString();
   }
 
+  // info-home.link/cliente/ (and bare share links) are thin wrapper pages whose
+  // entire body is a single <iframe> pointing at the real crm.inmovilla.com
+  // escaparate. Follow that iframe to the actual property sheet.
   const html = await fetchText(sourceUrl.toString());
-  // Match iframe src with either single or double quotes.
+  // Match the iframe src with either single or double quotes (the wrapper uses
+  // an uppercase SRC attribute, so keep the case-insensitive flag).
   const iframeMatch = html.match(/<iframe[^>]+src=["']([^"']+)["']/i);
 
   if (iframeMatch?.[1]) {
@@ -148,7 +149,10 @@ async function resolveInmovillaPropertyUrl(sourceUrl: URL) {
 }
 
 async function fetchReaderMarkdown(targetUrl: string) {
-  const readerUrl = `https://r.jina.ai/http://${targetUrl}`;
+  // targetUrl already carries its own scheme (https://…). The reader expects the
+  // full URL appended directly; prefixing another scheme produced a malformed
+  // "http://https://…" that the reader could not resolve.
+  const readerUrl = `https://r.jina.ai/${targetUrl}`;
 
   return fetchText(readerUrl, {
     headers: {
@@ -366,9 +370,12 @@ function parseInmovillaMarkdown(input: {
     throw new Error("We could not extract a property title from that source.");
   }
 
-  if (images.length === 0) {
-    throw new Error("We could not extract any property images from that source.");
-  }
+  // Some Inmovilla client portals render their photo gallery entirely in the
+  // browser (the server HTML only carries the "nofoto" placeholder), so a
+  // server-side fetch legitimately finds no images. Rather than dead-failing,
+  // import the text we do have and let the user add photos manually.
+  const hasImages = images.length > 0;
+  const mainImageUrl = images[0] ?? "/logos/verdant-seal.svg";
 
   const features = inferFeatures(markdown);
   const generatedContent = generateImportedPropertyContent({
@@ -390,11 +397,11 @@ function parseInmovillaMarkdown(input: {
     bedrooms,
     description: generatedContent.description,
     features,
-    galleryUrls: images.slice(1),
+    galleryUrls: hasImages ? images.slice(1) : [],
     interiorSqm: usableSqm ?? builtSqm,
     listingMode,
     location,
-    mainImageUrl: images[0],
+    mainImageUrl,
     plotSqm,
     priceEuro: salePrice,
     referenceCode,
@@ -407,6 +414,9 @@ function parseInmovillaMarkdown(input: {
 
   const notes = [
     `Imported from ${resolvedUrl}`,
+    !hasImages
+      ? "No photos could be extracted automatically (this portal loads its gallery with JavaScript). Add the photos manually before publishing."
+      : null,
     listingMode !== "sale" && !property.availabilityStart
       ? "Rental availability dates still need to be filled in before saving."
       : null,
