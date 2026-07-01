@@ -28,6 +28,36 @@ export const propertyFeatureOptions = [
   "tourist_license",
 ] as const;
 
+// Canonical location list — grouped for a nice <select> with <optgroup>s, and
+// the single source of truth for both the admin form and the public filters so
+// filtering is exact instead of fuzzy substring matching. Edit freely.
+export const propertyLocationGroups = [
+  {
+    label: "Torrevieja",
+    options: [
+      "Centro",
+      "Playa del Cura",
+      "Los Locos",
+      "La Mata",
+      "Torreblanca",
+      "Los Balcones",
+      "Aguas Nuevas",
+      "El Chaparral",
+      "Punta Prima",
+    ],
+  },
+  {
+    label: "Orihuela Costa",
+    options: ["Orihuela Costa", "La Zenia", "Cabo Roig"],
+  },
+  {
+    label: "Otras zonas",
+    options: ["Guardamar del Segura", "Pilar de la Horadada"],
+  },
+] as const;
+
+export const propertyLocations = propertyLocationGroups.flatMap((group) => group.options) as readonly string[];
+
 export type PropertyStatus = (typeof propertyStatuses)[number];
 export type ListingMode = (typeof listingModes)[number];
 export type RentPricePeriod = (typeof rentPricePeriods)[number];

@@ -7,6 +7,8 @@ import { type AdminCopy } from "@/lib/admin-copy";
 import {
   listingModes,
   propertyFeatureOptions,
+  propertyLocationGroups,
+  propertyLocations,
   propertyStatuses,
   propertyTypes,
   rentalPeriodOptions,
@@ -145,13 +147,25 @@ export function PropertyForm({
 
         <label>
           {copy.fields.location}
-          <input
-            name="location"
-            type="text"
-            defaultValue={property?.location ?? ""}
-            placeholder={copy.placeholders.location}
-            required
-          />
+          <select name="location" defaultValue={property?.location ?? ""} required>
+            <option value="" disabled>
+              {copy.placeholders.location}
+            </option>
+            {/* Preserve a legacy/imported value that isn't in the canonical list
+                so editing an older listing never silently blanks its location. */}
+            {property?.location && !propertyLocations.includes(property.location) ? (
+              <option value={property.location}>{property.location}</option>
+            ) : null}
+            {propertyLocationGroups.map((group) => (
+              <optgroup key={group.label} label={group.label}>
+                {group.options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
         </label>
 
         <label>

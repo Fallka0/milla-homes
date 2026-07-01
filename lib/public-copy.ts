@@ -74,18 +74,24 @@ export type PublicCopy = {
     availableInventory: string;
     availabilityFrom: string;
     availabilityTo: string;
+    bathrooms: string;
+    clearAll: string;
     emptyBody: string;
     emptyTitle: string;
     features: string;
     heading: string;
     listingMode: string;
+    max: string;
+    min: string;
     mustHaveFeatures: string;
     minimumBedrooms: string;
+    priceRange: string;
     propertyType: string;
     region: string;
     results: string;
     search: string;
     searchPlaceholder: string;
+    sizeRange: string;
     sort: string;
     title: string;
     types: {
@@ -101,6 +107,7 @@ export type PublicCopy = {
       latest: string;
       priceAsc: string;
       priceDesc: string;
+      sizeDesc: string;
     };
   };
   hero: {
@@ -277,18 +284,24 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       availableInventory: "Available Inventory",
       availabilityFrom: "Available from",
       availabilityTo: "Available to",
+      bathrooms: "Bathrooms",
+      clearAll: "Clear all",
       emptyBody: "Try broadening the search or lowering the bedroom minimum.",
       emptyTitle: "No properties match those filters yet.",
       features: "Amenities",
       heading: "Property Search",
       listingMode: "Looking for",
+      max: "Max",
+      min: "Min",
       mustHaveFeatures: "Must-have features",
       minimumBedrooms: "Minimum Bedrooms",
+      priceRange: "Price (€)",
       propertyType: "Property Type",
       region: "Region",
       results: "properties currently match.",
       search: "Search",
-      searchPlaceholder: "Title or keyword",
+      searchPlaceholder: "Title, location or reference",
+      sizeRange: "Size (m²)",
       sort: "Sort",
       title: "Find the right listing faster.",
       types: {
@@ -304,6 +317,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
         latest: "Latest",
         priceAsc: "Price: low to high",
         priceDesc: "Price: high to low",
+        sizeDesc: "Size: largest first",
       },
     },
     hero: {
@@ -501,18 +515,24 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       availableInventory: "Propiedades disponibles",
       availabilityFrom: "Disponible desde",
       availabilityTo: "Disponible hasta",
+      bathrooms: "Baños",
+      clearAll: "Borrar todo",
       emptyBody: "Prueba ampliar la búsqueda o bajar el mínimo de dormitorios.",
       emptyTitle: "No hay propiedades con esos filtros.",
       features: "Comodidades",
       heading: "Búsqueda de propiedades",
       listingMode: "Busco",
+      max: "Máx",
+      min: "Mín",
       mustHaveFeatures: "Características imprescindibles",
       minimumBedrooms: "Dormitorios mínimos",
+      priceRange: "Precio (€)",
       propertyType: "Tipo de propiedad",
       region: "Zona",
       results: "propiedades coinciden.",
       search: "Buscar",
-      searchPlaceholder: "Título o palabra clave",
+      searchPlaceholder: "Título, zona o referencia",
+      sizeRange: "Superficie (m²)",
       sort: "Ordenar",
       title: "Encuentra la propiedad adecuada más rápido.",
       types: {
@@ -528,6 +548,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
         latest: "Más recientes",
         priceAsc: "Precio: menor a mayor",
         priceDesc: "Precio: mayor a menor",
+        sizeDesc: "Superficie: mayor primero",
       },
     },
     hero: {
@@ -725,18 +746,24 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       availableInventory: "Доступные объекты",
       availabilityFrom: "Доступно с",
       availabilityTo: "Доступно до",
+      bathrooms: "Ванные",
+      clearAll: "Сбросить всё",
       emptyBody: "Попробуйте расширить поиск или уменьшить минимум по спальням.",
       emptyTitle: "По этим фильтрам пока ничего не найдено.",
       features: "Удобства",
       heading: "Поиск недвижимости",
       listingMode: "Интересует",
+      max: "Макс",
+      min: "Мин",
       mustHaveFeatures: "Обязательные особенности",
       minimumBedrooms: "Минимум спален",
+      priceRange: "Цена (€)",
       propertyType: "Тип недвижимости",
       region: "Район",
       results: "объектов найдено.",
       search: "Поиск",
-      searchPlaceholder: "Название или ключевое слово",
+      searchPlaceholder: "Название, район или код",
+      sizeRange: "Площадь (м²)",
       sort: "Сортировка",
       title: "Найдите нужный объект быстрее.",
       types: {
@@ -752,6 +779,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
         latest: "Сначала новые",
         priceAsc: "Цена: по возрастанию",
         priceDesc: "Цена: по убыванию",
+        sizeDesc: "Площадь: сначала большие",
       },
     },
     hero: {
@@ -949,18 +977,24 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       availableInventory: "Verfügbare Immobilien",
       availabilityFrom: "Verfügbar ab",
       availabilityTo: "Verfügbar bis",
+      bathrooms: "Badezimmer",
+      clearAll: "Alle zurücksetzen",
       emptyBody: "Versuchen Sie eine breitere Suche oder weniger Schlafzimmer als Minimum.",
       emptyTitle: "Zu diesen Filtern wurden noch keine Immobilien gefunden.",
       features: "Ausstattung",
       heading: "Immobiliensuche",
       listingMode: "Gesucht",
+      max: "Max",
+      min: "Min",
       mustHaveFeatures: "Wichtige Merkmale",
       minimumBedrooms: "Mindestens Schlafzimmer",
+      priceRange: "Preis (€)",
       propertyType: "Objektart",
       region: "Region",
       results: "Immobilien passen aktuell.",
       search: "Suche",
-      searchPlaceholder: "Titel oder Stichwort",
+      searchPlaceholder: "Titel, Ort oder Referenz",
+      sizeRange: "Fläche (m²)",
       sort: "Sortieren",
       title: "Schneller zur passenden Immobilie.",
       types: {
@@ -976,6 +1010,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
         latest: "Neueste",
         priceAsc: "Preis: aufsteigend",
         priceDesc: "Preis: absteigend",
+        sizeDesc: "Fläche: größte zuerst",
       },
     },
     hero: {
