@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { requireAdminUser } from "@/lib/auth";
+import { mirrorExternalImageUrls } from "@/lib/property-import";
 import { generatePropertyTranslations } from "@/lib/property-translations";
 import { createAdminClient } from "@/lib/supabase/server";
 import {
@@ -24,6 +25,24 @@ function getConfiguredAdminClient() {
   return supabase;
 }
 
+// Copy any externally-hosted image URLs (main + gallery) into our own storage
+// so they render through next/image's allow-list. Mutates the payload in place.
+async function mirrorPayloadImages(payload: ReturnType<typeof parsePropertyFormData>) {
+  const meta = {
+    referenceCode: String(payload.reference_code ?? "listing"),
+    title: String(payload.title ?? "listing"),
+  };
+
+  if (payload.main_image_url) {
+    const [mirrored] = await mirrorExternalImageUrls([payload.main_image_url], meta);
+    payload.main_image_url = mirrored ?? payload.main_image_url;
+  }
+
+  if (Array.isArray(payload.gallery_urls) && payload.gallery_urls.length > 0) {
+    payload.gallery_urls = await mirrorExternalImageUrls(payload.gallery_urls, meta);
+  }
+}
+
 function revalidatePropertyPaths(slug: string) {
   revalidatePath("/");
   revalidatePath("/properties");
@@ -37,6 +56,7 @@ export async function createPropertyAction(formData: FormData) {
   const payload = parsePropertyFormData(formData);
 
   validatePropertyInput(payload);
+  await mirrorPayloadImages(payload);
 
   const sourceContent = buildPropertyContentFromInput(payload);
   const contentTranslations = await generatePropertyTranslations(sourceContent);
@@ -66,6 +86,7 @@ export async function updatePropertyAction(propertyId: string, currentSlug: stri
   const payload = parsePropertyFormData(formData);
 
   validatePropertyInput(payload);
+  await mirrorPayloadImages(payload);
   const sourceContent = buildPropertyContentFromInput(payload);
   const contentTranslationSourceHash = createPropertyContentHash(sourceContent);
   const { data: existingProperty, error: existingPropertyError } = await supabase

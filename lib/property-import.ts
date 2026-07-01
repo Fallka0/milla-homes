@@ -242,6 +242,56 @@ async function mirrorImportedImages(imported: ImportedPropertyPayload) {
   };
 }
 
+// An image URL we already control (or a local asset) never needs mirroring.
+function isSelfHostedImageUrl(url: string) {
+  return !/^https?:\/\//i.test(url) || /\.supabase\.co\//i.test(url);
+}
+
+// Copy any externally-hosted image URLs (e.g. pasted Inmovilla gallery links)
+// into our own storage so they render through next/image's allow-list and don't
+// depend on the source staying up or permitting hotlinks. Falls back to the
+// original URL for anything that can't be mirrored.
+export async function mirrorExternalImageUrls(
+  urls: string[],
+  input: { referenceCode: string; title: string },
+): Promise<string[]> {
+  const clean = urls.map((url) => url.trim()).filter(Boolean);
+
+  if (!clean.some((url) => !isSelfHostedImageUrl(url))) {
+    return clean;
+  }
+
+  try {
+    await ensureImageBucket();
+  } catch {
+    return clean;
+  }
+
+  return Promise.all(
+    clean.map(async (url) => {
+      if (isSelfHostedImageUrl(url)) {
+        return url;
+      }
+
+      let referer = url;
+      try {
+        referer = new URL(url).origin;
+      } catch {
+        // keep the raw URL as referer
+      }
+
+      const mirrored = await uploadImportedImage({
+        imageUrl: url,
+        referenceCode: input.referenceCode,
+        referer,
+        title: input.title,
+      }).catch(() => null);
+
+      return mirrored ?? url;
+    }),
+  );
+}
+
 async function uploadImportedImage(input: {
   imageUrl: string;
   referenceCode: string;
