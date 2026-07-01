@@ -648,6 +648,10 @@ function inferFeaturesFromProse(text: string): PropertyFeature[] {
     // Only genuine view claims — avoid "restaurantes frente al mar" style noise.
     ["sea_view", /vistas? al mar|primera linea de playa|frontline/],
     ["new_build", /obra nueva|nueva construccion|new build/],
+    ["tourist_license", /licencia turistica|tourist licen[sc]e/],
+    ["gated_community", /urbanizacion (privada|cerrada)|gated community/],
+    ["sauna", /\bsauna\b/],
+    ["pet_friendly", /pet.?friendly|se admiten mascotas|admite mascotas/],
   ];
 
   return matchers.filter(([, pattern]) => pattern.test(normalized)).map(([feature]) => feature);
