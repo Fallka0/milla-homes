@@ -46,6 +46,12 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   images: {
+    // Serve images straight from source (Supabase/Unsplash) instead of routing
+    // them through Vercel's image optimizer. The optimizer has a monthly
+    // transformation quota that gets exhausted quickly by galleries with dozens
+    // of photos, which returns 402 and breaks image loading site-wide. Supabase
+    // already stores reasonably sized images and the CSP allows https sources.
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
