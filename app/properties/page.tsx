@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 
 import { PropertyFilters } from "@/components/property-filters";
@@ -9,6 +10,24 @@ import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
 import { getPublicProperties, localizeProperties } from "@/lib/properties";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = resolvePublicLocale(cookieStore.get("verdant-locale")?.value);
+  const copy = publicCopy[locale];
+
+  return {
+    title: copy.propertiesPage.title,
+    description: copy.propertiesPage.text,
+    alternates: { canonical: "/properties" },
+    openGraph: {
+      title: `${copy.propertiesPage.title} · Milla Homes`,
+      description: copy.propertiesPage.text,
+      url: "/properties",
+      type: "website",
+    },
+  };
+}
 
 export default async function PropertiesPage() {
   const cookieStore = await cookies();

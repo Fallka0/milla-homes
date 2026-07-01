@@ -7,7 +7,9 @@ import { getAdminAuthState } from "@/lib/auth";
 import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
 import { getFeaturedProperties, getLatestPublicProperties, localizeProperties } from "@/lib/properties";
 import { getPropertyPreviewImageUrl } from "@/lib/property-shared";
+import { motherPhoneNumber } from "@/lib/contact";
 import { getCanonicalUrl, getOpenGraphLocale } from "@/lib/seo";
+import { getPublicSiteUrl, publicSiteUrl } from "@/lib/site-urls";
 
 export const dynamic = "force-dynamic";
 
@@ -61,13 +63,46 @@ export default async function Home() {
   const featuredProperties = localizeProperties(rawFeaturedProperties, locale);
   const latestProperties = localizeProperties(rawLatestProperties, locale);
 
+  // Site-wide business identity for search engines (rich results, knowledge panel).
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name: "Milla Homes",
+    url: publicSiteUrl,
+    image: getPublicSiteUrl("/logos/mh-logo.png"),
+    logo: getPublicSiteUrl("/logos/mh-logo.png"),
+    telephone: motherPhoneNumber,
+    priceRange: "€€",
+    areaServed: [
+      "Torrevieja",
+      "Orihuela Costa",
+      "La Zenia",
+      "Cabo Roig",
+      "Guardamar del Segura",
+      "Pilar de la Horadada",
+      "Costa Blanca",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Torrevieja",
+      addressRegion: "Alicante",
+      addressCountry: "ES",
+    },
+  };
+
   return (
-    <Homepage
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <Homepage
       adminLabel={authState.status === "authorized" ? adminCopy[adminLocale].layout.adminLabel : undefined}
       copy={publicCopy[locale]}
       currentLocale={locale}
       featuredProperties={featuredProperties}
       latestProperties={latestProperties}
     />
+    </>
   );
 }

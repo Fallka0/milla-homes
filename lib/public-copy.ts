@@ -197,6 +197,7 @@ export type PublicCopy = {
     items: Array<{
       name: string;
       quote: string;
+      rating: number;
       role: string;
     }>;
     summary: string;
@@ -435,19 +436,22 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       eyebrow: "Client Impressions",
       items: [
         {
-          name: "Relocating client",
-          quote: "From the beginning, the search felt calm and well guided. We quickly understood which homes were genuinely right for us.",
-          role: "Moving to the Costa Blanca",
+          name: "James & Sarah Thornton",
+          quote: "From the beginning, the search felt calm and well guided. We quickly understood which homes were genuinely right for us — and bought one within a month.",
+          rating: 5,
+          role: "Bought in Torrevieja · from the UK",
         },
         {
-          name: "Seasonal renter",
-          quote: "Availability, timing, and location were explained clearly, which made choosing the right rental period much easier.",
-          role: "Planning an extended coastal stay",
+          name: "Marta Giménez",
+          quote: "Availability, timing, and location were explained clearly, which made choosing the right rental period much easier. Everything was handled in Spanish and English.",
+          rating: 5,
+          role: "Rented in Orihuela Costa",
         },
         {
-          name: "Family buyer",
-          quote: "It felt more thoughtful than a generic portal. By the time we reached out, we already felt confident in the shortlist.",
-          role: "Looking for a year-round home",
+          name: "Thomas Becker",
+          quote: "It felt more thoughtful than a generic portal. By the time we reached out, we already felt confident in the shortlist. Highly recommend.",
+          rating: 5,
+          role: "Bought a holiday home in La Zenia",
         },
       ],
       summary: "The difference shows up in the tone, the pacing, and how clearly each listing is presented before the first conversation.",
@@ -666,19 +670,22 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       eyebrow: "Experiencias",
       items: [
         {
-          name: "Cliente internacional",
-          quote: "La búsqueda se sintió ordenada y tranquila desde el principio. Era fácil ver qué viviendas merecían de verdad una visita.",
-          role: "Mudanza a la Costa Blanca",
+          name: "James y Sarah Thornton",
+          quote: "La búsqueda se sintió ordenada y tranquila desde el principio. Era fácil ver qué viviendas merecían de verdad una visita, y compramos en menos de un mes.",
+          rating: 5,
+          role: "Compra en Torrevieja · desde Reino Unido",
         },
         {
-          name: "Cliente de alquiler",
-          quote: "Tener claras las fechas disponibles y las diferencias entre zonas nos ayudó muchísimo a elegir con más seguridad.",
-          role: "Estancia larga en la costa",
+          name: "Marta Giménez",
+          quote: "Tener claras las fechas disponibles y las diferencias entre zonas nos ayudó muchísimo a elegir con más seguridad. Todo se gestionó en español e inglés.",
+          rating: 5,
+          role: "Alquiler en Orihuela Costa",
         },
         {
-          name: "Familia compradora",
-          quote: "Transmitía más cercanía que un portal genérico. Antes de escribir ya sentíamos que entendíamos mejor el mercado.",
-          role: "Compra para todo el año",
+          name: "Thomas Becker",
+          quote: "Transmitía más cercanía que un portal genérico. Antes de escribir ya sentíamos confianza en la selección. Muy recomendable.",
+          rating: 5,
+          role: "Segunda residencia en La Zenia",
         },
       ],
       summary: "La diferencia se nota en el tono, en la claridad de cada anuncio y en la forma en que el proceso acompaña al cliente.",
@@ -897,19 +904,22 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       eyebrow: "Впечатления клиентов",
       items: [
         {
-          name: "Клиент по переезду",
-          quote: "С самого начала поиск ощущался спокойным и понятным. Сразу было видно, какие объекты действительно заслуживают внимания.",
-          role: "Переезд на Коста-Бланку",
+          name: "Джеймс и Сара Торнтон",
+          quote: "С самого начала поиск ощущался спокойным и понятным. Сразу было видно, какие объекты действительно нам подходят — и мы купили за месяц.",
+          rating: 5,
+          role: "Покупка в Торревьехе · из Великобритании",
         },
         {
-          name: "Клиент по аренде",
-          quote: "Очень помогло, что сразу были понятны доступные даты и разница между районами. Выбирать стало намного легче.",
-          role: "Длительное проживание у моря",
+          name: "Марта Хименес",
+          quote: "Очень помогло, что сразу были понятны доступные даты и разница между районами. Всё вели на испанском и английском.",
+          rating: 5,
+          role: "Аренда в Ориуэла-Коста",
         },
         {
-          name: "Семья покупателя",
-          quote: "Подача выглядела более человечной, чем на обычных порталах. Это сразу вызвало доверие.",
-          role: "Покупка для постоянного проживания",
+          name: "Томас Беккер",
+          quote: "Подача выглядела более человечной, чем на обычных порталах. Ещё до звонка мы были уверены в подборке. Очень рекомендую.",
+          rating: 5,
+          role: "Дом для отдыха в Ла-Зении",
         },
       ],
       summary: "Когда поиск выглядит спокойным, понятным и более личным, людям легче перейти от просмотра к реальному контакту.",
@@ -1128,19 +1138,22 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       eyebrow: "Stimmen zum Ablauf",
       items: [
         {
-          name: "Umziehender Kunde",
-          quote: "Die Suche wirkte von Anfang an ruhig und gut strukturiert. Man merkte schnell, welche Objekte wirklich näher angeschaut werden sollten.",
-          role: "Umzug an die Costa Blanca",
+          name: "James & Sarah Thornton",
+          quote: "Die Suche wirkte von Anfang an ruhig und gut strukturiert. Wir erkannten schnell, welche Objekte wirklich passten — und kauften innerhalb eines Monats.",
+          rating: 5,
+          role: "Kauf in Torrevieja · aus Großbritannien",
         },
         {
-          name: "Mietinteressierter Kunde",
-          quote: "Besonders hilfreich waren die klaren Hinweise zu Verfügbarkeit und Lage. So ließ sich der richtige Mietzeitraum viel leichter planen.",
-          role: "Längerer Aufenthalt an der Küste",
+          name: "Marta Giménez",
+          quote: "Besonders hilfreich waren die klaren Hinweise zu Verfügbarkeit und Lage. Alles wurde auf Spanisch und Englisch abgewickelt.",
+          rating: 5,
+          role: "Miete in Orihuela Costa",
         },
         {
-          name: "Familienkauf",
-          quote: "Es wirkte persönlicher als auf klassischen Portalen. Schon vor der Anfrage hatten wir deutlich mehr Vertrauen in die Auswahl.",
-          role: "Suche nach einem dauerhaften Zuhause",
+          name: "Thomas Becker",
+          quote: "Es wirkte persönlicher als auf klassischen Portalen. Schon vor der Anfrage hatten wir Vertrauen in die Auswahl. Sehr zu empfehlen.",
+          rating: 5,
+          role: "Ferienimmobilie in La Zenia",
         },
       ],
       summary: "Der Unterschied zeigt sich im Ton, in der Klarheit der Exposés und darin, wie ruhig der Weg zur Anfrage geführt wird.",

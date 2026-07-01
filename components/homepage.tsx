@@ -220,10 +220,22 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         <div className="testimonial-grid">
           {copy.testimonials.items.map((item) => (
             <article className="testimonial-card" key={`${item.name}-${item.role}`}>
+              <div className="testimonial-stars" aria-label={`${item.rating} / 5`}>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <span key={index} className={index < item.rating ? "is-filled" : ""} aria-hidden>
+                    ★
+                  </span>
+                ))}
+              </div>
               <p className="testimonial-quote">{item.quote}</p>
               <div className="testimonial-meta">
-                <strong>{item.name}</strong>
-                <span>{item.role}</span>
+                <span className="testimonial-avatar" aria-hidden>
+                  {item.name.replace(/[^\p{L}]/gu, " ").trim().charAt(0)}
+                </span>
+                <span className="testimonial-person">
+                  <strong>{item.name}</strong>
+                  <span>{item.role}</span>
+                </span>
               </div>
             </article>
           ))}

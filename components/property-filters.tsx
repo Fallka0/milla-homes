@@ -216,11 +216,6 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
   return (
     <div className="listing-layout">
       <aside className="filters-panel">
-        <div className="section-heading compact">
-          <p className="eyebrow">{copy.filters.heading}</p>
-          <h2>{copy.filters.title}</h2>
-        </div>
-
         <div className="filters-grid">
           <label>
             {copy.filters.search}
@@ -324,26 +319,28 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
             </div>
           </div>
 
-          <label>
-            {copy.filters.minimumBedrooms}
-            <select value={minimumBedrooms} onChange={(event) => setMinimumBedrooms(event.target.value)}>
-              <option value="0">{copy.filters.types.any}</option>
-              <option value="1">1+</option>
-              <option value="2">2+</option>
-              <option value="3">3+</option>
-              <option value="4">4+</option>
-            </select>
-          </label>
+          <div className="filters-row-2">
+            <label>
+              {copy.filters.minimumBedrooms}
+              <select value={minimumBedrooms} onChange={(event) => setMinimumBedrooms(event.target.value)}>
+                <option value="0">{copy.filters.types.any}</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+              </select>
+            </label>
 
-          <label>
-            {copy.filters.bathrooms}
-            <select value={minimumBathrooms} onChange={(event) => setMinimumBathrooms(event.target.value)}>
-              <option value="0">{copy.filters.types.any}</option>
-              <option value="1">1+</option>
-              <option value="2">2+</option>
-              <option value="3">3+</option>
-            </select>
-          </label>
+            <label>
+              {copy.filters.bathrooms}
+              <select value={minimumBathrooms} onChange={(event) => setMinimumBathrooms(event.target.value)}>
+                <option value="0">{copy.filters.types.any}</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+              </select>
+            </label>
+          </div>
 
           {availableFeatures.length > 0 ? (
             <div className="filters-feature-group">
