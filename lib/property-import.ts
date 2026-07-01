@@ -526,7 +526,7 @@ function parseInmovillaEscaparate(input: {
   const listingMode = deriveListingMode(priceEuro, rentPriceEuro);
   const location = extractGenericLocation(title, description) ?? "Costa Blanca";
   const type = mapPropertyType(`${title} ${description}`);
-  const features = inferFeatures(`${title} ${description}`);
+  const features = inferFeaturesFromProse(`${title} ${description}`);
   const images = mergeImageUrls(
     extractHtmlImageUrls(html, resolvedUrl),
     extractMarkdownImageUrls(markdown),
@@ -578,6 +578,29 @@ function parseInmovillaEscaparate(input: {
     resolvedUrl,
     sourceUrl,
   };
+}
+
+// Feature detection tuned for free prose (unlike inferFeatures, which is built
+// for the labelled CRM sheet where "garaje" appears even when absent). Here a
+// bare mention in the marketing copy means the property has it.
+function inferFeaturesFromProse(text: string): PropertyFeature[] {
+  const normalized = normalizeText(text);
+  const matchers: Array<[PropertyFeature, RegExp]> = [
+    ["pool", /piscina|pool/],
+    ["garage", /garaje|plaza de garaje|garage/],
+    ["parking", /aparcamiento|parking|plaza de aparcamiento/],
+    ["terrace", /terraza|solarium|balcon/],
+    ["garden", /jardin|garden/],
+    ["lift", /ascensor|lift/],
+    ["furnished", /amueblad|furnished/],
+    ["air_conditioning", /aire acondicionado|climatizacion|climatizado/],
+    ["heating", /calefaccion|bomba de calor|heating/],
+    // Only genuine view claims — avoid "restaurantes frente al mar" style noise.
+    ["sea_view", /vistas? al mar|primera linea de playa|frontline/],
+    ["new_build", /obra nueva|nueva construccion|new build/],
+  ];
+
+  return matchers.filter(([, pattern]) => pattern.test(normalized)).map(([feature]) => feature);
 }
 
 // "3 amplios dormitorios" / "2 baños completos" → the leading number, allowing
