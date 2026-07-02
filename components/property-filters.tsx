@@ -436,8 +436,14 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
         </div>
       </div>
 
-      {filteredProperties.length > 0 && view === "map" ? (
-        <PropertyMap properties={filteredProperties} viewLabel={copy.buttons.viewDetails} />
+      {view === "map" ? (
+        <PropertyMap
+          properties={filteredProperties}
+          onSelectZone={(zone) => {
+            setSelectedRegion(zone);
+            setView("list");
+          }}
+        />
       ) : filteredProperties.length > 0 ? (
         <div className="property-grid">
           {filteredProperties.map((property) => (

@@ -33,6 +33,35 @@ function jitterFromId(id: string): [number, number] {
   return [lat, lng];
 }
 
+// Resolve a free-text/canonical location to the zone it belongs to (one of the
+// zoneCoordinates keys), or null if nothing matches.
+export function resolveZoneName(location: string): string | null {
+  const normalized = (location ?? "").trim();
+  if (!normalized) return null;
+  if (zoneCoordinates[normalized]) return normalized;
+  return (
+    Object.keys(zoneCoordinates).find((zone) =>
+      normalized.toLowerCase().includes(zone.toLowerCase()),
+    ) ?? null
+  );
+}
+
+// Group listings into zone buckets with counts and centre coordinates.
+export function groupByZone<T extends { location: string }>(items: T[]) {
+  const buckets = new Map<string, { zone: string; center: [number, number]; items: T[] }>();
+  for (const item of items) {
+    const zone = resolveZoneName(item.location);
+    if (!zone) continue;
+    const existing = buckets.get(zone);
+    if (existing) {
+      existing.items.push(item);
+    } else {
+      buckets.set(zone, { zone, center: zoneCoordinates[zone], items: [item] });
+    }
+  }
+  return Array.from(buckets.values());
+}
+
 // Resolve a listing's map coordinates from its (canonical or free-text) location.
 export function getListingCoordinates(input: { id: string; location: string }): [number, number] {
   const normalized = input.location?.trim() ?? "";

@@ -2173,6 +2173,23 @@ textarea {
   z-index: 0;
 }
 
+/* Zone count label sitting on top of each bubble */
+.leaflet-tooltip.map-zone-count {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #fff;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 0;
+  pointer-events: none;
+}
+
+.leaflet-tooltip.map-zone-count::before {
+  display: none;
+}
+
 .map-popup {
   display: flex;
   flex-direction: column;
