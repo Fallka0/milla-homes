@@ -3,6 +3,7 @@
 import { useDeferredValue, useMemo, useState } from "react";
 
 import { PropertyCard } from "@/components/property-card";
+import { PropertyMap } from "@/components/property-map";
 import {
   listingModes,
   propertyFeatureOptions,
@@ -61,6 +62,7 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
   const [sizeMin, setSizeMin] = useState(DEFAULT_STATE.sizeMin);
   const [sizeMax, setSizeMax] = useState(DEFAULT_STATE.sizeMax);
   const [sort, setSort] = useState<SortOption>(DEFAULT_STATE.sort);
+  const [view, setView] = useState<"list" | "map">("list");
 
   const deferredSearch = useDeferredValue(search);
   const normalizedSearch = deferredSearch.trim().toLowerCase();
@@ -396,11 +398,33 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
             <p className="eyebrow">{copy.filters.availableInventory}</p>
             <h2>{getLocalizedResultsLabel(locale, filteredProperties.length)}</h2>
           </div>
-          {activeChips.length > 0 ? (
-            <button className="filters-clear-all" type="button" onClick={resetFilters}>
-              {copy.filters.clearAll}
-            </button>
-          ) : null}
+          <div className="results-header-actions">
+            <div className="view-toggle" role="tablist" aria-label="View">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={view === "list"}
+                className={view === "list" ? "is-active" : ""}
+                onClick={() => setView("list")}
+              >
+                {copy.filters.listView}
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={view === "map"}
+                className={view === "map" ? "is-active" : ""}
+                onClick={() => setView("map")}
+              >
+                {copy.filters.mapView}
+              </button>
+            </div>
+            {activeChips.length > 0 ? (
+              <button className="filters-clear-all" type="button" onClick={resetFilters}>
+                {copy.filters.clearAll}
+              </button>
+            ) : null}
+          </div>
         </div>
 
         {activeChips.length > 0 ? (
@@ -414,7 +438,9 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
           </div>
         ) : null}
 
-        {filteredProperties.length > 0 ? (
+        {filteredProperties.length > 0 && view === "map" ? (
+          <PropertyMap properties={filteredProperties} viewLabel={copy.buttons.viewDetails} />
+        ) : filteredProperties.length > 0 ? (
           <div className="property-grid">
             {filteredProperties.map((property) => (
               <PropertyCard

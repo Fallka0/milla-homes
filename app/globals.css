@@ -1879,6 +1879,157 @@ textarea {
   letter-spacing: -0.01em;
 }
 
+/* ---- buying guide ---- */
+.guide-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.guide-step {
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(18, 53, 36, 0.1);
+  background: var(--surface);
+}
+
+.guide-step h2 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.guide-step p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.guide-costs {
+  padding: 1.75rem;
+  border-radius: 12px;
+  background: var(--surface-strong, #fcf8f0);
+  border: 1px solid rgba(18, 53, 36, 0.1);
+}
+
+.guide-costs h2 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+}
+
+.guide-costs ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.guide-faq-item {
+  border-bottom: 1px solid rgba(18, 53, 36, 0.1);
+  padding: 0.9rem 0;
+}
+
+.guide-faq-item summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text);
+  list-style: none;
+}
+
+.guide-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.guide-faq-item summary::after {
+  content: "+";
+  float: right;
+  color: var(--muted);
+}
+
+.guide-faq-item[open] summary::after {
+  content: "–";
+}
+
+.guide-faq-item p {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.guide-cta {
+  align-items: center;
+}
+
+/* ---- results header actions + list/map toggle ---- */
+.results-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.view-toggle {
+  display: inline-flex;
+  border: 1px solid rgba(18, 53, 36, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.view-toggle button {
+  border: 0;
+  background: transparent;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted, #4d6659);
+  cursor: pointer;
+}
+
+.view-toggle button.is-active {
+  background: var(--surface-deep, #1b4530);
+  color: var(--surface-strong, #fcf8f0);
+}
+
+/* ---- map ---- */
+.property-map {
+  height: min(70vh, 640px);
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(18, 53, 36, 0.12);
+  z-index: 0;
+}
+
+.map-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-family: "Mulish", system-ui, sans-serif;
+  min-width: 160px;
+}
+
+.map-popup strong {
+  font-size: 0.9rem;
+  color: #123524;
+}
+
+.map-popup-price {
+  font-weight: 800;
+  color: #123524;
+}
+
+.map-popup-meta {
+  font-size: 0.78rem;
+  color: #4d6659;
+}
+
+.map-popup a {
+  margin-top: 0.35rem;
+  font-weight: 700;
+  color: #b08a3e;
+}
+
 /* ---- price / size range inputs ---- */
 .filters-range {
   display: flex;

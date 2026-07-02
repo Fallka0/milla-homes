@@ -1,7 +1,14 @@
 import type { PublicLocale } from "@/lib/public-copy";
 import type { PropertyRecord } from "@/lib/property-shared";
 
-export const regionSlugs = ["torrevieja", "la-mata", "orihuela-costa", "guardamar-del-segura"] as const;
+export const regionSlugs = [
+  "torrevieja",
+  "la-mata",
+  "orihuela-costa",
+  "la-zenia",
+  "cabo-roig",
+  "guardamar-del-segura",
+] as const;
 
 export type RegionSlug = (typeof regionSlugs)[number];
 
@@ -188,6 +195,116 @@ export const regions: Record<RegionSlug, RegionEntry> = {
     matchLocation: (property) => property.location.toLowerCase().includes("orihuela costa"),
     name: "Orihuela Costa",
     slug: "orihuela-costa",
+  },
+  "la-zenia": {
+    imageUrl:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Playa%20de%20La%20Zenia.jpg",
+    imageCreditLabel: "Wikimedia Commons",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/Category:La_Zenia",
+    localeContent: {
+      en: {
+        areaLabel: "La Zenia",
+        body:
+          "La Zenia pairs some of the Orihuela Costa's best Blue Flag beaches with Zenia Boulevard, the largest shopping centre on the Costa Blanca. It's lively in summer and comfortable year-round, with mostly modern apartments and villas — popular for both holiday letting and permanent living.",
+        highlights: [
+          "Two excellent Blue Flag beaches",
+          "Zenia Boulevard shopping and dining on the doorstep",
+          "Modern homes, many with communal pools",
+        ],
+        title: "Beaches and the Costa Blanca's biggest shopping centre on your doorstep.",
+      },
+      es: {
+        areaLabel: "La Zenia",
+        body:
+          "La Zenia une algunas de las mejores playas con Bandera Azul de Orihuela Costa con Zenia Boulevard, el mayor centro comercial de la Costa Blanca. Animada en verano y cómoda todo el año, con vivienda mayoritariamente moderna, muy demandada para alquiler vacacional y para vivir.",
+        highlights: [
+          "Dos excelentes playas con Bandera Azul",
+          "Compras y restauración en Zenia Boulevard al lado",
+          "Viviendas modernas, muchas con piscina comunitaria",
+        ],
+        title: "Playas y el mayor centro comercial de la Costa Blanca a un paso.",
+      },
+      ru: {
+        areaLabel: "Ла-Зения",
+        body:
+          "Ла-Зения сочетает одни из лучших пляжей Ориуэла-Коста с «Голубым флагом» и торговым центром Zenia Boulevard — крупнейшим на Коста-Бланке. Оживлённо летом и комфортно круглый год, преимущественно современное жильё, популярное для аренды и постоянного проживания.",
+        highlights: [
+          "Два отличных пляжа с «Голубым флагом»",
+          "Магазины и рестораны Zenia Boulevard рядом",
+          "Современное жильё, часто с общим бассейном",
+        ],
+        title: "Пляжи и крупнейший торговый центр Коста-Бланки рядом с домом.",
+      },
+      de: {
+        areaLabel: "La Zenia",
+        body:
+          "La Zenia verbindet einige der besten Blaue-Flagge-Strände der Orihuela Costa mit dem Zenia Boulevard, dem größten Einkaufszentrum der Costa Blanca. Im Sommer lebhaft, das ganze Jahr angenehm, überwiegend moderne Wohnungen und Villen — beliebt für Ferienvermietung und zum Wohnen.",
+        highlights: [
+          "Zwei ausgezeichnete Blaue-Flagge-Strände",
+          "Zenia Boulevard mit Shopping und Gastronomie direkt nebenan",
+          "Moderne Häuser, viele mit Gemeinschaftspool",
+        ],
+        title: "Strände und das größte Einkaufszentrum der Costa Blanca direkt nebenan.",
+      },
+    },
+    matchLocation: (property) => property.location.toLowerCase().includes("la zenia"),
+    name: "La Zenia",
+    slug: "la-zenia",
+  },
+  "cabo-roig": {
+    imageUrl:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Cabo%20Roig%20-%20panoramio.jpg",
+    imageCreditLabel: "Wikimedia Commons",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/Category:Cabo_Roig",
+    localeContent: {
+      en: {
+        areaLabel: "Cabo Roig",
+        body:
+          "Cabo Roig is one of the most prestigious spots on the Orihuela Costa, known for its marina, cliff-top restaurant strip and sheltered sandy coves linked by a scenic coastal path. Homes range from beachside apartments to detached villas, often at a premium for the location.",
+        highlights: [
+          "Marina and sheltered sandy coves",
+          "Renowned seafront restaurant strip",
+          "Sought-after, higher-end coastal location",
+        ],
+        title: "A prestigious headland with a marina, coves and a seafront dining strip.",
+      },
+      es: {
+        areaLabel: "Cabo Roig",
+        body:
+          "Cabo Roig es uno de los enclaves con más prestigio de Orihuela Costa, conocido por su puerto deportivo, su zona de restaurantes sobre el acantilado y sus calas resguardadas unidas por un bonito sendero costero. La oferta va de apartamentos junto al mar a villas independientes, con precios superiores por su ubicación.",
+        highlights: [
+          "Puerto deportivo y calas resguardadas",
+          "Reconocida zona de restaurantes frente al mar",
+          "Ubicación costera exclusiva y demandada",
+        ],
+        title: "Un cabo con prestigio: puerto deportivo, calas y restaurantes frente al mar.",
+      },
+      ru: {
+        areaLabel: "Кабо-Роиг",
+        body:
+          "Кабо-Роиг — один из самых престижных уголков Ориуэла-Коста, известный мариной, рестораном на вершине утёса и укромными песчаными бухтами, соединёнными живописной прибрежной тропой. Жильё — от квартир у моря до отдельных вилл, часто с наценкой за расположение.",
+        highlights: [
+          "Марина и укромные песчаные бухты",
+          "Известная набережная с ресторанами",
+          "Престижное и востребованное прибрежное расположение",
+        ],
+        title: "Престижный мыс с мариной, бухтами и ресторанами у моря.",
+      },
+      de: {
+        areaLabel: "Cabo Roig",
+        body:
+          "Cabo Roig ist einer der prestigeträchtigsten Orte der Orihuela Costa, bekannt für seinen Yachthafen, die Restaurantmeile auf der Steilküste und geschützte Sandbuchten, verbunden durch einen schönen Küstenweg. Die Angebote reichen von Wohnungen am Strand bis zu freistehenden Villen, oft mit Aufpreis für die Lage.",
+        highlights: [
+          "Yachthafen und geschützte Sandbuchten",
+          "Bekannte Restaurantmeile am Meer",
+          "Begehrte, gehobene Küstenlage",
+        ],
+        title: "Eine prestigeträchtige Landzunge mit Yachthafen, Buchten und Restaurantmeile.",
+      },
+    },
+    matchLocation: (property) => property.location.toLowerCase().includes("cabo roig"),
+    name: "Cabo Roig",
+    slug: "cabo-roig",
   },
   "guardamar-del-segura": {
     imageUrl:

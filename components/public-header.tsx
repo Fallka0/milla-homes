@@ -16,6 +16,7 @@ type PublicHeaderProps = {
   nav: {
     home: string;
     properties: string;
+    guide: string;
   };
 };
 
@@ -56,6 +57,9 @@ export function PublicHeader({
           </Link>
           <Link href="/properties" onClick={() => setIsMenuOpen(false)}>
             {nav.properties}
+          </Link>
+          <Link href="/guides/buying" onClick={() => setIsMenuOpen(false)}>
+            {nav.guide}
           </Link>
           {adminLabel ? (
             <Link href={getAdminSiteUrl("/admin")} onClick={() => setIsMenuOpen(false)}>

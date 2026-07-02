@@ -81,6 +81,8 @@ export type PublicCopy = {
     features: string;
     heading: string;
     listingMode: string;
+    listView: string;
+    mapView: string;
     max: string;
     min: string;
     mustHaveFeatures: string;
@@ -159,6 +161,7 @@ export type PublicCopy = {
   nav: {
     home: string;
     properties: string;
+    guide: string;
   };
   overview?: {
     body: string;
@@ -292,6 +295,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       features: "Amenities",
       heading: "Property Search",
       listingMode: "Looking for",
+      listView: "List",
+      mapView: "Map",
       max: "Max",
       min: "Min",
       mustHaveFeatures: "Must-have features",
@@ -388,6 +393,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
     nav: {
       home: "Home",
       properties: "Properties",
+      guide: "Buying Guide",
     },
     overview: {
       body:
@@ -526,6 +532,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       features: "Comodidades",
       heading: "Búsqueda de propiedades",
       listingMode: "Busco",
+      listView: "Lista",
+      mapView: "Mapa",
       max: "Máx",
       min: "Mín",
       mustHaveFeatures: "Características imprescindibles",
@@ -622,6 +630,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
     nav: {
       home: "Inicio",
       properties: "Propiedades",
+      guide: "Guía de compra",
     },
     overview: {
       body:
@@ -760,6 +769,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       features: "Удобства",
       heading: "Поиск недвижимости",
       listingMode: "Интересует",
+      listView: "Список",
+      mapView: "Карта",
       max: "Макс",
       min: "Мин",
       mustHaveFeatures: "Обязательные особенности",
@@ -856,6 +867,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
     nav: {
       home: "Главная",
       properties: "Объекты",
+      guide: "Гид покупателя",
     },
     overview: {
       body:
@@ -994,6 +1006,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       features: "Ausstattung",
       heading: "Immobiliensuche",
       listingMode: "Gesucht",
+      listView: "Liste",
+      mapView: "Karte",
       max: "Max",
       min: "Min",
       mustHaveFeatures: "Wichtige Merkmale",
@@ -1090,6 +1104,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
     nav: {
       home: "Start",
       properties: "Immobilien",
+      guide: "Kaufratgeber",
     },
     overview: {
       body:
