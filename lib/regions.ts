@@ -198,9 +198,9 @@ export const regions: Record<RegionSlug, RegionEntry> = {
   },
   "la-zenia": {
     imageUrl:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Playa%20de%20La%20Zenia.jpg",
-    imageCreditLabel: "Wikimedia Commons",
-    imageSourceUrl: "https://commons.wikimedia.org/wiki/Category:La_Zenia",
+      "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1600&q=80",
+    imageCreditLabel: "Unsplash",
+    imageSourceUrl: "https://unsplash.com",
     localeContent: {
       en: {
         areaLabel: "La Zenia",
@@ -253,9 +253,9 @@ export const regions: Record<RegionSlug, RegionEntry> = {
   },
   "cabo-roig": {
     imageUrl:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Cabo%20Roig%20-%20panoramio.jpg",
-    imageCreditLabel: "Wikimedia Commons",
-    imageSourceUrl: "https://commons.wikimedia.org/wiki/Category:Cabo_Roig",
+      "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1600&q=80",
+    imageCreditLabel: "Unsplash",
+    imageSourceUrl: "https://unsplash.com",
     localeContent: {
       en: {
         areaLabel: "Cabo Roig",
@@ -308,9 +308,9 @@ export const regions: Record<RegionSlug, RegionEntry> = {
   },
   "guardamar-del-segura": {
     imageUrl:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Guardamar%20del%20Segura%20panorama%20from%20hotel%20Poseidon.jpg",
-    imageCreditLabel: "Wikimedia Commons",
-    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Guardamar_del_Segura_panorama_from_hotel_Poseidon.jpg",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
+    imageCreditLabel: "Unsplash",
+    imageSourceUrl: "https://unsplash.com",
     localeContent: {
       en: {
         areaLabel: "Guardamar del Segura",

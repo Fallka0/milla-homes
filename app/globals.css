@@ -768,11 +768,11 @@ textarea {
 }
 
 .public-header .brand-logo-image {
-  height: 3.5rem;
+  height: 5.5rem;
 }
 
 .public-header.compact-header .brand-logo-image {
-  height: 3.25rem;
+  height: 5rem;
 }
 
 .site-footer-copy .brand-logo-image {

@@ -116,21 +116,6 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
       </section>
 
       <section className="section">
-        <div className="stats-grid">
-          <article className="stat-card">
-            <strong>{copy.propertyMeta.homesOnlineValue}</strong>
-            <span>{copy.propertyMeta.homesOnline}</span>
-          </article>
-          <article className="stat-card">
-            <strong>{copy.propertyMeta.homesSelectedValue}</strong>
-            <span>{copy.propertyMeta.homesSelected}</span>
-          </article>
-          <article className="stat-card">
-            <strong>{copy.propertyMeta.targetAreasValue}</strong>
-            <span>{copy.propertyMeta.homesSelectedLabel}</span>
-          </article>
-        </div>
-
         <div className="section-heading compact neighborhood-heading">
           <p className="eyebrow">{copy.neighborhoods.eyebrow}</p>
           <h3>{copy.neighborhoods.title}</h3>
