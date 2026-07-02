@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { Delaunay } from "d3-delaunay";
 
-import { groupByZone, TORREVIEJA_CENTER } from "@/lib/geo";
+import { TORREVIEJA_CENTER, zonesWithCounts } from "@/lib/geo";
 import { type PropertyRecord } from "@/lib/property-shared";
 
 import "leaflet/dist/leaflet.css";
 
 type PropertyMapProps = {
   properties: PropertyRecord[];
-  // Called when a zone bubble is clicked, so the page can filter to that zone.
+  // Called when a zone with listings is clicked, so the page can filter to it.
   onSelectZone: (zone: string) => void;
 };
 
@@ -17,7 +18,6 @@ export function PropertyMap({ properties, onSelectZone }: PropertyMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<import("leaflet").Map | null>(null);
   const layerRef = useRef<import("leaflet").LayerGroup | null>(null);
-  // Keep the latest callback without re-running the whole effect.
   const onSelectRef = useRef(onSelectZone);
   useEffect(() => {
     onSelectRef.current = onSelectZone;
@@ -47,40 +47,62 @@ export function PropertyMap({ properties, onSelectZone }: PropertyMapProps) {
       if (!map || !layer) return;
       layer.clearLayers();
 
-      const zones = groupByZone(properties);
-      const bounds: [number, number][] = [];
+      const zones = zonesWithCounts(properties);
 
-      for (const { zone, center, items } of zones) {
-        bounds.push(center);
-        const count = items.length;
-        // Radius grows with count but stays within a sensible range.
-        const radius = Math.min(34, 16 + count * 3);
+      // Voronoi partition over the zone centres (x = lng, y = lat), clipped to a
+      // padded bounding box so every zone becomes a contiguous cell.
+      const points: [number, number][] = zones.map(({ center }) => [center[1], center[0]]);
+      const lngs = points.map((p) => p[0]);
+      const lats = points.map((p) => p[1]);
+      const pad = 0.06;
+      const bbox: [number, number, number, number] = [
+        Math.min(...lngs) - pad,
+        Math.min(...lats) - pad,
+        Math.max(...lngs) + pad,
+        Math.max(...lats) + pad,
+      ];
+      const voronoi = Delaunay.from(points).voronoi(bbox);
 
-        const base = { color: "#1b4530", weight: 2, fillColor: "#1b4530", fillOpacity: 0.55 };
-        const hover = { fillColor: "#d4b26a", fillOpacity: 0.85 };
+      const allBounds: [number, number][] = [];
 
-        const marker = L.circleMarker(center, { ...base, radius });
-        // Permanent count on the bubble; label shows zone + count on hover.
-        marker.bindTooltip(String(count), {
-          permanent: true,
-          direction: "center",
-          className: "map-zone-count",
-        });
+      zones.forEach(({ zone, center, count }, index) => {
+        const cell = voronoi.cellPolygon(index);
+        if (!cell) return;
+        const latlngs = cell.map(([lng, lat]) => [lat, lng] as [number, number]);
+        const active = count > 0;
 
-        marker.on("mouseover", () => {
-          marker.setStyle(hover);
-          marker.setTooltipContent(zone);
-        });
-        marker.on("mouseout", () => {
-          marker.setStyle(base);
-          marker.setTooltipContent(String(count));
-        });
-        marker.on("click", () => onSelectRef.current(zone));
-        marker.addTo(layer);
-      }
+        const base = {
+          color: "#1b4530",
+          weight: 1,
+          fillColor: active ? "#1b4530" : "#9aa89f",
+          fillOpacity: active ? 0.28 : 0.06,
+        };
+        const hover = { fillColor: "#d4b26a", fillOpacity: 0.55, weight: 2 };
 
-      if (bounds.length > 0) {
-        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 13 });
+        const polygon = L.polygon(latlngs, base);
+        polygon.bindTooltip(`${zone} · ${count}`, { sticky: true, direction: "top" });
+        if (active) {
+          allBounds.push(center);
+          polygon.on("mouseover", () => polygon.setStyle(hover));
+          polygon.on("mouseout", () => polygon.setStyle(base));
+          polygon.on("click", () => onSelectRef.current(zone));
+        }
+        polygon.addTo(layer);
+
+        // Count badge at the zone centre (only where there are listings).
+        if (active) {
+          const badge = L.divIcon({
+            className: "map-zone-badge",
+            html: `<span>${count}</span>`,
+            iconSize: [30, 30],
+          });
+          const marker = L.marker(center, { icon: badge, interactive: false });
+          marker.addTo(layer);
+        }
+      });
+
+      if (allBounds.length > 0) {
+        map.fitBounds(allBounds, { padding: [60, 60], maxZoom: 12 });
       } else {
         map.setView(TORREVIEJA_CENTER, 11);
       }

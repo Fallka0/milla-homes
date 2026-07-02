@@ -62,6 +62,20 @@ export function groupByZone<T extends { location: string }>(items: T[]) {
   return Array.from(buckets.values());
 }
 
+// Every zone with how many of the given listings fall in it (0 included).
+export function zonesWithCounts<T extends { location: string }>(items: T[]) {
+  const counts = new Map<string, number>();
+  for (const item of items) {
+    const zone = resolveZoneName(item.location);
+    if (zone) counts.set(zone, (counts.get(zone) ?? 0) + 1);
+  }
+  return Object.entries(zoneCoordinates).map(([zone, center]) => ({
+    zone,
+    center,
+    count: counts.get(zone) ?? 0,
+  }));
+}
+
 // Resolve a listing's map coordinates from its (canonical or free-text) location.
 export function getListingCoordinates(input: { id: string; location: string }): [number, number] {
   const normalized = input.location?.trim() ?? "";
