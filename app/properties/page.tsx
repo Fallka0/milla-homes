@@ -47,10 +47,8 @@ export default async function PropertiesPage() {
         nav={copy.nav}
       />
 
-      <section className="section-heading properties-intro">
-        <p className="eyebrow">{copy.propertiesPage.eyebrow}</p>
+      <section className="properties-intro-minimal">
         <h1>{copy.propertiesPage.title}</h1>
-        <p>{copy.propertiesPage.text}</p>
       </section>
 
       <PropertyFilters copy={copy} locale={locale} properties={properties} />

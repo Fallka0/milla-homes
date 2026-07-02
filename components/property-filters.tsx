@@ -63,6 +63,7 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
   const [sizeMax, setSizeMax] = useState(DEFAULT_STATE.sizeMax);
   const [sort, setSort] = useState<SortOption>(DEFAULT_STATE.sort);
   const [view, setView] = useState<"list" | "map">("list");
+  const [showMore, setShowMore] = useState(false);
 
   const deferredSearch = useDeferredValue(search);
   const normalizedSearch = deferredSearch.trim().toLowerCase();
@@ -216,124 +217,109 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
   }
 
   return (
-    <div className="listing-layout">
-      <aside className="filters-panel">
-        <div className="filters-grid">
-          <label>
-            {copy.filters.search}
-            <input
-              type="text"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder={copy.filters.searchPlaceholder}
-            />
-          </label>
+    <div className="listing-page">
+      <form className="filters-bar" onSubmit={(event) => event.preventDefault()}>
+        <div className="filters-bar-main">
+          <input
+            className="filters-bar-search"
+            type="text"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder={copy.filters.searchPlaceholder}
+            aria-label={copy.filters.search}
+          />
 
-          <label>
-            {copy.filters.region}
-            <select value={selectedRegion} onChange={(event) => setSelectedRegion(event.target.value)}>
-              <option value="all">{copy.filters.types.all}</option>
-              {availableRegions.map((region) => (
-                <option key={region} value={region}>
-                  {region}
-                </option>
-              ))}
-            </select>
-          </label>
+          <select
+            value={selectedRegion}
+            onChange={(event) => setSelectedRegion(event.target.value)}
+            aria-label={copy.filters.region}
+          >
+            <option value="all">{copy.filters.region}</option>
+            {availableRegions.map((region) => (
+              <option key={region} value={region}>
+                {region}
+              </option>
+            ))}
+          </select>
 
-          <label>
-            {copy.filters.listingMode}
-            <select
-              value={selectedListingMode}
-              onChange={(event) => setSelectedListingMode(event.target.value as "all" | ListingMode)}
-            >
-              <option value="all">{copy.filters.types.all}</option>
-              {listingModes.map((mode) => (
-                <option key={mode} value={mode}>
-                  {copy.filters.listingModeOptions[mode]}
-                </option>
-              ))}
-            </select>
-          </label>
+          <select
+            value={selectedListingMode}
+            onChange={(event) => setSelectedListingMode(event.target.value as "all" | ListingMode)}
+            aria-label={copy.filters.listingMode}
+          >
+            <option value="all">{copy.filters.listingMode}</option>
+            {listingModes.map((mode) => (
+              <option key={mode} value={mode}>
+                {copy.filters.listingModeOptions[mode]}
+              </option>
+            ))}
+          </select>
 
-          <label>
-            {copy.filters.propertyType}
-            <select
-              value={selectedType}
-              onChange={(event) => setSelectedType(event.target.value as "all" | PropertyType)}
-            >
-              <option value="all">{copy.filters.types.all}</option>
-              {propertyTypes.map((type) => (
-                <option key={type} value={type}>
-                  {getLocalizedPropertyTypeLabel(locale, type)}
-                </option>
-              ))}
-            </select>
-          </label>
+          <select
+            value={selectedType}
+            onChange={(event) => setSelectedType(event.target.value as "all" | PropertyType)}
+            aria-label={copy.filters.propertyType}
+          >
+            <option value="all">{copy.filters.propertyType}</option>
+            {propertyTypes.map((type) => (
+              <option key={type} value={type}>
+                {getLocalizedPropertyTypeLabel(locale, type)}
+              </option>
+            ))}
+          </select>
 
-          <div className="filters-range">
-            <span className="filters-group-label">{copy.filters.priceRange}</span>
-            <div className="filters-range-inputs">
-              <input
-                type="number"
-                min={0}
-                inputMode="numeric"
-                value={priceMin}
-                onChange={(event) => setPriceMin(event.target.value)}
-                placeholder={copy.filters.min}
-                aria-label={`${copy.filters.priceRange} ${copy.filters.min}`}
-              />
-              <span aria-hidden>–</span>
-              <input
-                type="number"
-                min={0}
-                inputMode="numeric"
-                value={priceMax}
-                onChange={(event) => setPriceMax(event.target.value)}
-                placeholder={copy.filters.max}
-                aria-label={`${copy.filters.priceRange} ${copy.filters.max}`}
-              />
-            </div>
-          </div>
+          <input
+            className="filters-bar-num"
+            type="number"
+            min={0}
+            inputMode="numeric"
+            value={priceMin}
+            onChange={(event) => setPriceMin(event.target.value)}
+            placeholder={`€ ${copy.filters.min}`}
+            aria-label={`${copy.filters.priceRange} ${copy.filters.min}`}
+          />
+          <input
+            className="filters-bar-num"
+            type="number"
+            min={0}
+            inputMode="numeric"
+            value={priceMax}
+            onChange={(event) => setPriceMax(event.target.value)}
+            placeholder={`€ ${copy.filters.max}`}
+            aria-label={`${copy.filters.priceRange} ${copy.filters.max}`}
+          />
 
-          <div className="filters-range">
-            <span className="filters-group-label">{copy.filters.sizeRange}</span>
-            <div className="filters-range-inputs">
-              <input
-                type="number"
-                min={0}
-                inputMode="numeric"
-                value={sizeMin}
-                onChange={(event) => setSizeMin(event.target.value)}
-                placeholder={copy.filters.min}
-                aria-label={`${copy.filters.sizeRange} ${copy.filters.min}`}
-              />
-              <span aria-hidden>–</span>
-              <input
-                type="number"
-                min={0}
-                inputMode="numeric"
-                value={sizeMax}
-                onChange={(event) => setSizeMax(event.target.value)}
-                placeholder={copy.filters.max}
-                aria-label={`${copy.filters.sizeRange} ${copy.filters.max}`}
-              />
-            </div>
-          </div>
+          <select
+            value={minimumBedrooms}
+            onChange={(event) => setMinimumBedrooms(event.target.value)}
+            aria-label={copy.filters.minimumBedrooms}
+          >
+            <option value="0">{copy.filters.minimumBedrooms}</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+          </select>
 
-          <div className="filters-row-2">
-            <label>
-              {copy.filters.minimumBedrooms}
-              <select value={minimumBedrooms} onChange={(event) => setMinimumBedrooms(event.target.value)}>
-                <option value="0">{copy.filters.types.any}</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
-              </select>
-            </label>
+          <button
+            type="button"
+            className={`filters-more-toggle${showMore ? " is-open" : ""}`}
+            aria-expanded={showMore}
+            onClick={() => setShowMore((open) => !open)}
+          >
+            {showMore ? copy.filters.lessFilters : copy.filters.moreFilters}
+          </button>
 
-            <label>
+          {activeChips.length > 0 ? (
+            <button className="filters-reset" type="button" onClick={resetFilters}>
+              {copy.filters.clearAll}
+            </button>
+          ) : null}
+        </div>
+
+        {showMore ? (
+          <div className="filters-bar-more">
+            <label className="filters-inline">
               {copy.filters.bathrooms}
               <select value={minimumBathrooms} onChange={(event) => setMinimumBathrooms(event.target.value)}>
                 <option value="0">{copy.filters.types.any}</option>
@@ -342,15 +328,49 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
                 <option value="3">3+</option>
               </select>
             </label>
-          </div>
 
-          {availableFeatures.length > 0 ? (
-            <div className="filters-feature-group">
-              <span className="filters-group-label">{copy.filters.mustHaveFeatures}</span>
+            <label className="filters-inline">
+              {copy.filters.sizeRange}
+              <span className="filters-range-inputs">
+                <input
+                  type="number"
+                  min={0}
+                  inputMode="numeric"
+                  value={sizeMin}
+                  onChange={(event) => setSizeMin(event.target.value)}
+                  placeholder={copy.filters.min}
+                  aria-label={`${copy.filters.sizeRange} ${copy.filters.min}`}
+                />
+                <span aria-hidden>–</span>
+                <input
+                  type="number"
+                  min={0}
+                  inputMode="numeric"
+                  value={sizeMax}
+                  onChange={(event) => setSizeMax(event.target.value)}
+                  placeholder={copy.filters.max}
+                  aria-label={`${copy.filters.sizeRange} ${copy.filters.max}`}
+                />
+              </span>
+            </label>
+
+            {selectedListingMode === "rent" ? (
+              <>
+                <label className="filters-inline">
+                  {copy.filters.availabilityFrom}
+                  <input type="date" value={availabilityFrom} onChange={(event) => setAvailabilityFrom(event.target.value)} />
+                </label>
+                <label className="filters-inline">
+                  {copy.filters.availabilityTo}
+                  <input type="date" value={availabilityTo} onChange={(event) => setAvailabilityTo(event.target.value)} />
+                </label>
+              </>
+            ) : null}
+
+            {availableFeatures.length > 0 ? (
               <div className="filters-pill-group">
                 {availableFeatures.map((feature) => {
                   const isActive = selectedFeatures.includes(feature);
-
                   return (
                     <button
                       className={`filters-pill-button${isActive ? " active" : ""}`}
@@ -363,103 +383,80 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
                   );
                 })}
               </div>
-            </div>
-          ) : null}
-
-          {selectedListingMode === "rent" ? (
-            <>
-              <label>
-                {copy.filters.availabilityFrom}
-                <input type="date" value={availabilityFrom} onChange={(event) => setAvailabilityFrom(event.target.value)} />
-              </label>
-
-              <label>
-                {copy.filters.availabilityTo}
-                <input type="date" value={availabilityTo} onChange={(event) => setAvailabilityTo(event.target.value)} />
-              </label>
-            </>
-          ) : null}
-
-          <label>
-            {copy.filters.sort}
-            <select value={sort} onChange={(event) => setSort(event.target.value as SortOption)}>
-              <option value="latest">{copy.filters.sortOptions.latest}</option>
-              <option value="price-asc">{copy.filters.sortOptions.priceAsc}</option>
-              <option value="price-desc">{copy.filters.sortOptions.priceDesc}</option>
-              <option value="size-desc">{copy.filters.sortOptions.sizeDesc}</option>
-            </select>
-          </label>
-        </div>
-      </aside>
-
-      <section className="listing-results">
-        <div className="results-header">
-          <div>
-            <p className="eyebrow">{copy.filters.availableInventory}</p>
-            <h2>{getLocalizedResultsLabel(locale, filteredProperties.length)}</h2>
-          </div>
-          <div className="results-header-actions">
-            <div className="view-toggle" role="tablist" aria-label="View">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={view === "list"}
-                className={view === "list" ? "is-active" : ""}
-                onClick={() => setView("list")}
-              >
-                {copy.filters.listView}
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={view === "map"}
-                className={view === "map" ? "is-active" : ""}
-                onClick={() => setView("map")}
-              >
-                {copy.filters.mapView}
-              </button>
-            </div>
-            {activeChips.length > 0 ? (
-              <button className="filters-clear-all" type="button" onClick={resetFilters}>
-                {copy.filters.clearAll}
-              </button>
             ) : null}
           </div>
-        </div>
-
-        {activeChips.length > 0 ? (
-          <div className="filters-active-chips">
-            {activeChips.map((chip) => (
-              <button className="filters-chip" key={chip.key} type="button" onClick={chip.onClear}>
-                {chip.label}
-                <span aria-hidden>×</span>
-              </button>
-            ))}
-          </div>
         ) : null}
+      </form>
 
-        {filteredProperties.length > 0 && view === "map" ? (
-          <PropertyMap properties={filteredProperties} viewLabel={copy.buttons.viewDetails} />
-        ) : filteredProperties.length > 0 ? (
-          <div className="property-grid">
-            {filteredProperties.map((property) => (
-              <PropertyCard
-                bathroomsLabel={copy.propertyMeta.bathroomsShort}
-                bedroomsLabel={copy.propertyMeta.bedroomsShort}
-                buttonLabel={copy.buttons.viewDetails}
-                key={property.id}
-                locale={locale}
-                property={property}
-              />
-            ))}
+      {activeChips.length > 0 ? (
+        <div className="filters-active-chips">
+          {activeChips.map((chip) => (
+            <button className="filters-chip" key={chip.key} type="button" onClick={chip.onClear}>
+              {chip.label}
+              <span aria-hidden>×</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="results-bar">
+        <p className="results-count">{getLocalizedResultsLabel(locale, filteredProperties.length)}</p>
+        <div className="results-bar-actions">
+          <div className="view-toggle" role="tablist" aria-label="View">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={view === "list"}
+              className={view === "list" ? "is-active" : ""}
+              onClick={() => setView("list")}
+            >
+              {copy.filters.listView}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={view === "map"}
+              className={view === "map" ? "is-active" : ""}
+              onClick={() => setView("map")}
+            >
+              {copy.filters.mapView}
+            </button>
           </div>
-        ) : (
-          <div className="empty-state">
-            <h3>{copy.filters.emptyTitle}</h3>
-            <p>{copy.filters.emptyBody}</p>
-          </div>
-        )}
-      </section>
+          <select
+            className="results-sort"
+            value={sort}
+            onChange={(event) => setSort(event.target.value as SortOption)}
+            aria-label={copy.filters.sort}
+          >
+            <option value="latest">{copy.filters.sortOptions.latest}</option>
+            <option value="price-asc">{copy.filters.sortOptions.priceAsc}</option>
+            <option value="price-desc">{copy.filters.sortOptions.priceDesc}</option>
+            <option value="size-desc">{copy.filters.sortOptions.sizeDesc}</option>
+          </select>
+        </div>
+      </div>
+
+      {filteredProperties.length > 0 && view === "map" ? (
+        <PropertyMap properties={filteredProperties} viewLabel={copy.buttons.viewDetails} />
+      ) : filteredProperties.length > 0 ? (
+        <div className="property-grid">
+          {filteredProperties.map((property) => (
+            <PropertyCard
+              bathroomsLabel={copy.propertyMeta.bathroomsShort}
+              bedroomsLabel={copy.propertyMeta.bedroomsShort}
+              buttonLabel={copy.buttons.viewDetails}
+              key={property.id}
+              locale={locale}
+              property={property}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="empty-state">
+          <h3>{copy.filters.emptyTitle}</h3>
+          <p>{copy.filters.emptyBody}</p>
+        </div>
+      )}
     </div>
   );
 }

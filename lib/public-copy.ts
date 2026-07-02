@@ -83,6 +83,8 @@ export type PublicCopy = {
     listingMode: string;
     listView: string;
     mapView: string;
+    moreFilters: string;
+    lessFilters: string;
     max: string;
     min: string;
     mustHaveFeatures: string;
@@ -297,6 +299,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       listingMode: "Looking for",
       listView: "List",
       mapView: "Map",
+      moreFilters: "More filters",
+      lessFilters: "Fewer filters",
       max: "Max",
       min: "Min",
       mustHaveFeatures: "Must-have features",
@@ -534,6 +538,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       listingMode: "Busco",
       listView: "Lista",
       mapView: "Mapa",
+      moreFilters: "Más filtros",
+      lessFilters: "Menos filtros",
       max: "Máx",
       min: "Mín",
       mustHaveFeatures: "Características imprescindibles",
@@ -771,6 +777,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       listingMode: "Интересует",
       listView: "Список",
       mapView: "Карта",
+      moreFilters: "Больше фильтров",
+      lessFilters: "Меньше фильтров",
       max: "Макс",
       min: "Мин",
       mustHaveFeatures: "Обязательные особенности",
@@ -1008,6 +1016,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       listingMode: "Gesucht",
       listView: "Liste",
       mapView: "Karte",
+      moreFilters: "Mehr Filter",
+      lessFilters: "Weniger Filter",
       max: "Max",
       min: "Min",
       mustHaveFeatures: "Wichtige Merkmale",

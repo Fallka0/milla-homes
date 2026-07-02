@@ -126,10 +126,8 @@ export default async function BuyingGuidePage() {
         nav={copy.nav}
       />
 
-      <section className="section-heading properties-intro">
-        <p className="eyebrow">{copy.coverage.eyebrow}</p>
+      <section className="properties-intro-minimal">
         <h1>{content.title}</h1>
-        <p>{content.intro}</p>
       </section>
 
       <section className="guide-steps">
