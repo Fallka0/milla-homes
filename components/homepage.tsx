@@ -51,7 +51,6 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
           <div className="section-heading homepage-hero-copy">
             <p className="eyebrow">{copy.hero.eyebrow}</p>
             <h1>{copy.hero.title}</h1>
-            <p>{copy.hero.text}</p>
             <div className="hero-actions">
               <Link className="button button-primary hero-primary-button" href="/properties">
                 {copy.buttons.browseProperties}
@@ -117,12 +116,6 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
       </section>
 
       <section className="section">
-        <div className="section-heading">
-          <p className="eyebrow">{copy.coverage.eyebrow}</p>
-          <h2>{copy.coverage.title}</h2>
-          <p>{copy.coverage.summary}</p>
-        </div>
-
         <div className="stats-grid">
           <article className="stat-card">
             <strong>{copy.propertyMeta.homesOnlineValue}</strong>
@@ -195,12 +188,10 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         <div className="contact-copy">
           <p className="eyebrow">{copy.contact.eyebrow}</p>
           <h2>{copy.contact.title}</h2>
-          <p>{copy.contact.summary}</p>
         </div>
 
         <div className="market-panel">
           <h3>{copy.contact.panelTitle}</h3>
-          <p>{copy.contact.panelSummary}</p>
           <ContactActions
             callLabel={copy.buttons.callNow}
             className="contact-actions"
@@ -214,7 +205,6 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         <div className="section-heading">
           <p className="eyebrow">{copy.testimonials.eyebrow}</p>
           <h2>{copy.testimonials.title}</h2>
-          <p>{copy.testimonials.summary}</p>
         </div>
 
         <div className="testimonial-grid">

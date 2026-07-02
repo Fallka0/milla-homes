@@ -38,7 +38,7 @@ export function PropertyCard({
   const previewVideoUrl = !previewImageUrl && isVideoAssetUrl(property.mainImageUrl) ? property.mainImageUrl : null;
 
   return (
-    <Link className="property-card-link" href={`/properties/${property.slug}`}>
+    <Link className="property-card-link" href={`/properties/${property.slug}`} aria-label={`${property.title} — ${buttonLabel}`}>
       <article className="property-card">
         <div className="property-image-wrap">
           {previewImageUrl ? (
@@ -81,7 +81,6 @@ export function PropertyCard({
             <span>{property.location}</span>
           </div>
           <h3>{property.title}</h3>
-          <p>{property.shortDescription}</p>
           <div className="property-meta">
             <span>{property.bedrooms} {bedroomsLabel}</span>
             <span>{property.bathrooms} {bathroomsLabel}</span>
@@ -106,9 +105,6 @@ export function PropertyCard({
                 )}
               </div>
             </div>
-            <span className="button button-ghost property-card-button">
-              {buttonLabel}
-            </span>
           </div>
         </div>
       </article>
