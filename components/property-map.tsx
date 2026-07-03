@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 
 import { TORREVIEJA_CENTER, zonesWithCounts } from "@/lib/geo";
-import { zoneShapes } from "@/lib/zone-shapes";
 import { type PropertyRecord } from "@/lib/property-shared";
 
 import "leaflet/dist/leaflet.css";
@@ -47,44 +46,27 @@ export function PropertyMap({ properties, onSelectZone }: PropertyMapProps) {
       if (!map || !layer) return;
       layer.clearLayers();
 
-      const zones = zonesWithCounts(properties);
+      // Only zones that actually hold listings — keeps the map calm.
+      const zones = zonesWithCounts(properties).filter(({ count }) => count > 0);
       const bounds: [number, number][] = [];
 
       for (const { zone, center, count } of zones) {
-        const shape = zoneShapes[zone];
-        if (!shape) continue;
-        const active = count > 0;
+        bounds.push(center);
 
-        const base = {
-          color: "#1b4530",
-          weight: 1.5,
-          fillColor: active ? "#1b4530" : "#9aa89f",
-          fillOpacity: active ? 0.3 : 0.08,
-        };
-        const hover = { fillColor: "#d4b26a", fillOpacity: 0.6, weight: 2 };
+        // A readable pill label: zone name + count, never obscured.
+        const icon = L.divIcon({
+          className: "map-zone-pill-wrap",
+          html: `<button type="button" class="map-zone-pill"><span>${escapeHtml(zone)}</span><b>${count}</b></button>`,
+          iconSize: undefined,
+        });
 
-        const polygon = L.polygon(shape, base);
-        polygon.bindTooltip(`${zone} · ${count}`, { sticky: true, direction: "top" });
-        if (active) {
-          bounds.push(...shape);
-          polygon.on("mouseover", () => polygon.setStyle(hover));
-          polygon.on("mouseout", () => polygon.setStyle(base));
-          polygon.on("click", () => onSelectRef.current(zone));
-        }
-        polygon.addTo(layer);
-
-        if (active) {
-          const badge = L.divIcon({
-            className: "map-zone-badge",
-            html: `<span>${count}</span>`,
-            iconSize: [30, 30],
-          });
-          L.marker(center, { icon: badge, interactive: false }).addTo(layer);
-        }
+        const marker = L.marker(center, { icon, keyboard: false });
+        marker.on("click", () => onSelectRef.current(zone));
+        marker.addTo(layer);
       }
 
       if (bounds.length > 0) {
-        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 13 });
+        map.fitBounds(bounds, { padding: [70, 70], maxZoom: 13 });
       } else {
         map.setView(TORREVIEJA_CENTER, 11);
       }
@@ -105,4 +87,12 @@ export function PropertyMap({ properties, onSelectZone }: PropertyMapProps) {
   }, []);
 
   return <div className="property-map" ref={containerRef} role="application" aria-label="Map" />;
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }

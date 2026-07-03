@@ -767,12 +767,18 @@ textarea {
   object-fit: contain;
 }
 
-.public-header .brand-logo-image {
-  height: 5.5rem;
+.brand-wordmark {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
+  white-space: nowrap;
 }
 
-.public-header.compact-header .brand-logo-image {
-  height: 5rem;
+.brand-wordmark:hover {
+  color: var(--surface-deep, #1b4530);
 }
 
 .site-footer-copy .brand-logo-image {
@@ -2173,24 +2179,56 @@ textarea {
   z-index: 0;
 }
 
-/* Count badge centered in each zone cell */
-.map-zone-badge {
+/* Zone pill markers: always-readable name + count */
+.map-zone-pill-wrap {
   background: transparent;
   border: 0;
 }
 
-.map-zone-badge span {
+.map-zone-pill {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.4rem 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--surface-deep, #1b4530);
+  background: rgba(252, 248, 240, 0.96);
+  color: var(--surface-deep, #1b4530);
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(18, 53, 36, 0.25);
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.map-zone-pill b {
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.3rem;
   border-radius: 999px;
   background: var(--surface-deep, #1b4530);
-  color: #fff;
-  font-family: "Mulish", system-ui, sans-serif;
-  font-weight: 800;
-  font-size: 0.82rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #fcf8f0;
+  font-size: 0.78rem;
+}
+
+.map-zone-pill:hover,
+.map-zone-pill:focus-visible {
+  background: var(--surface-deep, #1b4530);
+  color: #fcf8f0;
+  transform: translate(-50%, -50%) scale(1.06);
+  z-index: 10;
+}
+
+.map-zone-pill:hover b,
+.map-zone-pill:focus-visible b {
+  background: var(--gold, #d4b26a);
+  color: var(--surface-deep, #1b4530);
 }
 
 .map-popup {

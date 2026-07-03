@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { BrandLogo } from "@/components/brand-logo";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { type PublicLocale } from "@/lib/public-copy";
 import { getAdminSiteUrl } from "@/lib/site-urls";
@@ -33,8 +32,8 @@ export function PublicHeader({
 
   return (
     <header className={`public-header ${compact ? "compact-header" : ""}`}>
-      <Link className="brand-link" href="/">
-        <BrandLogo priority={compact} />
+      <Link className="brand-link brand-wordmark" href="/">
+        Milla Homes
       </Link>
 
       <button
