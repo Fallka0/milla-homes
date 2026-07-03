@@ -56,9 +56,9 @@ Goal: make the highest-intent actions reachable without covering content.
 
 Goal: help visitors return to and discuss a smaller group of homes.
 
-1. Add a save control to property cards and detail pages.
-2. Store anonymous saves locally before requiring an account.
-3. Add a `/saved` page with empty and unavailable-property states.
+1. [x] Add a save control to property cards and detail pages.
+2. [x] Store anonymous saves locally before requiring an account.
+3. [x] Add a `/saved` page with empty and unavailable-property states.
 4. Create a shareable shortlist URL with opaque identifiers.
 5. Add expiry and privacy rules for shared lists.
 

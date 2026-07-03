@@ -16,14 +16,15 @@ type FooterContent = {
   explore: string;
   guide: string;
   response: string;
+  saved: string;
   whatsapp: string;
 };
 
 const footerContent: Record<PublicLocale, FooterContent> = {
-  en: { areas: "Area guides", company: "Milla Homes", contact: "Contact", directLine: "Direct line", explore: "Property", guide: "Buying guide", response: "Calls and WhatsApp are the quickest way to reach us.", whatsapp: "Start a WhatsApp chat" },
-  es: { areas: "Guías de zonas", company: "Milla Homes", contact: "Contacto", directLine: "Línea directa", explore: "Propiedades", guide: "Guía de compra", response: "La forma más rápida de contactar es por teléfono o WhatsApp.", whatsapp: "Abrir WhatsApp" },
-  de: { areas: "Gebietsführer", company: "Milla Homes", contact: "Kontakt", directLine: "Direkte Rufnummer", explore: "Immobilien", guide: "Kaufratgeber", response: "Am schnellsten erreichen Sie uns telefonisch oder über WhatsApp.", whatsapp: "WhatsApp-Chat starten" },
-  ru: { areas: "Гиды по районам", company: "Milla Homes", contact: "Контакты", directLine: "Прямой номер", explore: "Недвижимость", guide: "Гид покупателя", response: "Быстрее всего связаться с нами по телефону или WhatsApp.", whatsapp: "Написать в WhatsApp" },
+  en: { areas: "Area guides", company: "Milla Homes", contact: "Contact", directLine: "Direct line", explore: "Property", guide: "Buying guide", response: "Calls and WhatsApp are the quickest way to reach us.", saved: "Saved properties", whatsapp: "Start a WhatsApp chat" },
+  es: { areas: "Guías de zonas", company: "Milla Homes", contact: "Contacto", directLine: "Línea directa", explore: "Propiedades", guide: "Guía de compra", response: "La forma más rápida de contactar es por teléfono o WhatsApp.", saved: "Propiedades guardadas", whatsapp: "Abrir WhatsApp" },
+  de: { areas: "Gebietsführer", company: "Milla Homes", contact: "Kontakt", directLine: "Direkte Rufnummer", explore: "Immobilien", guide: "Kaufratgeber", response: "Am schnellsten erreichen Sie uns telefonisch oder über WhatsApp.", saved: "Gespeicherte Immobilien", whatsapp: "WhatsApp-Chat starten" },
+  ru: { areas: "Гиды по районам", company: "Milla Homes", contact: "Контакты", directLine: "Прямой номер", explore: "Недвижимость", guide: "Гид покупателя", response: "Быстрее всего связаться с нами по телефону или WhatsApp.", saved: "Сохранённые объекты", whatsapp: "Написать в WhatsApp" },
 };
 
 export function SiteFooter({ copy, locale }: SiteFooterProps) {
@@ -42,6 +43,7 @@ export function SiteFooter({ copy, locale }: SiteFooterProps) {
           <h2>{content.explore}</h2>
           <Link href="/properties">{copy.footer.browseLabel}</Link>
           <Link href="/sell-or-rent">{copy.nav.owner}</Link>
+          <Link href="/saved">{content.saved}</Link>
           <Link href="/guides/buying">{content.guide}</Link>
         </nav>
 

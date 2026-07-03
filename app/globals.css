@@ -1297,6 +1297,68 @@ textarea {
   gap: 1.5rem;
 }
 
+.property-card-shell { position: relative; min-width: 0; }
+
+.property-card-shell > .save-property-control {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 3;
+}
+
+.save-property-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.save-property-button {
+  display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem;
+  border: 1px solid rgba(18, 53, 36, 0.12);
+  border-radius: 999px;
+  background: rgba(252, 248, 240, 0.92);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.save-property-button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  transition: fill 160ms ease, color 160ms ease;
+}
+
+.save-property-button[aria-pressed="true"] svg { fill: var(--gold); color: var(--gold); }
+.save-property-button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.save-property-control-detail {
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.save-property-control-detail .save-property-button {
+  width: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.save-property-control-detail > a {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .property-card-link {
   display: block;
   color: inherit;
@@ -4733,6 +4795,40 @@ textarea {
 }
 
 /* Persistent mobile contact actions */
+
+.saved-page-header {
+  max-width: 52rem;
+  padding: clamp(3rem, 7vw, 6rem) 0 clamp(2.5rem, 5vw, 4rem);
+}
+
+.saved-page-header h1,
+.saved-empty h2 {
+  margin: 0.55rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.saved-page-header > p:last-child,
+.saved-empty p {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.saved-empty {
+  padding: clamp(2rem, 6vw, 5rem);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  text-align: center;
+}
+
+.saved-empty h2 { max-width: 15ch; margin-inline: auto; font-size: clamp(2rem, 4vw, 3.25rem); }
+.saved-empty p { max-width: 34rem; margin-inline: auto; }
+.saved-empty .button { margin-top: 1.5rem; }
+.saved-properties-loading { min-height: 20rem; }
 
 .mobile-contact-bar { display: none; }
 

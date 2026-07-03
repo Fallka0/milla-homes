@@ -8,6 +8,7 @@ import { ImageCarousel } from "@/components/image-carousel";
 import { InquiryForm } from "@/components/inquiry-form";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
+import { SavePropertyButton } from "@/components/save-property-button";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
 import { getAdminAuthState } from "@/lib/auth";
 import {
@@ -194,6 +195,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
             </div>
           </div>
           <aside className="detail-price-card">
+            <SavePropertyButton locale={locale} showSavedLink slug={localizedProperty.slug} />
             {(localizedProperty.listingMode === "sale" || localizedProperty.listingMode === "both") ? (
               <>
                 <span>{copy.detail.salePrice}</span>

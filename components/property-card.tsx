@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SavePropertyButton } from "@/components/save-property-button";
 
 import {
   getLocalizedListingModeLabel,
@@ -38,7 +39,8 @@ export function PropertyCard({
   const previewVideoUrl = !previewImageUrl && isVideoAssetUrl(property.mainImageUrl) ? property.mainImageUrl : null;
 
   return (
-    <Link className="property-card-link" href={`/properties/${property.slug}`} aria-label={`${property.title} — ${buttonLabel}`}>
+    <div className="property-card-shell">
+      <Link className="property-card-link" href={`/properties/${property.slug}`} aria-label={`${property.title} — ${buttonLabel}`}>
       <article className="property-card">
         <div className="property-image-wrap">
           {previewImageUrl ? (
@@ -108,6 +110,8 @@ export function PropertyCard({
           </div>
         </div>
       </article>
-    </Link>
+      </Link>
+      <SavePropertyButton locale={locale} slug={property.slug} />
+    </div>
   );
 }
