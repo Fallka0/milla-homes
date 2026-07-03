@@ -1131,12 +1131,13 @@ textarea {
 .neighborhood-card-link {
   display: block;
   color: inherit;
+  min-width: 0;
 }
 
 .neighborhood-card {
   position: relative;
-  min-height: 18rem;
-  padding: 1.75rem;
+  min-height: 21rem;
+  padding: 1rem;
   border-radius: 14px;
   border: 1px solid rgba(18, 53, 36, 0.08);
   overflow: hidden;
@@ -1162,34 +1163,57 @@ textarea {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(18,53,36,0.06) 0%, rgba(18,53,36,0.58) 100%);
+  background: linear-gradient(180deg, rgba(18, 53, 36, 0.02) 20%, rgba(18, 53, 36, 0.72) 100%);
 }
 
-.neighborhood-card .eyebrow,
-.neighborhood-card h3,
-.neighborhood-card p {
+.neighborhood-card-content {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 250, 241, 0.15);
+  border-radius: 10px;
+  background: rgba(12, 40, 27, 0.9);
+  box-shadow: 0 12px 28px rgba(5, 20, 13, 0.2);
+  backdrop-filter: blur(8px) saturate(1.1);
+}
+
+.neighborhood-card-content .eyebrow,
+.neighborhood-card-content h3,
+.neighborhood-card-content > p {
+  grid-column: 1;
 }
 
 .neighborhood-card .eyebrow {
-  color: rgba(212, 178, 106, 0.9);
+  margin: 0;
+  color: #e3c681;
 }
 
 .neighborhood-card h3 {
-  margin: 0.3rem 0 0.5rem;
+  margin: 0.4rem 0 0.55rem;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
   color: #fffaf1;
   letter-spacing: -0.01em;
+  line-height: 1.08;
 }
 
 .neighborhood-card p {
-  color: rgba(255, 250, 241, 0.8);
-  font-size: 0.9rem;
-  line-height: 1.65;
+  color: rgba(255, 250, 241, 0.88);
+  font-size: 0.84rem;
+  line-height: 1.5;
   margin: 0;
+}
+
+.neighborhood-card-arrow {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: end;
+  margin-left: 0.75rem;
+  color: #e3c681;
+  font-size: 1.15rem;
 }
 
 .region-page {
@@ -3791,32 +3815,33 @@ textarea {
 
 .detail-spotlight {
   position: relative;
-  overflow: hidden;
-  padding: 2rem;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
+  padding: 0;
 }
 
 .property-detail-hero {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(290px, 22rem);
   align-items: stretch;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
-  padding: 2rem 0 0;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(2rem, 5vw, 4rem) 0 0;
 }
 
-.property-detail-hero .section-heading { margin-bottom: 0; max-width: 52rem; }
+.property-detail-hero .section-heading { margin-bottom: 0; max-width: 56rem; }
 
 .property-detail-hero h1 {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
-  margin: 0.4rem 0 0;
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 0.96;
+  margin: 0.55rem 0 0;
+}
+
+.property-detail-hero .section-heading > p:not(.eyebrow) {
+  max-width: 46rem;
+  margin-top: 1.25rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
 }
 
 .detail-back-link {
@@ -3866,27 +3891,36 @@ textarea {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
-  gap: 0.7rem;
-  flex-shrink: 0;
-  width: min(100%, 22rem);
-  padding: 1.5rem;
-  background: var(--surface);
-  border: 1px solid rgba(18, 53, 36, 0.08);
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
+  gap: 1rem;
+  width: 100%;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--surface-deep);
+  border: 1px solid rgba(18, 53, 36, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 40px rgba(18, 53, 36, 0.14);
+  color: var(--surface-strong);
 }
 
-.detail-price-card strong {
+.detail-price-block {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(252, 248, 240, 0.16);
+}
+
+.detail-price-card .detail-price-block strong {
   font-size: clamp(1.75rem, 3vw, 2.35rem);
-  font-weight: 800;
-  font-family: var(--font-ui);
-  color: var(--text);
+  font-weight: 600;
+  font-family: var(--font-display);
+  color: var(--surface-strong);
   letter-spacing: -0.02em;
 }
 
-.detail-price-card span {
+.detail-price-card .detail-price-block span {
   font-size: 0.78rem;
-  color: var(--muted);
+  color: var(--gold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -3895,6 +3929,20 @@ textarea {
   width: 100%;
   margin-top: 0.4rem;
 }
+
+.detail-price-card .button-primary {
+  background: var(--surface-strong);
+  color: var(--text);
+}
+
+.detail-price-card .button-ghost {
+  border-color: rgba(252, 248, 240, 0.28);
+  color: var(--surface-strong);
+}
+
+.detail-price-card .save-property-control { width: 100%; margin-bottom: auto; }
+.detail-price-card .save-property-button { background: rgba(252, 248, 240, 0.96); }
+.detail-price-card .save-property-control-detail > a { color: rgba(252, 248, 240, 0.76); }
 
 .carousel-shell {
   display: grid;
@@ -4089,10 +4137,10 @@ textarea {
 
 .detail-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 380px;
-  gap: 2.5rem;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 360px);
+  gap: clamp(2rem, 5vw, 4.5rem);
   align-items: start;
-  padding-top: 2.5rem;
+  padding-top: clamp(3rem, 6vw, 5rem);
 }
 
 .detail-main {
@@ -4105,17 +4153,19 @@ textarea {
 
 .fact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--border-strong);
+  border-left: 1px solid var(--border-strong);
 }
 
 .fact-card {
-  padding: 1rem 1.1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(18, 53, 36, 0.08);
-  background: var(--surface);
-  box-shadow: 0 4px 20px rgba(18, 53, 36, 0.05);
+  min-height: 7.5rem;
+  padding: 1.25rem;
+  border-right: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+  background: transparent;
 }
 
 .fact-card span {
@@ -4130,28 +4180,28 @@ textarea {
 
 .fact-card strong {
   display: block;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 600;
   color: var(--text);
 }
 
 .detail-copy-card {
-  padding: 2rem;
-  border-radius: 10px;
-  border: 1px solid rgba(18, 53, 36, 0.08);
-  background: var(--surface);
-  box-shadow: 0 4px 24px rgba(18, 53, 36, 0.06);
+  padding: clamp(2rem, 4vw, 3rem) 0 0;
+  border-top: 1px solid var(--border-strong);
 }
 
 .detail-copy-card h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 600;
+  max-width: 18ch;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 500;
   letter-spacing: -0.01em;
   margin: 0.4rem 0 1rem;
 }
 
 .detail-copy-card p {
+  max-width: 48rem;
   color: var(--muted);
   line-height: 1.8;
   margin: 0 0 0.75rem;
@@ -4167,11 +4217,12 @@ textarea {
 .sticky-card {
   position: sticky;
   top: 1.5rem;
+  top: 6rem;
   padding: 1.75rem;
-  border-radius: 10px;
-  border: 1px solid rgba(18, 53, 36, 0.08);
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-sm);
 }
 
 .sticky-card h2 {
@@ -4194,6 +4245,10 @@ textarea {
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
+}
+
+@media (max-width: 700px) {
+  .fact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .inquiry-context {
@@ -4716,8 +4771,7 @@ textarea {
   }
 
   .detail-spotlight {
-    padding: 1rem;
-    border-radius: 12px;
+    padding: 0;
   }
 
   .carousel-image-button { aspect-ratio: 4 / 3; }
@@ -4735,7 +4789,7 @@ textarea {
   }
 
   .detail-copy-card {
-    padding: 1.15rem;
+    padding: 2rem 0 0;
   }
 
   .contact-actions { flex-direction: column; align-items: stretch; }

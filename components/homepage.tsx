@@ -121,12 +121,9 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
           <h3>{copy.neighborhoods.title}</h3>
         </div>
         <div className="neighborhood-grid">
-          {copy.neighborhoods.cards.map((card, index) => {
-            const slug = regionSlugs[index];
-            if (!slug) {
-              return null;
-            }
+          {regionSlugs.map((slug) => {
             const region = regions[slug];
+            const content = region.localeContent[currentLocale];
 
             return (
               <Link className="neighborhood-card-link" href={`/regions/${slug}`} key={slug}>
@@ -134,9 +131,12 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
                   className="neighborhood-card"
                   style={{ "--neighborhood-image": `url("${region.imageUrl}")` } as CSSProperties}
                 >
-                  <p className="eyebrow">{card.area}</p>
-                  <h3>{card.title}</h3>
-                  <p>{card.summary}</p>
+                  <div className="neighborhood-card-content">
+                    <p className="eyebrow">{content.areaLabel}</p>
+                    <h3>{content.title}</h3>
+                    <p>{content.highlights[0]}</p>
+                    <span className="neighborhood-card-arrow" aria-hidden>↗</span>
+                  </div>
                 </article>
               </Link>
             );

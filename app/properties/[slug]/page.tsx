@@ -197,19 +197,19 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
           <aside className="detail-price-card">
             <SavePropertyButton locale={locale} showSavedLink slug={localizedProperty.slug} />
             {(localizedProperty.listingMode === "sale" || localizedProperty.listingMode === "both") ? (
-              <>
+              <div className="detail-price-block">
                 <span>{copy.detail.salePrice}</span>
                 <strong>{formatPrice(localizedProperty.priceEuro)}</strong>
-              </>
+              </div>
             ) : null}
             {(localizedProperty.listingMode === "rent" || localizedProperty.listingMode === "both") && localizedProperty.rentPriceEuro ? (
-              <>
+              <div className="detail-price-block">
                 <span>{copy.detail.rentPrice}</span>
                 <strong>
                   {formatOptionalPrice(localizedProperty.rentPriceEuro)}{" "}
                   {localizedProperty.rentPricePeriod ? getLocalizedRentPricePeriodLabel(locale, localizedProperty.rentPricePeriod) : ""}
                 </strong>
-              </>
+              </div>
             ) : null}
             <ContactActions
               callLabel={copy.buttons.callNow}
