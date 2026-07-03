@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 
-import { resolvePublicLocale } from "@/lib/public-copy";
+import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
 import { publicSiteUrl } from "@/lib/site-urls";
+import { MobileContactBar } from "@/components/mobile-contact-bar";
 
 import "./globals.css";
 
@@ -67,12 +68,16 @@ export default async function RootLayout({
 }>) {
   const cookieStore = await cookies();
   const locale = resolvePublicLocale(cookieStore.get("verdant-locale")?.value);
+  const copy = publicCopy[locale];
 
   return (
     // cormorant.variable puts --font-display on <html> for heading CSS rules
     // dmSans.className applies DM Sans directly — no variable indirection needed
     <html lang={locale} className={cormorant.variable}>
-      <body className={dmSans.className}>{children}</body>
+      <body className={dmSans.className}>
+        {children}
+        <MobileContactBar callLabel={copy.buttons.callNow} contactLabel={copy.nav.contact} whatsappLabel={copy.buttons.whatsapp} whatsappMessage={copy.contact.whatsappMessage} />
+      </body>
     </html>
   );
 }

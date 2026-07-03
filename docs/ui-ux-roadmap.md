@@ -46,9 +46,9 @@ Goal: create a second lead source by helping owners enquire about selling or ren
 
 Goal: make the highest-intent actions reachable without covering content.
 
-1. Add a bottom mobile bar with Call, WhatsApp, and Enquire actions.
-2. Hide it near the footer and while forms are focused.
-3. Respect safe-area insets and avoid blocking browser controls.
+1. [x] Add a bottom mobile bar with Call, WhatsApp, and Enquire actions.
+2. [x] Hide it near the footer and while forms are focused.
+3. [x] Respect safe-area insets and avoid blocking browser controls.
 4. Track calls and WhatsApp clicks.
 5. Test on narrow iPhone and Android viewports.
 
