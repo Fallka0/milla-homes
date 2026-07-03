@@ -168,7 +168,7 @@ export default async function RegionPage({ params }: RegionPageProps) {
         </div>
       </section>
 
-      <SiteFooter copy={copy} />
+      <SiteFooter copy={copy} locale={locale} />
     </main>
   );
 }

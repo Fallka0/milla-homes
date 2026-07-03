@@ -52,7 +52,7 @@ export default async function PropertiesPage() {
       </section>
 
       <PropertyFilters copy={copy} locale={locale} properties={properties} />
-      <SiteFooter copy={copy} />
+      <SiteFooter copy={copy} locale={locale} />
     </main>
   );
 }

@@ -161,6 +161,8 @@ export type PublicCopy = {
     title: string;
   };
   nav: {
+    about: string;
+    contact: string;
     home: string;
     properties: string;
     guide: string;
@@ -395,6 +397,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       title: "Different corners of the coast, each with its own mood.",
     },
     nav: {
+      about: "About",
+      contact: "Contact",
       home: "Home",
       properties: "Properties",
       guide: "Buying Guide",
@@ -634,6 +638,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       title: "Distintas partes de la costa, cada una con una forma de vivir diferente.",
     },
     nav: {
+      about: "Nosotros",
+      contact: "Contacto",
       home: "Inicio",
       properties: "Propiedades",
       guide: "Guía de compra",
@@ -873,6 +879,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       title: "У каждого участка побережья свой темп, настроение и тип покупателей.",
     },
     nav: {
+      about: "О нас",
+      contact: "Контакты",
       home: "Главная",
       properties: "Объекты",
       guide: "Гид покупателя",
@@ -1112,6 +1120,8 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       title: "Jeder Teil der Küste hat seine eigene Stimmung und spricht andere Käufer an.",
     },
     nav: {
+      about: "Über uns",
+      contact: "Kontakt",
       home: "Start",
       properties: "Immobilien",
       guide: "Kaufratgeber",

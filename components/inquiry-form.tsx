@@ -119,7 +119,7 @@ export function InquiryForm({ copy, locale, property }: InquiryFormProps) {
           <p>{property.location}</p>
         </div>
       ) : null}
-      <div className="inquiry-mode-toggle" role="tablist" aria-label={copy.inquiry.typeLabel}>
+      {property ? <div className="inquiry-mode-toggle" role="tablist" aria-label={copy.inquiry.typeLabel}>
         <button
           aria-pressed={inquiryMode === "general"}
           className={`inquiry-mode-button${inquiryMode === "general" ? " active" : ""}`}
@@ -136,7 +136,7 @@ export function InquiryForm({ copy, locale, property }: InquiryFormProps) {
         >
           {copy.inquiry.requestViewing}
         </button>
-      </div>
+      </div> : null}
       <div className="form-grid">
         <label>
           {copy.inquiry.fullName}

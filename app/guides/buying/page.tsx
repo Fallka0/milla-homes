@@ -271,7 +271,7 @@ export default async function BuyingGuidePage() {
         </section>
       </article>
 
-      <SiteFooter copy={copy} />
+      <SiteFooter copy={copy} locale={locale} />
     </main>
   );
 }

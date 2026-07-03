@@ -13,6 +13,8 @@ type PublicHeaderProps = {
   currentLocale: PublicLocale;
   languageLabel: string;
   nav: {
+    about: string;
+    contact: string;
     home: string;
     properties: string;
     guide: string;
@@ -59,6 +61,12 @@ export function PublicHeader({
           </Link>
           <Link href="/guides/buying" onClick={() => setIsMenuOpen(false)}>
             {nav.guide}
+          </Link>
+          <Link href="/about" onClick={() => setIsMenuOpen(false)}>
+            {nav.about}
+          </Link>
+          <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
+            {nav.contact}
           </Link>
           {adminLabel ? (
             <Link href={getAdminSiteUrl("/admin")} onClick={() => setIsMenuOpen(false)}>

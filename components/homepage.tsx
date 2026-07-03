@@ -248,7 +248,7 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         </div>
       </section>
 
-      <SiteFooter copy={copy} />
+      <SiteFooter copy={copy} locale={currentLocale} />
     </main>
   );
 }

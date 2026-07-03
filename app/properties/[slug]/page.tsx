@@ -316,7 +316,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
         </aside>
       </section>
 
-      <SiteFooter copy={copy} />
+      <SiteFooter copy={copy} locale={locale} />
     </main>
   );
 }
