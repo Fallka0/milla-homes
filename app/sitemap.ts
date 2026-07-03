@@ -38,6 +38,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
       url: getPublicSiteUrl("/contact"),
     },
+    {
+      changeFrequency: "monthly",
+      lastModified: now,
+      priority: 0.8,
+      url: getPublicSiteUrl("/sell-or-rent"),
+    },
   ];
   const regionRoutes: MetadataRoute.Sitemap = regionSlugs.map((slug) => ({
     changeFrequency: "monthly",

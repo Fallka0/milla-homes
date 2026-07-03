@@ -41,6 +41,7 @@ export function SiteFooter({ copy, locale }: SiteFooterProps) {
         <nav className="site-footer-column" aria-label={content.explore}>
           <h2>{content.explore}</h2>
           <Link href="/properties">{copy.footer.browseLabel}</Link>
+          <Link href="/sell-or-rent">{copy.nav.owner}</Link>
           <Link href="/guides/buying">{content.guide}</Link>
         </nav>
 

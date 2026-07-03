@@ -163,6 +163,7 @@ export type PublicCopy = {
   nav: {
     about: string;
     contact: string;
+    owner: string;
     home: string;
     properties: string;
     guide: string;
@@ -399,6 +400,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
     nav: {
       about: "About",
       contact: "Contact",
+      owner: "Sell or Rent",
       home: "Home",
       properties: "Properties",
       guide: "Buying Guide",
@@ -640,6 +642,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
     nav: {
       about: "Nosotros",
       contact: "Contacto",
+      owner: "Vender o alquilar",
       home: "Inicio",
       properties: "Propiedades",
       guide: "Guía de compra",
@@ -881,6 +884,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
     nav: {
       about: "О нас",
       contact: "Контакты",
+      owner: "Продать или сдать",
       home: "Главная",
       properties: "Объекты",
       guide: "Гид покупателя",
@@ -1122,6 +1126,7 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
     nav: {
       about: "Über uns",
       contact: "Kontakt",
+      owner: "Verkaufen oder vermieten",
       home: "Start",
       properties: "Immobilien",
       guide: "Kaufratgeber",

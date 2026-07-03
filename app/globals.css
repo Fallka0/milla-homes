@@ -1671,6 +1671,217 @@ textarea {
 
 /* Company and contact pages */
 
+.owner-page {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4.5rem, 9vw, 8rem);
+}
+
+.owner-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr);
+  gap: clamp(2rem, 7vw, 7rem);
+  align-items: end;
+  padding: clamp(3rem, 7vw, 6.5rem) 0 clamp(3rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.owner-hero h1 {
+  max-width: 12ch;
+  margin: 0.75rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+}
+
+.owner-hero > div:first-child > p:last-child {
+  max-width: 48rem;
+  margin: 1.75rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  line-height: 1.7;
+}
+
+.owner-intent-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-strong);
+}
+
+.owner-intent-list span {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-strong);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.owner-options,
+.owner-process,
+.owner-form-section {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.55fr) minmax(0, 1.45fr);
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: start;
+}
+
+.owner-section-heading h2,
+.owner-form-copy h2 {
+  margin: 0.55rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.owner-option-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.owner-option-grid article {
+  min-height: 20rem;
+  padding: 1.75rem;
+  border-right: 1px solid var(--border-strong);
+}
+
+.owner-option-grid article:last-child { border-right: 0; }
+.owner-option-grid article > span,
+.owner-process li > span { color: var(--gold); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; }
+
+.owner-option-grid h3,
+.owner-process h3 {
+  margin: 3.5rem 0 0.65rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.owner-option-grid p,
+.owner-process p,
+.owner-form-copy > p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.owner-process ol {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border-strong);
+  list-style: none;
+}
+
+.owner-process li {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem 0 2rem;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.owner-process h3 { margin-top: 0; }
+
+.owner-form-section {
+  padding: clamp(2rem, 5vw, 4rem);
+  border-radius: var(--radius-lg);
+  background: var(--surface-deep);
+  color: var(--surface-strong);
+}
+
+.owner-form-copy { position: sticky; top: 6rem; }
+.owner-form-copy > p:not(.eyebrow) { margin-top: 1rem; color: rgba(252, 248, 240, 0.7); }
+
+.owner-form-copy > a {
+  display: inline-block;
+  margin-top: 2rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--gold);
+  color: var(--surface-strong);
+  line-height: 1.55;
+}
+
+.owner-lead-form {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+  color: var(--text);
+}
+
+.owner-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.owner-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.owner-form-grid .full-width { grid-column: 1 / -1; }
+
+.owner-form-grid input,
+.owner-form-grid select,
+.owner-form-grid textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--text);
+  outline: none;
+}
+
+.owner-form-grid textarea { min-height: 8rem; resize: vertical; }
+
+.owner-form-grid input:focus,
+.owner-form-grid select:focus,
+.owner-form-grid textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-soft);
+}
+
+.owner-lead-form .submit-button { margin-top: 1.25rem; }
+
+@media (max-width: 1100px) {
+  .primary-nav { gap: 1rem; font-size: 0.84rem; }
+}
+
+@media (max-width: 900px) {
+  .owner-hero,
+  .owner-options,
+  .owner-process,
+  .owner-form-section { grid-template-columns: 1fr; }
+  .owner-form-copy { position: static; }
+}
+
+@media (max-width: 640px) {
+  .owner-page { gap: 4rem; }
+  .owner-hero { padding-top: 2rem; }
+  .owner-hero h1 { font-size: clamp(3rem, 15vw, 4.5rem); }
+  .owner-option-grid,
+  .owner-form-grid { grid-template-columns: 1fr; }
+  .owner-option-grid article { min-height: 0; border-right: 0; border-bottom: 1px solid var(--border-strong); }
+  .owner-option-grid article:last-child { border-bottom: 0; }
+  .owner-option-grid h3 { margin-top: 2.25rem; }
+  .owner-form-grid .full-width { grid-column: auto; }
+  .owner-form-section { margin-inline: -0.25rem; padding: 1.25rem; }
+}
+
 .company-page,
 .contact-page {
   display: flex;
