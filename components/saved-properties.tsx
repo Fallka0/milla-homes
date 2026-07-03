@@ -10,16 +10,22 @@ import type { PublicCopy, PublicLocale } from "@/lib/public-copy";
 
 type SavedPropertiesProps = {
   copy: PublicCopy;
+  copiedLabel: string;
   emptyText: string;
   emptyTitle: string;
   locale: PublicLocale;
   properties: PropertyRecord[];
+  shareLabel: string;
+  sharedSlugs: string[];
 };
 
-export function SavedProperties({ copy, emptyText, emptyTitle, locale, properties }: SavedPropertiesProps) {
-  const [savedSlugs, setSavedSlugs] = useState<string[] | null>(null);
+export function SavedProperties({ copiedLabel, copy, emptyText, emptyTitle, locale, properties, shareLabel, sharedSlugs }: SavedPropertiesProps) {
+  const isSharedView = sharedSlugs.length > 0;
+  const [savedSlugs, setSavedSlugs] = useState<string[] | null>(isSharedView ? sharedSlugs : null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    if (isSharedView) return;
     const update = () => setSavedSlugs(readSavedPropertySlugs());
     update();
     window.addEventListener(savedPropertiesChangedEvent, update);
@@ -28,7 +34,19 @@ export function SavedProperties({ copy, emptyText, emptyTitle, locale, propertie
       window.removeEventListener(savedPropertiesChangedEvent, update);
       window.removeEventListener("storage", update);
     };
-  }, []);
+  }, [isSharedView]);
+
+  async function shareShortlist() {
+    if (!savedSlugs?.length) return;
+    const url = new URL("/saved", window.location.origin);
+    url.searchParams.set("properties", savedSlugs.slice(0, 20).join(","));
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  }
 
   if (savedSlugs === null) return <div className="saved-properties-loading" aria-busy="true" />;
   const savedProperties = properties.filter((property) => savedSlugs.includes(property.slug));
@@ -38,8 +56,11 @@ export function SavedProperties({ copy, emptyText, emptyTitle, locale, propertie
   }
 
   return (
-    <section className="property-grid saved-property-grid">
-      {savedProperties.map((property) => <PropertyCard bathroomsLabel={copy.propertyMeta.bathroomsShort} bedroomsLabel={copy.propertyMeta.bedroomsShort} buttonLabel={copy.buttons.viewDetails} key={property.id} locale={locale} property={property} />)}
-    </section>
+    <>
+      {!isSharedView ? <div className="saved-page-actions"><button className="button button-secondary" onClick={shareShortlist} type="button">{copied ? copiedLabel : shareLabel}</button></div> : null}
+      <section className="property-grid saved-property-grid">
+        {savedProperties.map((property) => <PropertyCard bathroomsLabel={copy.propertyMeta.bathroomsShort} bedroomsLabel={copy.propertyMeta.bedroomsShort} buttonLabel={copy.buttons.viewDetails} key={property.id} locale={locale} property={property} />)}
+      </section>
+    </>
   );
 }

@@ -4883,6 +4883,7 @@ textarea {
 .saved-empty p { max-width: 34rem; margin-inline: auto; }
 .saved-empty .button { margin-top: 1.5rem; }
 .saved-properties-loading { min-height: 20rem; }
+.saved-page-actions { display: flex; justify-content: flex-end; margin-bottom: 1.25rem; }
 
 .mobile-contact-bar { display: none; }
 
