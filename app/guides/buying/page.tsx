@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
+import { ContactActions } from "@/components/contact-actions";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
@@ -12,80 +13,177 @@ import { getPublicSiteUrl } from "@/lib/site-urls";
 export const dynamic = "force-dynamic";
 
 type GuideContent = {
+  eyebrow: string;
   title: string;
   intro: string;
+  overviewLabel: string;
+  overview: Array<{ value: string; label: string }>;
+  processEyebrow: string;
+  processTitle: string;
   steps: Array<{ title: string; body: string }>;
-  costs: { title: string; intro: string; items: string[] };
+  costs: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    resaleTitle: string;
+    resaleBody: string;
+    newBuildTitle: string;
+    newBuildBody: string;
+    otherTitle: string;
+    otherItems: string[];
+    note: string;
+  };
+  faqEyebrow: string;
+  faqTitle: string;
   faq: Array<{ q: string; a: string }>;
+  ctaEyebrow: string;
+  ctaTitle: string;
+  ctaText: string;
 };
 
-const guideContent: Partial<Record<PublicLocale, GuideContent>> & { en: GuideContent } = {
+const guideContent: Record<PublicLocale, GuideContent> = {
   en: {
-    title: "Buying property in Spain — a simple guide",
-    intro:
-      "Buying on the Costa Blanca is straightforward once you know the steps. Here is the process we guide our clients through, from first viewing to picking up the keys.",
+    eyebrow: "A clear route to the keys",
+    title: "Buying property in Spain",
+    intro: "A calm, practical overview of buying on the Costa Blanca—from preparing your paperwork to signing at the notary. Every purchase is different, but the route is usually reassuringly familiar.",
+    overviewLabel: "At a glance",
+    overview: [
+      { value: "6", label: "Typical stages" },
+      { value: "4–8 weeks", label: "Common resale timeline" },
+      { value: "Independent", label: "Legal advice recommended" },
+    ],
+    processEyebrow: "The process",
+    processTitle: "From first decision to front door",
     steps: [
-      { title: "1. Get your NIE", body: "The NIE is your Spanish foreigner's tax number, required for any purchase. We can point you to the fastest way to obtain it, in person or through a lawyer with power of attorney." },
-      { title: "2. Open a Spanish bank account", body: "You'll need a local account to pay utilities, taxes and the property itself. It's a quick process with your passport and NIE." },
-      { title: "3. Appoint an independent lawyer", body: "An independent Spanish lawyer checks the property is debt-free, correctly registered and legally sound, and handles due diligence on your behalf." },
-      { title: "4. Reserve the property", body: "A reservation contract and small deposit (typically €3,000–€6,000) takes the property off the market while checks are completed." },
-      { title: "5. Sign the private purchase contract", body: "Usually within 2–4 weeks you sign the private contract and pay around 10% of the price. Completion date and terms are agreed here." },
-      { title: "6. Complete at the notary", body: "On completion you sign the title deed (escritura) before a notary, pay the balance, and receive the keys. The deed is then registered in your name." },
+      { title: "Prepare your essentials", body: "You will need an NIE (the Spanish foreigner identification number) and, in practice, a Spanish bank account for purchase costs, taxes and household payments." },
+      { title: "Set the brief and budget", body: "Decide where, what and how you want to buy. If you need finance, obtain an early mortgage assessment and include taxes and professional fees in your budget." },
+      { title: "Choose independent advice", body: "Appoint an independent Spanish lawyer to review ownership, debts, planning status, contracts and the property registry before you become fully committed." },
+      { title: "Reserve the property", body: "A reservation agreement and deposit can take the home off the market while legal checks continue. Confirm the refund conditions in writing before paying." },
+      { title: "Agree the purchase contract", body: "The private contract records the price, completion date, fixtures and conditions. A further deposit is commonly paid at this point, so legal review matters." },
+      { title: "Complete at the notary", body: "The deed is signed, the balance is paid and the keys are handed over. Your lawyer can then arrange tax filings and registration of the new ownership." },
     ],
     costs: {
-      title: "Costs to budget for",
-      intro: "On top of the purchase price, allow roughly 11–13% for taxes and fees:",
-      items: [
-        "Transfer tax (ITP) on resale homes — 10% in the Valencia region",
-        "VAT (IVA) 10% + stamp duty on new-build homes",
-        "Notary and land registry fees",
-        "Independent lawyer's fee (typically ~1% + VAT)",
-        "Optional mortgage set-up costs if financing",
-      ],
+      eyebrow: "Planning the budget",
+      title: "Purchase costs depend on the property",
+      intro: "Resale and new-build homes are taxed differently. Ask your lawyer for a written, property-specific estimate before reserving.",
+      resaleTitle: "Resale home",
+      resaleBody: "The buyer pays regional transfer tax (ITP). The rate depends on the autonomous community and may vary with the buyer or property, so it should be confirmed for the specific transaction.",
+      newBuildTitle: "New-build home",
+      newBuildBody: "A first delivery from a developer generally carries 10% VAT (IVA), plus regional stamp duty (AJD). Reduced or special rates can apply in limited cases.",
+      otherTitle: "Also allow for",
+      otherItems: ["Notary and Land Registry fees", "Independent legal advice", "Mortgage valuation and any agreed lender fees", "Translations, powers of attorney or administrative support where needed"],
+      note: "General information only, reviewed July 2026. Tax rates, eligibility and purchase costs can change. Confirm the figures with an independent lawyer or tax adviser before committing funds.",
     },
+    faqEyebrow: "Good to know",
+    faqTitle: "Common questions",
     faq: [
-      { q: "Can non-residents buy property in Spain?", a: "Yes. There are no restrictions on non-residents (including non-EU buyers) purchasing property in Spain. You'll need an NIE number to complete." },
-      { q: "How long does the process take?", a: "From reservation to completion it's usually 4–8 weeks for a resale property, depending on checks and whether a mortgage is involved." },
-      { q: "Do I need to be in Spain to buy?", a: "Not necessarily. Much of the process can be handled by an independent lawyer acting under power of attorney if you can't be present." },
-      { q: "What extra costs should I expect?", a: "Budget around 11–13% of the purchase price for taxes, notary, registry and legal fees." },
+      { q: "Can non-residents buy property in Spain?", a: "Yes. Spain generally allows non-residents, including non-EU nationals, to buy property. You will need an NIE to complete the purchase." },
+      { q: "How long does the process take?", a: "A straightforward resale purchase often completes in around four to eight weeks, but finance, legal findings and the parties’ preferred dates can change the timetable." },
+      { q: "Do I need to be in Spain to buy?", a: "Not always. An independent lawyer may be able to complete many steps under a notarised power of attorney. Ask them what can be handled remotely in your case." },
+      { q: "Should I use the seller’s lawyer?", a: "Independent representation is strongly recommended. Your lawyer should act for you alone and carry out the legal checks before you sign or transfer substantial funds." },
+      { q: "Is a reservation deposit refundable?", a: "That depends on the agreement. Make sure the amount, deadline and refund conditions—especially if finance or legal checks fail—are clear in writing before paying." },
     ],
+    ctaEyebrow: "Start with the right home",
+    ctaTitle: "Ready to explore the Costa Blanca?",
+    ctaText: "Browse current homes or tell us what you are looking for. We will help you narrow the search, without the hard sell.",
   },
   es: {
-    title: "Comprar una vivienda en España — guía sencilla",
-    intro:
-      "Comprar en la Costa Blanca es sencillo cuando conoces los pasos. Este es el proceso que acompañamos con nuestros clientes, desde la primera visita hasta la entrega de llaves.",
+    eyebrow: "Un camino claro hasta las llaves",
+    title: "Comprar una vivienda en España",
+    intro: "Una guía práctica y tranquila para comprar en la Costa Blanca: desde preparar la documentación hasta firmar ante notario. Cada compra es distinta, pero el recorrido suele seguir unos pasos claros.",
+    overviewLabel: "En resumen",
+    overview: [{ value: "6", label: "Etapas habituales" }, { value: "4–8 semanas", label: "Plazo común en segunda mano" }, { value: "Independiente", label: "Asesoramiento legal recomendado" }],
+    processEyebrow: "El proceso",
+    processTitle: "De la primera decisión a la puerta de casa",
     steps: [
-      { title: "1. Obtén tu NIE", body: "El NIE es tu número de identificación de extranjero, imprescindible para comprar. Te indicamos la vía más rápida para conseguirlo, en persona o mediante un abogado con poder notarial." },
-      { title: "2. Abre una cuenta bancaria española", body: "Necesitarás una cuenta local para pagar suministros, impuestos y la propia vivienda. Es un trámite rápido con pasaporte y NIE." },
-      { title: "3. Contrata un abogado independiente", body: "Un abogado independiente comprueba que la vivienda está libre de cargas, correctamente registrada y en orden legal, gestionando toda la diligencia por ti." },
-      { title: "4. Reserva la vivienda", body: "Un contrato de reserva y una pequeña señal (normalmente 3.000–6.000 €) retiran la vivienda del mercado mientras se completan las comprobaciones." },
-      { title: "5. Firma el contrato de arras", body: "Normalmente en 2–4 semanas se firma el contrato privado y se paga en torno al 10% del precio, fijando fecha y condiciones." },
-      { title: "6. Firma ante notario", body: "En la firma otorgas la escritura ante notario, pagas el resto y recibes las llaves. Después se inscribe a tu nombre en el registro." },
+      { title: "Prepara lo esencial", body: "Necesitarás un NIE y, en la práctica, una cuenta bancaria española para los gastos de compra, impuestos y pagos de la vivienda." },
+      { title: "Define búsqueda y presupuesto", body: "Decide zona, tipo de vivienda y forma de pago. Si necesitas financiación, solicita una evaluación hipotecaria temprana e incluye impuestos y honorarios." },
+      { title: "Elige asesoramiento independiente", body: "Contrata a un abogado español independiente para revisar titularidad, cargas, situación urbanística, contratos y registro antes de comprometerte." },
+      { title: "Reserva la vivienda", body: "Un acuerdo de reserva y una señal pueden retirar la vivienda del mercado mientras continúan las comprobaciones. Confirma por escrito cuándo se devuelve la señal." },
+      { title: "Acuerda el contrato privado", body: "El contrato fija precio, fecha, mobiliario y condiciones. Suele abonarse otra cantidad en este momento, por lo que la revisión legal es importante." },
+      { title: "Firma ante notario", body: "Se firma la escritura, se paga el saldo y se entregan las llaves. Después, tu abogado puede gestionar impuestos e inscripción de la propiedad." },
     ],
     costs: {
-      title: "Costes a prever",
-      intro: "Además del precio de compra, calcula aproximadamente un 11–13% en impuestos y gastos:",
-      items: [
-        "Impuesto de transmisiones (ITP) en segunda mano — 10% en la Comunidad Valenciana",
-        "IVA 10% + AJD en obra nueva",
-        "Gastos de notaría y registro de la propiedad",
-        "Honorarios del abogado independiente (normalmente ~1% + IVA)",
-        "Gastos de constitución de hipoteca si financias",
-      ],
+      eyebrow: "Planifica el presupuesto", title: "Los gastos dependen de la vivienda", intro: "La segunda mano y la obra nueva tributan de forma distinta. Pide a tu abogado un cálculo escrito para la operación concreta antes de reservar.",
+      resaleTitle: "Vivienda de segunda mano", resaleBody: "El comprador paga el impuesto autonómico de transmisiones patrimoniales (ITP). El tipo depende de la comunidad autónoma y puede variar según comprador o inmueble.",
+      newBuildTitle: "Vivienda de obra nueva", newBuildBody: "La primera entrega por un promotor suele llevar un 10% de IVA, además del impuesto autonómico de actos jurídicos documentados (AJD). Puede haber tipos especiales en casos limitados.",
+      otherTitle: "Ten en cuenta también", otherItems: ["Notaría y Registro de la Propiedad", "Asesoramiento jurídico independiente", "Tasación hipotecaria y comisiones pactadas con el banco", "Traducciones, poderes notariales o gestiones cuando sean necesarios"],
+      note: "Información general revisada en julio de 2026. Los impuestos, requisitos y gastos pueden cambiar. Confirma las cifras con un abogado o asesor fiscal independiente antes de comprometer fondos.",
     },
+    faqEyebrow: "Conviene saber", faqTitle: "Preguntas frecuentes",
     faq: [
-      { q: "¿Pueden comprar los no residentes en España?", a: "Sí. No hay restricciones para no residentes (incluidos compradores de fuera de la UE). Solo necesitas el NIE para firmar." },
-      { q: "¿Cuánto tarda el proceso?", a: "De la reserva a la firma suelen ser 4–8 semanas en segunda mano, según las comprobaciones y si hay hipoteca." },
-      { q: "¿Debo estar en España para comprar?", a: "No necesariamente. Gran parte del proceso puede gestionarlo un abogado con poder notarial si no puedes estar presente." },
-      { q: "¿Qué gastos adicionales debo prever?", a: "Calcula alrededor del 11–13% del precio para impuestos, notaría, registro y honorarios legales." },
+      { q: "¿Pueden comprar los no residentes?", a: "Sí. En general, España permite comprar a no residentes, también de fuera de la UE. Necesitarás un NIE para completar la operación." },
+      { q: "¿Cuánto tarda el proceso?", a: "Una compraventa sencilla de segunda mano suele completarse en unas cuatro a ocho semanas, aunque la financiación, las comprobaciones y las fechas acordadas pueden modificar el plazo." },
+      { q: "¿Tengo que estar en España?", a: "No siempre. Un abogado independiente puede gestionar muchos trámites mediante poder notarial. Consulta qué puede hacerse a distancia en tu caso." },
+      { q: "¿Debo usar el abogado del vendedor?", a: "Se recomienda representación independiente. Tu abogado debe defender únicamente tus intereses y revisar la operación antes de firmar o transferir cantidades importantes." },
+      { q: "¿Se devuelve la señal de reserva?", a: "Depende del acuerdo. Antes de pagar, deja claros por escrito el importe, el plazo y las condiciones de devolución, especialmente si falla la financiación o la revisión legal." },
     ],
+    ctaEyebrow: "Empieza por la vivienda adecuada", ctaTitle: "¿Exploramos la Costa Blanca?", ctaText: "Consulta las viviendas disponibles o cuéntanos qué buscas. Te ayudaremos a centrar la búsqueda, sin presiones.",
+  },
+  de: {
+    eyebrow: "Ein klarer Weg bis zur Schlüsselübergabe", title: "Eine Immobilie in Spanien kaufen", intro: "Ein ruhiger, praktischer Überblick über den Immobilienkauf an der Costa Blanca – von den ersten Unterlagen bis zum Notartermin. Jeder Kauf ist anders, der Ablauf folgt jedoch meist vertrauten Schritten.",
+    overviewLabel: "Auf einen Blick", overview: [{ value: "6", label: "Typische Schritte" }, { value: "4–8 Wochen", label: "Häufiger Zeitraum bei Bestandsimmobilien" }, { value: "Unabhängig", label: "Rechtsberatung empfohlen" }],
+    processEyebrow: "Der Ablauf", processTitle: "Von der Entscheidung bis zur Haustür",
+    steps: [
+      { title: "Grundlagen vorbereiten", body: "Sie benötigen eine NIE (spanische Ausländer-Identifikationsnummer) und in der Praxis ein spanisches Bankkonto für Kaufnebenkosten, Steuern und laufende Zahlungen." },
+      { title: "Suche und Budget festlegen", body: "Bestimmen Sie Lage, Immobilientyp und Finanzierung. Bei Finanzierungsbedarf empfiehlt sich eine frühe Kreditprüfung; Steuern und Honorare gehören ins Gesamtbudget." },
+      { title: "Unabhängige Beratung wählen", body: "Beauftragen Sie einen unabhängigen spanischen Anwalt, der Eigentum, Belastungen, Baurecht, Verträge und Grundbuch prüft, bevor Sie sich vollständig binden." },
+      { title: "Immobilie reservieren", body: "Eine Reservierungsvereinbarung mit Anzahlung kann die Immobilie vom Markt nehmen. Lassen Sie vor der Zahlung die Bedingungen einer Rückerstattung schriftlich festhalten." },
+      { title: "Privatvertrag vereinbaren", body: "Der Vertrag regelt Preis, Übergabetermin, Inventar und Bedingungen. Häufig wird jetzt eine weitere Anzahlung fällig, deshalb ist die rechtliche Prüfung wichtig." },
+      { title: "Beim Notar abschließen", body: "Die Urkunde wird unterzeichnet, der Restbetrag bezahlt und die Schlüssel werden übergeben. Anschließend können Steuererklärung und Eigentumsumschreibung erfolgen." },
+    ],
+    costs: {
+      eyebrow: "Das Budget planen", title: "Die Kaufkosten hängen von der Immobilie ab", intro: "Bestands- und Neubauimmobilien werden unterschiedlich besteuert. Lassen Sie sich vor der Reservierung eine schriftliche, objektspezifische Kostenaufstellung geben.",
+      resaleTitle: "Bestandsimmobilie", resaleBody: "Der Käufer zahlt die regionale Grunderwerbsteuer (ITP). Der Satz richtet sich nach der autonomen Region und kann je nach Käufer oder Immobilie variieren.",
+      newBuildTitle: "Neubau", newBuildBody: "Der Ersterwerb vom Bauträger unterliegt in der Regel 10 % Mehrwertsteuer (IVA) sowie der regionalen Stempelsteuer (AJD). In begrenzten Fällen können Sonder- oder ermäßigte Sätze gelten.",
+      otherTitle: "Zusätzlich einplanen", otherItems: ["Notar- und Grundbuchkosten", "Unabhängige Rechtsberatung", "Immobilienbewertung für die Hypothek und vereinbarte Bankgebühren", "Übersetzungen, Vollmachten oder Verwaltungshilfe bei Bedarf"],
+      note: "Nur allgemeine Informationen, geprüft im Juli 2026. Steuern, Voraussetzungen und Kosten können sich ändern. Bestätigen Sie die Zahlen vor einer Zahlung mit einem unabhängigen Anwalt oder Steuerberater.",
+    },
+    faqEyebrow: "Gut zu wissen", faqTitle: "Häufige Fragen",
+    faq: [
+      { q: "Können Nichtresidenten in Spanien kaufen?", a: "Ja. Spanien erlaubt grundsätzlich auch Nichtresidenten und Nicht-EU-Bürgern den Immobilienkauf. Für den Abschluss benötigen Sie eine NIE." },
+      { q: "Wie lange dauert der Kauf?", a: "Ein unkomplizierter Kauf einer Bestandsimmobilie dauert häufig vier bis acht Wochen. Finanzierung, Prüfergebnisse und vereinbarte Termine können den Zeitplan verändern." },
+      { q: "Muss ich in Spanien sein?", a: "Nicht immer. Ein unabhängiger Anwalt kann viele Schritte mit notarieller Vollmacht übernehmen. Klären Sie, was in Ihrem Fall aus der Ferne möglich ist." },
+      { q: "Sollte ich den Anwalt des Verkäufers nutzen?", a: "Eine unabhängige Vertretung wird dringend empfohlen. Ihr Anwalt sollte ausschließlich Ihre Interessen vertreten und vor Unterschrift oder größeren Zahlungen prüfen." },
+      { q: "Ist die Reservierungszahlung erstattbar?", a: "Das richtet sich nach der Vereinbarung. Betrag, Frist und Rückzahlungsbedingungen sollten vor Zahlung schriftlich feststehen – besonders bei Finanzierungsvorbehalt oder negativen Prüfergebnissen." },
+    ],
+    ctaEyebrow: "Mit dem passenden Zuhause beginnen", ctaTitle: "Bereit für die Costa Blanca?", ctaText: "Sehen Sie sich aktuelle Immobilien an oder erzählen Sie uns, wonach Sie suchen. Wir helfen Ihnen, die Auswahl ohne Verkaufsdruck einzugrenzen.",
+  },
+  ru: {
+    eyebrow: "Понятный путь до получения ключей", title: "Покупка недвижимости в Испании", intro: "Спокойный и практичный обзор покупки жилья на Коста-Бланке — от подготовки документов до подписания у нотариуса. Каждая сделка индивидуальна, но основные этапы обычно схожи.",
+    overviewLabel: "Кратко", overview: [{ value: "6", label: "Основных этапов" }, { value: "4–8 недель", label: "Обычный срок для вторичного жилья" }, { value: "Независимая", label: "Юридическая консультация рекомендована" }],
+    processEyebrow: "Процесс", processTitle: "От первого решения до входной двери",
+    steps: [
+      { title: "Подготовьте необходимое", body: "Вам понадобится NIE — идентификационный номер иностранца — и, как правило, счёт в испанском банке для оплаты расходов, налогов и коммунальных услуг." },
+      { title: "Определите запрос и бюджет", body: "Выберите район, тип недвижимости и способ оплаты. Если нужна ипотека, заранее получите оценку банка и включите налоги и профессиональные услуги в бюджет." },
+      { title: "Выберите независимого юриста", body: "Независимый испанский адвокат должен проверить право собственности, долги, градостроительный статус, договоры и данные реестра до принятия обязательств." },
+      { title: "Зарезервируйте объект", body: "Договор резервирования и задаток могут снять объект с продажи на время проверок. До оплаты письменно зафиксируйте условия возврата средств." },
+      { title: "Согласуйте частный договор", body: "Договор определяет цену, дату завершения, комплектацию и условия сделки. На этом этапе часто вносится следующий платёж, поэтому юридическая проверка особенно важна." },
+      { title: "Завершите сделку у нотариуса", body: "Стороны подписывают купчую, покупатель оплачивает остаток и получает ключи. Затем юрист может оформить налоги и регистрацию нового владельца." },
+    ],
+    costs: {
+      eyebrow: "Планирование бюджета", title: "Расходы зависят от типа недвижимости", intro: "Вторичное и новое жильё облагаются налогами по-разному. До резервирования попросите юриста подготовить письменный расчёт по конкретному объекту.",
+      resaleTitle: "Вторичное жильё", resaleBody: "Покупатель платит региональный налог на передачу собственности (ITP). Ставка зависит от автономного сообщества и может различаться в зависимости от покупателя или объекта.",
+      newBuildTitle: "Новостройка", newBuildBody: "Первая продажа застройщиком, как правило, облагается НДС (IVA) 10% и региональным гербовым сбором (AJD). В отдельных случаях возможны специальные или льготные ставки.",
+      otherTitle: "Также предусмотрите", otherItems: ["Услуги нотариуса и Реестра собственности", "Независимую юридическую консультацию", "Оценку для ипотеки и согласованные комиссии банка", "Переводы, доверенности и административную помощь при необходимости"],
+      note: "Только общая информация, проверено в июле 2026 года. Налоги, условия и расходы могут меняться. До внесения средств подтвердите расчёты у независимого юриста или налогового консультанта.",
+    },
+    faqEyebrow: "Полезно знать", faqTitle: "Частые вопросы",
+    faq: [
+      { q: "Могут ли нерезиденты покупать недвижимость?", a: "Да. Испания в целом разрешает покупку нерезидентам, включая граждан стран вне ЕС. Для завершения сделки понадобится NIE." },
+      { q: "Сколько времени занимает покупка?", a: "Несложная сделка со вторичным жильём часто занимает четыре–восемь недель. Ипотека, результаты проверок и согласованные даты могут изменить срок." },
+      { q: "Нужно ли находиться в Испании?", a: "Не всегда. Независимый юрист может выполнить многие действия по нотариальной доверенности. Уточните, что можно сделать дистанционно именно в вашем случае." },
+      { q: "Можно ли воспользоваться юристом продавца?", a: "Настоятельно рекомендуется независимое представительство. Ваш юрист должен защищать только ваши интересы и проверить сделку до подписания или перевода значительных сумм." },
+      { q: "Возвращается ли резервный депозит?", a: "Это зависит от договора. До оплаты письменно зафиксируйте сумму, срок и условия возврата, особенно на случай отказа в финансировании или проблем при проверке." },
+    ],
+    ctaEyebrow: "Начните с подходящего дома", ctaTitle: "Готовы изучить Коста-Бланку?", ctaText: "Посмотрите актуальные объекты или расскажите, что вы ищете. Мы поможем сузить выбор — без навязчивых продаж.",
   },
 };
 
 export async function generateMetadata(): Promise<Metadata> {
   const cookieStore = await cookies();
   const locale = resolvePublicLocale(cookieStore.get("verdant-locale")?.value);
-  const content = guideContent[locale] ?? guideContent.en;
+  const content = guideContent[locale];
 
   return {
     title: content.title,
@@ -101,7 +199,7 @@ export default async function BuyingGuidePage() {
   const copy = publicCopy[locale];
   const adminLocale = resolveAdminLocale(locale);
   const authState = await getAdminAuthState();
-  const content = guideContent[locale] ?? guideContent.en;
+  const content = guideContent[locale];
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -118,56 +216,60 @@ export default async function BuyingGuidePage() {
     <main className="site-shell section-stack" data-locale={locale} lang={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
-      <PublicHeader
-        adminLabel={authState.status === "authorized" ? adminCopy[adminLocale].layout.adminLabel : undefined}
-        compact
-        currentLocale={locale}
-        languageLabel={copy.languageLabel}
-        nav={copy.nav}
-      />
+      <PublicHeader adminLabel={authState.status === "authorized" ? adminCopy[adminLocale].layout.adminLabel : undefined} compact currentLocale={locale} languageLabel={copy.languageLabel} nav={copy.nav} />
 
-      <section className="properties-intro-minimal">
-        <h1>{content.title}</h1>
-      </section>
+      <article className="buying-guide">
+        <header className="guide-hero">
+          <div className="guide-hero-copy">
+            <p className="eyebrow">{content.eyebrow}</p>
+            <h1>{content.title}</h1>
+            <p className="guide-lead">{content.intro}</p>
+            <div className="guide-hero-actions">
+              <Link className="button button-primary" href="/properties">{copy.buttons.browseProperties}</Link>
+              <ContactActions callLabel={copy.buttons.callNow} className="contact-actions" whatsappLabel={copy.buttons.whatsapp} whatsappMessage={copy.contact.whatsappMessage} />
+            </div>
+          </div>
 
-      <section className="guide-steps">
-        {content.steps.map((step) => (
-          <article className="guide-step" key={step.title}>
-            <h2>{step.title}</h2>
-            <p>{step.body}</p>
-          </article>
-        ))}
-      </section>
+          <aside className="guide-overview" aria-label={content.overviewLabel}>
+            <p className="guide-overview-label">{content.overviewLabel}</p>
+            {content.overview.map((item) => <div className="guide-overview-item" key={item.label}><strong>{item.value}</strong><span>{item.label}</span></div>)}
+          </aside>
+        </header>
 
-      <section className="guide-costs">
-        <h2>{content.costs.title}</h2>
-        <p>{content.costs.intro}</p>
-        <ul>
-          {content.costs.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
+        <section className="guide-section" aria-labelledby="guide-process-title">
+          <div className="guide-section-heading">
+            <p className="eyebrow">{content.processEyebrow}</p>
+            <h2 id="guide-process-title">{content.processTitle}</h2>
+          </div>
+          <ol className="guide-timeline">
+            {content.steps.map((step, index) => <li className="guide-step" key={step.title}><span className="guide-step-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div><h3>{step.title}</h3><p>{step.body}</p></div></li>)}
+          </ol>
+        </section>
 
-      <section className="guide-faq">
-        <h2>FAQ</h2>
-        {content.faq.map((item) => (
-          <details className="guide-faq-item" key={item.q}>
-            <summary>{item.q}</summary>
-            <p>{item.a}</p>
-          </details>
-        ))}
-      </section>
+        <section className="guide-costs" aria-labelledby="guide-costs-title">
+          <div className="guide-costs-heading">
+            <p className="eyebrow">{content.costs.eyebrow}</p>
+            <h2 id="guide-costs-title">{content.costs.title}</h2>
+            <p>{content.costs.intro}</p>
+          </div>
+          <div className="guide-cost-grid">
+            <article><span className="guide-cost-marker">01</span><h3>{content.costs.resaleTitle}</h3><p>{content.costs.resaleBody}</p></article>
+            <article><span className="guide-cost-marker">02</span><h3>{content.costs.newBuildTitle}</h3><p>{content.costs.newBuildBody}</p></article>
+          </div>
+          <div className="guide-other-costs"><h3>{content.costs.otherTitle}</h3><ul>{content.costs.otherItems.map((item) => <li key={item}>{item}</li>)}</ul></div>
+          <p className="guide-legal-note">{content.costs.note}</p>
+        </section>
 
-      <section className="section-heading with-action guide-cta">
-        <div>
-          <p className="eyebrow">{copy.coverage.eyebrow}</p>
-          <h2>{copy.contact.panelTitle}</h2>
-        </div>
-        <Link className="button button-secondary" href="/properties">
-          {copy.buttons.browseProperties}
-        </Link>
-      </section>
+        <section className="guide-section guide-faq" aria-labelledby="guide-faq-title">
+          <div className="guide-section-heading"><p className="eyebrow">{content.faqEyebrow}</p><h2 id="guide-faq-title">{content.faqTitle}</h2></div>
+          <div className="guide-faq-list">{content.faq.map((item) => <details className="guide-faq-item" key={item.q}><summary>{item.q}</summary><p>{item.a}</p></details>)}</div>
+        </section>
+
+        <section className="guide-cta">
+          <div><p className="eyebrow">{content.ctaEyebrow}</p><h2>{content.ctaTitle}</h2><p>{content.ctaText}</p></div>
+          <div className="guide-cta-actions"><Link className="button button-primary" href="/properties">{copy.buttons.browseProperties}</Link><ContactActions callLabel={copy.buttons.callNow} className="contact-actions" whatsappLabel={copy.buttons.whatsapp} whatsappMessage={copy.contact.whatsappMessage} /></div>
+        </section>
+      </article>
 
       <SiteFooter copy={copy} />
     </main>
