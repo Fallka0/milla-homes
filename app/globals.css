@@ -1590,6 +1590,18 @@ textarea {
   min-width: 7.8rem;
 }
 
+@media (max-width: 540px) {
+  /* Long prices must wrap rather than push the layout sideways. */
+  .price-tag {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .rent-price-tag-placeholder {
+    min-width: 0;
+  }
+}
+
 .property-card-button {
   width: 100%;
   min-width: 0;
@@ -2597,6 +2609,62 @@ textarea {
   .results-bar {
     align-items: flex-start;
   }
+}
+
+/* ---- mobile contact FAB ---- */
+.contact-fab {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .contact-fab {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 90;
+  }
+
+  /* The FAB replaces the footer button row on small screens. */
+  .site-footer-actions {
+    display: none;
+  }
+}
+
+.contact-fab-toggle,
+.contact-fab-action {
+  display: grid;
+  place-items: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 999px;
+  border: 0;
+  background: var(--surface-deep, #1b4530);
+  color: #fcf8f0;
+  box-shadow: 0 6px 18px rgba(18, 53, 36, 0.35);
+  cursor: pointer;
+}
+
+.contact-fab-action {
+  width: 2.7rem;
+  height: 2.7rem;
+  background: #fcf8f0;
+  color: var(--surface-deep, #1b4530);
+  border: 1.5px solid rgba(18, 53, 36, 0.18);
+}
+
+.contact-fab-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.contact-fab.is-open .contact-fab-toggle {
+  background: var(--gold, #d4b26a);
+  color: var(--surface-deep, #1b4530);
 }
 
 /* ---- buying guide ---- */
@@ -3826,7 +3894,7 @@ textarea {
   padding: clamp(2rem, 5vw, 4rem) 0 0;
 }
 
-.property-detail-hero .section-heading { margin-bottom: 0; max-width: 56rem; }
+.property-detail-hero .section-heading { margin-bottom: 0; max-width: 56rem; min-width: 0; }
 
 .property-detail-hero h1 {
   font-family: var(--font-display);
@@ -3835,6 +3903,7 @@ textarea {
   letter-spacing: -0.025em;
   line-height: 0.96;
   margin: 0.55rem 0 0;
+  overflow-wrap: anywhere;
 }
 
 .property-detail-hero .section-heading > p:not(.eyebrow) {
@@ -3893,6 +3962,8 @@ textarea {
   justify-content: flex-end;
   gap: 1rem;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   background: var(--surface-deep);
   border: 1px solid rgba(18, 53, 36, 0.12);
@@ -3911,11 +3982,13 @@ textarea {
 }
 
 .detail-price-card .detail-price-block strong {
-  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-size: clamp(1.5rem, 5.5vw, 2.35rem);
   font-weight: 600;
   font-family: var(--font-display);
   color: var(--surface-strong);
   letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 .detail-price-card .detail-price-block span {
@@ -4885,66 +4958,4 @@ textarea {
 .saved-properties-loading { min-height: 20rem; }
 .saved-page-actions { display: flex; justify-content: flex-end; margin-bottom: 1.25rem; }
 
-.mobile-contact-bar { display: none; }
 
-@media (max-width: 768px) {
-  .mobile-contact-bar {
-    position: fixed;
-    right: 0.75rem;
-    bottom: calc(0.75rem + env(safe-area-inset-bottom));
-    left: 0.75rem;
-    z-index: 60;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    padding: 0.35rem;
-    border: 1px solid rgba(252, 248, 240, 0.18);
-    border-radius: 14px;
-    background: color-mix(in srgb, var(--surface-deep) 94%, transparent);
-    box-shadow: 0 16px 40px rgba(18, 53, 36, 0.25);
-    backdrop-filter: blur(12px) saturate(1.2);
-    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
-  }
-
-  .mobile-contact-bar[data-hidden="true"],
-  body:has(.header-actions.menu-open) .mobile-contact-bar {
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(calc(100% + 2rem));
-    pointer-events: none;
-  }
-
-  .mobile-contact-bar a {
-    display: flex;
-    min-width: 0;
-    min-height: 3.35rem;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    padding: 0.55rem 0.45rem;
-    border-right: 1px solid rgba(252, 248, 240, 0.14);
-    border-radius: 9px;
-    color: var(--surface-strong);
-    font-size: 0.72rem;
-    font-weight: 700;
-    line-height: 1.1;
-    text-align: center;
-  }
-
-  .mobile-contact-bar a:last-child { border-right: 0; }
-
-  .mobile-contact-bar a:focus-visible {
-    outline: 2px solid var(--gold);
-    outline-offset: -2px;
-  }
-
-  .mobile-contact-bar svg {
-    flex: 0 0 auto;
-    width: 1.1rem;
-    height: 1.1rem;
-    fill: currentColor;
-  }
-}
-
-@media (max-width: 380px) {
-  .mobile-contact-bar a { flex-direction: column; gap: 0.2rem; font-size: 0.65rem; }
-}

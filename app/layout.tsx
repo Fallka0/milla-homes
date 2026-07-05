@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
 import { publicSiteUrl } from "@/lib/site-urls";
-import { MobileContactBar } from "@/components/mobile-contact-bar";
+import { MobileContactFab } from "@/components/mobile-contact-fab";
 
 import "./globals.css";
 
@@ -76,7 +76,7 @@ export default async function RootLayout({
     <html lang={locale} className={cormorant.variable}>
       <body className={dmSans.className}>
         {children}
-        <MobileContactBar callLabel={copy.buttons.callNow} contactLabel={copy.nav.contact} whatsappLabel={copy.buttons.whatsapp} whatsappMessage={copy.contact.whatsappMessage} />
+        <MobileContactFab callLabel={copy.buttons.callNow} whatsappLabel={copy.buttons.whatsapp} whatsappMessage={copy.contact.whatsappMessage} />
       </body>
     </html>
   );
