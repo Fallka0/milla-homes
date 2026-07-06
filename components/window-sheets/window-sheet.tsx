@@ -177,18 +177,19 @@ function Panorama({ p }: { p: SheetProperty }) {
         <div style={{ flex: 1 }} />
 
         <div style={{ height: 1, background: C.border, marginBottom: 18 }} />
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, color: C.text, fontSize: 15, fontWeight: 700 }}>
-              <IconPhone /><span>{p.phone}</span><span style={{ color: C.goldInk }}>· WhatsApp</span>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+          {/* narrow column: phone alone on line 1, WhatsApp folded into the web line */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 9, minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, color: C.text, fontSize: 14, fontWeight: 700, whiteSpace: "nowrap" }}>
+              <IconPhone /><span>{p.phone}</span>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, color: C.muted, fontSize: 15, fontWeight: 600 }}>
-              <IconGlobe /><span>{p.web}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, color: C.muted, fontSize: 13.5, fontWeight: 600, whiteSpace: "nowrap" }}>
+              <IconGlobe /><span><span style={{ color: C.goldInk, fontWeight: 700 }}>WhatsApp</span> · {p.web}</span>
             </div>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{ textAlign: "right", maxWidth: 130 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: C.text, lineHeight: 1.3 }}>Escanea para ver la ficha completa</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flex: "none" }}>
+            <div style={{ textAlign: "right", maxWidth: 110 }}>
+              <div style={{ fontSize: 11.5, fontWeight: 700, color: C.text, lineHeight: 1.3 }}>Escanea para ver la ficha completa</div>
               <div style={{ fontSize: 11, color: "#8a857c", marginTop: 2 }}>Fotos e información</div>
             </div>
             <div ref={qr} style={{ width: 88, height: 88, flex: "none" }} />
