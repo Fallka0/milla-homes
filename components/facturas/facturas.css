@@ -1,0 +1,532 @@
+/* Factura generator UI — scoped to /admin/facturas. */
+
+.fac-page {
+  width: min(1280px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 4rem;
+  font-family: "Mulish", system-ui, sans-serif;
+  color: var(--text);
+}
+
+.fac-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.fac-header .fac-eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b08a3e;
+  font-weight: 700;
+}
+
+.fac-header h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.fac-header p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+.fac-back {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.fac-back:hover {
+  color: var(--text);
+}
+
+/* ---- layout ---- */
+.fac-tool {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 460px);
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .fac-tool {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fac-controls {
+  display: grid;
+  gap: 1rem;
+}
+
+.fac-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem 1.2rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.fac-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.fac-card-title {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.fac-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.fac-field {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.fac-field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.fac-field input,
+.fac-field textarea {
+  font: inherit;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--text);
+}
+
+.fac-field input:focus,
+.fac-field textarea:focus {
+  outline: 2px solid #b08a3e55;
+  border-color: #b08a3e;
+}
+
+.fac-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.fac-check input {
+  margin-top: 0.2rem;
+}
+
+.fac-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 170px auto;
+  gap: 0.65rem;
+  align-items: end;
+}
+
+.fac-line-remove {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 9px;
+  width: 2.2rem;
+  height: 2.35rem;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.fac-line-remove:hover {
+  color: #b3261e;
+  border-color: #b3261e66;
+}
+
+.fac-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b08a3e;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.fac-link:hover {
+  text-decoration: underline;
+}
+
+.fac-error {
+  margin: 0;
+  font-size: 0.83rem;
+  color: #b3261e;
+  font-weight: 600;
+}
+
+.fac-summary {
+  border-top: 1px dashed var(--border);
+  padding-top: 0.75rem;
+  display: grid;
+  gap: 0.3rem;
+  justify-items: end;
+}
+
+.fac-summary div {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.fac-summary span {
+  color: var(--muted);
+}
+
+.fac-summary div:last-child {
+  font-size: 1rem;
+}
+
+/* ---- preview ---- */
+.fac-preview-sticky {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.fac-preview-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fac-button {
+  font: inherit;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 0.65rem 1.5rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.fac-button-primary {
+  background: #1d3a2f;
+  color: #fff;
+}
+
+.fac-button-primary:hover {
+  background: #162b24;
+}
+
+.fac-button-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fac-preview-frame {
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px rgb(16 33 27 / 0.14);
+  background: #fff;
+}
+
+/* ---- the A4 sheet itself (794×1123 @96dpi) ---- */
+.fac-sheet {
+  width: 794px;
+  height: 1123px;
+  box-sizing: border-box;
+  padding: 64px 68px;
+  background: #fff;
+  color: #1c1c1c;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+}
+
+.fac-sheet p {
+  margin: 0;
+}
+
+.fac-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding-bottom: 22px;
+  border-bottom: 2px solid #1d3a2f;
+}
+
+.fac-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #1d3a2f;
+  margin-bottom: 6px !important;
+}
+
+.fac-issuer p {
+  font-size: 13px;
+  color: #333;
+}
+
+.fac-meta {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.fac-doc-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #b08a3e;
+  margin-bottom: 8px !important;
+}
+
+.fac-meta p {
+  font-size: 14px;
+}
+
+.fac-meta span {
+  color: #6b6b6b;
+}
+
+.fac-client {
+  margin-top: 30px;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.fac-client h2 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.fac-client dl {
+  margin: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.fac-client dl > div {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 12px;
+}
+
+.fac-client dt {
+  color: #6b6b6b;
+  font-size: 13px;
+}
+
+.fac-client dd {
+  margin: 0;
+  font-weight: 600;
+  min-height: 1.4em;
+}
+
+.fac-lines {
+  margin-top: 34px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fac-lines th {
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #1d3a2f;
+  padding: 9px 14px;
+}
+
+.fac-lines th:last-child,
+.fac-lines td:last-child {
+  text-align: right;
+  width: 150px;
+  white-space: nowrap;
+}
+
+.fac-lines td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #e3e3e3;
+  font-weight: 600;
+  min-height: 1.4em;
+}
+
+.fac-totals {
+  margin-top: 18px;
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+}
+
+.fac-totals > div {
+  display: grid;
+  grid-template-columns: auto 150px;
+  gap: 24px;
+  align-items: baseline;
+  padding: 2px 14px;
+}
+
+.fac-totals span {
+  color: #6b6b6b;
+  font-size: 13px;
+}
+
+.fac-totals strong {
+  text-align: right;
+  font-size: 14px;
+}
+
+.fac-totals-final {
+  border-top: 2px solid #1d3a2f;
+  padding-top: 8px !important;
+  margin-top: 4px;
+}
+
+.fac-totals-final span {
+  color: #1d3a2f;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.fac-totals-final strong {
+  font-size: 18px;
+  color: #1d3a2f;
+}
+
+.fac-payment {
+  margin-top: auto;
+  background: #f4f1ea;
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.fac-payment-title {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  color: #1d3a2f;
+  margin-bottom: 6px !important;
+}
+
+.fac-payment p {
+  font-size: 13.5px;
+}
+
+.fac-note {
+  margin-top: 16px !important;
+  font-size: 12.5px;
+  color: #555;
+  font-style: italic;
+}
+
+/* ---- print route ---- */
+.fac-print-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1.2rem;
+  background: #10211b;
+  color: #fff;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+
+.fac-print-toolbar button {
+  font: inherit;
+  font-weight: 800;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  background: #b08a3e;
+  color: #fff;
+  cursor: pointer;
+}
+
+.fac-print-stage {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 0 3rem;
+  background: #e8e6e1;
+  min-height: 100vh;
+}
+
+.fac-print-empty {
+  font-family: "Mulish", system-ui, sans-serif;
+  color: #444;
+  padding: 3rem 1rem;
+}
+
+.fac-print-page {
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.18);
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .fac-print-toolbar {
+    display: none !important;
+  }
+
+  .fac-print-stage {
+    display: block;
+    padding: 0;
+    background: #fff;
+    min-height: 0;
+  }
+
+  .fac-print-page {
+    box-shadow: none;
+    break-after: page;
+  }
+
+  .fac-sheet {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
