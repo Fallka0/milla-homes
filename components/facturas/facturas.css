@@ -522,7 +522,12 @@
 
   .fac-print-page {
     box-shadow: none;
-    break-after: page;
+    overflow: hidden;
+  }
+
+  .fac-print-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
   }
 
   .fac-sheet {
