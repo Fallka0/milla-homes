@@ -124,6 +124,82 @@ const up = (s: string) => (s || "").toUpperCase();
 const img: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover", display: "block" };
 
 // ================================================================
+//  PRESET 0 — PÓSTER HORIZONTAL (landscape A4, editorial, multi-photo)
+//  Same serene look as the Poster, but 1123×794 with a hero photo plus
+//  up to three thumbnails, and a text logotype instead of the image logo.
+// ================================================================
+function Panorama({ p }: { p: SheetProperty }) {
+  const photos = p.photos || [];
+  const thumbs = photos.slice(1, 4);
+  const qr = useQR(p.listingUrl, C.text);
+  return (
+    <div style={{ width: SHEET_H, height: SHEET_W, background: C.cream, padding: "42px 46px 38px", display: "flex", gap: 38, fontFamily: SANS, color: C.text, boxSizing: "border-box" }}>
+      {/* photo collage: hero on top, up to 3 thumbnails below */}
+      <div style={{ width: 580, flex: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ flex: 1, borderRadius: 3, overflow: "hidden", boxShadow: `0 1px 0 ${C.border}` }}>
+          <img src={photos[0]} alt="" style={img} />
+        </div>
+        {thumbs.length > 0 ? (
+          <div style={{ display: "flex", gap: 10, height: 164, flex: "none" }}>
+            {thumbs.map((src, i) => (
+              <div key={`${src}-${i}`} style={{ flex: 1, borderRadius: 3, overflow: "hidden" }}>
+                <img src={src} alt="" style={img} />
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </div>
+
+      {/* info column */}
+      <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
+        <div style={{ fontFamily: SERIF, fontSize: 40, fontWeight: 700, letterSpacing: 5, lineHeight: 1, color: C.text, whiteSpace: "nowrap" }}>MILLA HOMES</div>
+        <div style={{ width: 64, height: 2, background: C.gold, marginTop: 14 }} />
+
+        <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginTop: 28 }}>
+          <div style={{ fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: C.goldInk, fontWeight: 700 }}>{p.location}</div>
+          <div style={{ flex: 1, height: 1, background: C.border }} />
+          <div style={{ fontSize: 11, letterSpacing: 2.5, textTransform: "uppercase", color: C.muted, fontWeight: 700 }}>{up(p.status)}</div>
+        </div>
+
+        <div style={{ fontFamily: SERIF, fontSize: 30, lineHeight: 1.14, fontWeight: 600, marginTop: 12 }}>{p.title}</div>
+
+        <div style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 700, lineHeight: 1, whiteSpace: "nowrap", marginTop: 18 }}>{nb(p.price)}</div>
+
+        <div style={{ display: "flex", gap: 24, marginTop: 18, color: C.text }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 16, fontWeight: 600 }}><IconBed /><span>{p.beds}</span></div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 16, fontWeight: 600 }}><IconBath /><span>{p.baths}</span></div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 16, fontWeight: 600 }}><IconArea /><span>{p.area} m²</span></div>
+        </div>
+
+        {/* shrinks (overflow hidden) before it can push the footer off the sheet */}
+        <div style={{ fontSize: 14.5, lineHeight: 1.6, color: C.muted, marginTop: 18, flex: "0 1 auto", minHeight: 0, overflow: "hidden" }}>{p.desc}</div>
+
+        <div style={{ flex: 1 }} />
+
+        <div style={{ height: 1, background: C.border, marginBottom: 18 }} />
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, color: C.text, fontSize: 15, fontWeight: 700 }}>
+              <IconPhone /><span>{p.phone}</span><span style={{ color: C.goldInk }}>· WhatsApp</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, color: C.muted, fontSize: 15, fontWeight: 600 }}>
+              <IconGlobe /><span>{p.web}</span>
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ textAlign: "right", maxWidth: 130 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: C.text, lineHeight: 1.3 }}>Escanea para ver la ficha completa</div>
+              <div style={{ fontSize: 11, color: "#8a857c", marginTop: 2 }}>Fotos e información</div>
+            </div>
+            <div ref={qr} style={{ width: 88, height: 88, flex: "none" }} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ================================================================
 //  PRESET 1 — PÓSTER SERENO (minimal / editorial)
 // ================================================================
 function Poster({ p, logoDark }: { p: SheetProperty; logoDark: string }) {
@@ -298,6 +374,7 @@ export const SHEET_WIDTH = SHEET_W;
 export const SHEET_HEIGHT = SHEET_H;
 
 export const PRESETS: { id: WindowSheetPreset; label: string }[] = [
+  { id: "panorama", label: "Póster horizontal" },
   { id: "poster", label: "Póster sereno" },
   { id: "gallery", label: "Galería" },
   { id: "boutique", label: "Boutique enmarcada" },
@@ -315,6 +392,7 @@ export function WindowSheet({
   logoLight?: string;
 }) {
   if (!property) return null;
+  if (preset === "panorama") return <Panorama p={property} />;
   if (preset === "gallery") return <Gallery p={property} logoLight={logoLight} />;
   if (preset === "boutique") return <Boutique p={property} logoDark={logoDark} />;
   return <Poster p={property} logoDark={logoDark} />;

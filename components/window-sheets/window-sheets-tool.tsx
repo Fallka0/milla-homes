@@ -7,6 +7,7 @@ import {
   PRINT_STORAGE_KEY,
   WINDOW_SHEET_PRESETS,
   blankSheet,
+  sheetSize,
   type SheetListItem,
   type SheetProperty,
   type WindowSheetJob,
@@ -25,20 +26,21 @@ const clone = (sheet: SheetProperty): SheetProperty => JSON.parse(JSON.stringify
 function SheetPreview({ sheet, preset }: { sheet: SheetProperty; preset: WindowSheetPreset }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.5);
+  const { width, height } = sheetSize(preset);
 
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
-    const update = () => setScale(el.clientWidth / 794);
+    const update = () => setScale(el.clientWidth / width);
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [width]);
 
   return (
-    <div ref={wrapRef} className="ws-preview-frame" style={{ height: 1123 * scale }}>
-      <div style={{ transform: `scale(${scale})`, transformOrigin: "top left", width: 794, height: 1123 }}>
+    <div ref={wrapRef} className="ws-preview-frame" style={{ height: height * scale }}>
+      <div style={{ transform: `scale(${scale})`, transformOrigin: "top left", width, height }}>
         <WindowSheet property={sheet} preset={preset} />
       </div>
     </div>
@@ -57,7 +59,7 @@ export function WindowSheetsTool({ listings, sheetsById, initialSelectedId = nul
   );
   const [pickerOpen, setPickerOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(preselected);
-  const [preset, setPreset] = useState<WindowSheetPreset>("poster");
+  const [preset, setPreset] = useState<WindowSheetPreset>("panorama");
   const [sheet, setSheet] = useState<SheetProperty>(() =>
     preselected ? clone(sheetsById[preselected]) : blankSheet(),
   );

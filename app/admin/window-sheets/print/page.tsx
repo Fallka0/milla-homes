@@ -62,8 +62,14 @@ export default function WindowSheetsPrintPage() {
     };
   }, [jobs]);
 
+  // Batch export always uses a single preset, so the whole document shares one
+  // orientation: landscape for "panorama", portrait for the rest. This @page
+  // override wins over the base rule in window-sheets.css.
+  const landscape = jobs !== null && jobs.length > 0 && jobs[0].preset === "panorama";
+
   return (
     <>
+      {landscape ? <style>{"@media print { @page { size: A4 landscape; } }"}</style> : null}
       <div className="ws-print-toolbar">
         <span>Vista de impresión · usa “Guardar como PDF” en el diálogo</span>
         <button type="button" onClick={() => window.print()}>

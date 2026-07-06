@@ -7,7 +7,7 @@
 
 import { formatPrice } from "@/lib/property-shared";
 
-export type WindowSheetPreset = "poster" | "gallery" | "boutique";
+export type WindowSheetPreset = "panorama" | "poster" | "gallery" | "boutique";
 
 // The exact shape the WindowSheet component (and reference/sampleProperty.js) expects.
 export type SheetProperty = {
@@ -47,6 +47,7 @@ export const DEFAULT_WEB = "milla-homes.com";
 export const PRINT_STORAGE_KEY = "mh-window-sheets-print";
 
 export const WINDOW_SHEET_PRESETS: { id: WindowSheetPreset; label: string }[] = [
+  { id: "panorama", label: "Póster horizontal" },
   { id: "poster", label: "Póster sereno" },
   { id: "gallery", label: "Galería" },
   { id: "boutique", label: "Boutique enmarcada" },
@@ -93,6 +94,12 @@ export function blankSheet(): SheetProperty {
     listingUrl: "",
     photos: [],
   };
+}
+
+// Pixel dimensions of a sheet at 96dpi: A4 landscape for "panorama",
+// A4 portrait for everything else.
+export function sheetSize(preset: WindowSheetPreset): { width: number; height: number } {
+  return preset === "panorama" ? { width: 1123, height: 794 } : { width: 794, height: 1123 };
 }
 
 // Default filename (without extension) for a single exported sheet.
