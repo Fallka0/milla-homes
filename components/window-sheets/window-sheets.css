@@ -492,6 +492,12 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Landscape presets (panorama): A4 rotated, 1123×794. */
+.ws-print-page-landscape {
+  width: 1123px;
+  height: 794px;
+}
+
 .ws-print-empty {
   font-family: "Mulish", system-ui, sans-serif;
   color: #fff;

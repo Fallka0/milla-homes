@@ -84,7 +84,10 @@ export default function WindowSheetsPrintPage() {
           </p>
         ) : (
           jobs.map((job, index) => (
-            <div className="ws-print-page" key={`${job.slug}-${index}`}>
+            <div
+              className={`ws-print-page${job.preset === "panorama" ? " ws-print-page-landscape" : ""}`}
+              key={`${job.slug}-${index}`}
+            >
               <WindowSheet property={job.sheet} preset={job.preset} />
             </div>
           ))
