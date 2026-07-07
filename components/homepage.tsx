@@ -135,7 +135,17 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
                     <p className="eyebrow">{content.areaLabel}</p>
                     <h3>{content.title}</h3>
                     <p>{content.highlights[0]}</p>
-                    <span className="neighborhood-card-arrow" aria-hidden>↗</span>
+                    <span className="neighborhood-card-arrow" aria-hidden>
+                      <svg fill="none" height="1em" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7 17L17 7M17 7H9M17 7V15"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                        />
+                      </svg>
+                    </span>
                   </div>
                 </article>
               </Link>

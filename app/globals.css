@@ -1208,12 +1208,18 @@ textarea {
 }
 
 .neighborhood-card-arrow {
+  display: inline-flex;
   grid-column: 2;
   grid-row: 1 / span 3;
   align-self: end;
   margin-left: 0.75rem;
   color: #e3c681;
   font-size: 1.15rem;
+}
+
+.neighborhood-card-arrow svg {
+  width: 1em;
+  height: 1em;
 }
 
 .region-page {
