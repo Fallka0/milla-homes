@@ -5,6 +5,7 @@ import { resolveAdminLocale } from "@/lib/admin-copy";
 import { getAdminBookingCopy } from "@/lib/booking-copy";
 import { getAdminBookings } from "@/lib/bookings";
 import { getAdminProperties } from "@/lib/properties";
+import { getPropertyPreviewImageUrl } from "@/lib/property-shared";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,13 @@ export default async function AdminBookingsPage() {
       bookings={bookings}
       copy={copy}
       locale={locale}
-      properties={properties.map((property) => ({ id: property.id, title: property.title }))}
+      properties={properties.map((property) => ({
+        id: property.id,
+        imageUrl: getPropertyPreviewImageUrl(property),
+        location: property.location,
+        referenceCode: property.referenceCode,
+        title: property.title,
+      }))}
     />
   );
 }

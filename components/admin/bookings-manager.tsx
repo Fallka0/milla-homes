@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import {
@@ -14,8 +15,103 @@ import { type BookingRecord, type BookingStatus } from "@/lib/bookings";
 
 type PropertyOption = {
   id: string;
+  imageUrl: string | null;
+  location: string;
+  referenceCode: string;
   title: string;
 };
+
+type PropertyPickerModalProps = {
+  copy: AdminBookingCopy["picker"];
+  onClose: () => void;
+  onSelect: (propertyId: string) => void;
+  properties: PropertyOption[];
+  selectedId: string;
+};
+
+function PropertyPickerModal({ copy, onClose, onSelect, properties, selectedId }: PropertyPickerModalProps) {
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  const query = search.trim().toLowerCase();
+  const results = query
+    ? properties.filter((property) =>
+        [property.title, property.referenceCode, property.location]
+          .join(" ")
+          .toLowerCase()
+          .includes(query),
+      )
+    : properties;
+
+  return (
+    <div className="property-picker-overlay" onClick={onClose} role="presentation">
+      <div
+        aria-label={copy.title}
+        aria-modal="true"
+        className="property-picker-modal"
+        onClick={(event) => event.stopPropagation()}
+        role="dialog"
+      >
+        <div className="property-picker-head">
+          <h3>{copy.title}</h3>
+          <button className="button button-secondary" onClick={onClose} type="button">
+            {copy.close}
+          </button>
+        </div>
+        <input
+          autoFocus
+          className="property-picker-search"
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder={copy.searchPlaceholder}
+          type="search"
+          value={search}
+        />
+        {results.length > 0 ? (
+          <div className="property-picker-grid">
+            {results.map((property) => (
+              <button
+                className={`property-picker-card${property.id === selectedId ? " selected" : ""}`}
+                key={property.id}
+                onClick={() => {
+                  onSelect(property.id);
+                  onClose();
+                }}
+                type="button"
+              >
+                <span className="property-picker-thumb">
+                  {property.imageUrl ? (
+                    <Image
+                      alt=""
+                      fill
+                      sizes="(max-width: 560px) 45vw, 180px"
+                      src={property.imageUrl}
+                    />
+                  ) : null}
+                </span>
+                <strong>{property.title}</strong>
+                <span className="property-picker-meta">
+                  {property.referenceCode} · {property.location}
+                </span>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="property-picker-empty">{copy.empty}</p>
+        )}
+      </div>
+    </div>
+  );
+}
 
 type BookingsManagerProps = {
   bookings: BookingRecord[];
@@ -100,6 +196,7 @@ export function BookingsManager({ bookings, copy, locale, properties }: Bookings
   const [propertyFilter, setPropertyFilter] = useState("");
   const [showPast, setShowPast] = useState(false);
   const [form, setForm] = useState(emptyForm);
+  const [isPickerOpen, setPickerOpen] = useState(false);
   const [formError, setFormError] = useState<BookingActionError | null>(null);
   const [listError, setListError] = useState<BookingActionError | null>(null);
   const [isSubmitting, startSubmit] = useTransition();
@@ -109,6 +206,8 @@ export function BookingsManager({ bookings, copy, locale, properties }: Bookings
     () => new Map(properties.map((property) => [property.id, property.title])),
     [properties],
   );
+
+  const selectedProperty = properties.find((property) => property.id === form.propertyId) ?? null;
 
   const visibleBookings = useMemo(
     () =>
@@ -302,20 +401,30 @@ export function BookingsManager({ bookings, copy, locale, properties }: Bookings
                 <option value="tour">{copy.typeLabels.tour}</option>
               </select>
             </label>
-            <label>
+            <label className="property-picker-field">
               {copy.form.property}
-              <select
-                onChange={(event) => setForm({ ...form, propertyId: event.target.value })}
-                required
-                value={form.propertyId}
+              <button
+                className={`property-picker-trigger${form.propertyId ? " has-value" : ""}`}
+                onClick={() => setPickerOpen(true)}
+                type="button"
               >
-                <option value="">{copy.form.selectProperty}</option>
-                {properties.map((property) => (
-                  <option key={property.id} value={property.id}>
-                    {property.title}
-                  </option>
-                ))}
-              </select>
+                {selectedProperty ? (
+                  <>
+                    <span className="property-picker-trigger-thumb">
+                      {selectedProperty.imageUrl ? (
+                        <Image alt="" fill sizes="48px" src={selectedProperty.imageUrl} />
+                      ) : null}
+                    </span>
+                    <span className="property-picker-trigger-text">
+                      <strong>{selectedProperty.title}</strong>
+                      <span>{selectedProperty.referenceCode} · {selectedProperty.location}</span>
+                    </span>
+                    <span className="property-picker-trigger-hint">{copy.picker.change}</span>
+                  </>
+                ) : (
+                  copy.picker.choose
+                )}
+              </button>
             </label>
             <label>
               {form.type === "tour" ? copy.form.tourDate : copy.form.startDate}
@@ -586,6 +695,16 @@ export function BookingsManager({ bookings, copy, locale, properties }: Bookings
           </div>
         )}
       </div>
+
+      {isPickerOpen ? (
+        <PropertyPickerModal
+          copy={copy.picker}
+          onClose={() => setPickerOpen(false)}
+          onSelect={(propertyId) => setForm((current) => ({ ...current, propertyId }))}
+          properties={properties}
+          selectedId={form.propertyId}
+        />
+      ) : null}
     </section>
   );
 }
