@@ -584,8 +584,4 @@ export function validatePropertyInput(input: ReturnType<typeof parsePropertyForm
   if ((input.listing_mode === "rent" || input.listing_mode === "both") && !input.availability_start) {
     throw new Error("Missing required fields: rent availability start.");
   }
-
-  if ((input.listing_mode === "rent" || input.listing_mode === "both") && !input.availability_end) {
-    throw new Error("Missing required fields: rent availability end.");
-  }
 }
