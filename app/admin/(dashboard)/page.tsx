@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PropertyStatusForm } from "@/components/admin/property-status-form";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
 import { getAdminInquiries } from "@/lib/inquiries";
-import { formatPrice, getPropertyPreviewImageUrl } from "@/lib/property-shared";
+import { formatOptionalPrice, formatPrice, getPropertyPreviewImageUrl } from "@/lib/property-shared";
 import { getAdminProperties } from "@/lib/properties";
 
 export default async function AdminDashboardPage() {
@@ -98,7 +98,18 @@ export default async function AdminDashboardPage() {
                     <td>{copy.typeLabels[property.type]}</td>
                     <td>{property.location}</td>
                     <td>
-                      <strong>{formatPrice(property.priceEuro)}</strong>
+                      <strong>
+                        {property.listingMode === "rent"
+                          ? [
+                              formatOptionalPrice(property.rentPriceEuro) ?? "—",
+                              property.rentPricePeriod
+                                ? copy.form.rentPricePeriodLabels[property.rentPricePeriod]
+                                : "",
+                            ]
+                              .filter(Boolean)
+                              .join(" ")
+                          : formatPrice(property.priceEuro)}
+                      </strong>
                     </td>
                     <td>
                       <Link className="table-link" href={`/admin/properties/${property.id}`}>

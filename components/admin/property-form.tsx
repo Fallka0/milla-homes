@@ -74,6 +74,7 @@ export function PropertyForm({
   const [selectedRentalPeriods, setSelectedRentalPeriods] = useState<RentalPeriodOption[]>(property?.rentalPeriods ?? []);
   const [slugEdited, setSlugEdited] = useState(Boolean(property?.slug));
   const [referenceEdited, setReferenceEdited] = useState(Boolean(property?.referenceCode));
+  const requiresRentFields = listingMode === "rent" || listingMode === "both";
 
   function handleTitleChange(value: string) {
     setTitle(value);
@@ -170,7 +171,13 @@ export function PropertyForm({
 
         <label>
           {copy.fields.price}
-          <input name="priceEuro" type="number" min="0" defaultValue={property?.priceEuro ?? 0} required />
+          <input
+            name="priceEuro"
+            type="number"
+            min="0"
+            defaultValue={property?.priceEuro ?? 0}
+            required={listingMode !== "rent"}
+          />
         </label>
 
         <label>
@@ -191,6 +198,7 @@ export function PropertyForm({
             type="number"
             min="0"
             defaultValue={property?.rentPriceEuro ?? undefined}
+            required={requiresRentFields}
           />
         </label>
 
@@ -250,7 +258,12 @@ export function PropertyForm({
 
         <label>
           {copy.fields.availabilityStart}
-          <input name="availabilityStart" type="date" defaultValue={property?.availabilityStart ?? ""} />
+          <input
+            name="availabilityStart"
+            type="date"
+            defaultValue={property?.availabilityStart ?? ""}
+            required={requiresRentFields}
+          />
           <span className="field-note">{copy.fieldNotes.availability}</span>
         </label>
 

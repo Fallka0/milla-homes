@@ -138,6 +138,14 @@ export type AdminBookingCopy = {
     eyebrow: string;
     title: string;
   };
+  picker: {
+    change: string;
+    choose: string;
+    close: string;
+    empty: string;
+    searchPlaceholder: string;
+    title: string;
+  };
   actions: {
     cancel: string;
     confirm: string;
@@ -203,6 +211,14 @@ export const adminBookingCopy: Record<"en" | "es" | "ru", AdminBookingCopy> = {
       empty: "No pending tour requests.",
       eyebrow: "Needs attention",
       title: "Tour requests",
+    },
+    picker: {
+      change: "Change property",
+      choose: "Choose a property",
+      close: "Close",
+      empty: "No properties match your search.",
+      searchPlaceholder: "Search by name, reference or location…",
+      title: "Choose a property",
     },
     actions: {
       cancel: "Cancel booking",
@@ -272,6 +288,14 @@ export const adminBookingCopy: Record<"en" | "es" | "ru", AdminBookingCopy> = {
       eyebrow: "Requiere atención",
       title: "Solicitudes de visita",
     },
+    picker: {
+      change: "Cambiar propiedad",
+      choose: "Elegir propiedad",
+      close: "Cerrar",
+      empty: "Ninguna propiedad coincide con tu búsqueda.",
+      searchPlaceholder: "Buscar por nombre, referencia o zona…",
+      title: "Elige una propiedad",
+    },
     actions: {
       cancel: "Cancelar reserva",
       confirm: "Confirmar",
@@ -339,6 +363,14 @@ export const adminBookingCopy: Record<"en" | "es" | "ru", AdminBookingCopy> = {
       empty: "Нет ожидающих заявок на просмотр.",
       eyebrow: "Требует внимания",
       title: "Заявки на просмотр",
+    },
+    picker: {
+      change: "Сменить объект",
+      choose: "Выбрать объект",
+      close: "Закрыть",
+      empty: "По вашему запросу ничего не найдено.",
+      searchPlaceholder: "Поиск по названию, референсу или району…",
+      title: "Выберите объект",
     },
     actions: {
       cancel: "Отменить бронь",
