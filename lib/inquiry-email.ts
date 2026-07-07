@@ -10,7 +10,7 @@ type InquiryEmailInput = {
   timeline?: string;
 };
 
-type InquiryEmailConfig = {
+export type InquiryEmailConfig = {
   from: string;
   host: string;
   password: string;
@@ -20,7 +20,7 @@ type InquiryEmailConfig = {
   user: string;
 };
 
-function getInquiryEmailConfig(): InquiryEmailConfig | null {
+export function getInquiryEmailConfig(): InquiryEmailConfig | null {
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
   const password = process.env.SMTP_PASSWORD;
