@@ -171,7 +171,13 @@ export function PropertyForm({
 
         <label>
           {copy.fields.price}
-          <input name="priceEuro" type="number" min="0" defaultValue={property?.priceEuro ?? 0} required />
+          <input
+            name="priceEuro"
+            type="number"
+            min="0"
+            defaultValue={property?.priceEuro ?? 0}
+            required={listingMode !== "rent"}
+          />
         </label>
 
         <label>
