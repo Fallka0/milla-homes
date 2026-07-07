@@ -6,6 +6,7 @@ import { BrandLogo } from "@/components/brand-logo";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SignOutButton } from "@/components/admin/sign-out-button";
 import { adminCopy, adminLocales, resolveAdminLocale } from "@/lib/admin-copy";
+import { getAdminBookingCopy } from "@/lib/booking-copy";
 import { getAdminAuthState } from "@/lib/auth";
 import { getAdminSiteUrl, getPublicSiteUrl } from "@/lib/site-urls";
 
@@ -52,6 +53,7 @@ export default async function AdminDashboardLayout({
           <nav className="primary-nav" aria-label={copy.layout.adminLabel}>
             <Link href={getAdminSiteUrl("/admin")}>{copy.layout.dashboard}</Link>
             <Link href={getAdminSiteUrl("/admin/properties/new")}>{copy.layout.newListing}</Link>
+            <Link href={getAdminSiteUrl("/admin/bookings")}>{getAdminBookingCopy(locale).navLabel}</Link>
             <Link href={getAdminSiteUrl("/admin/window-sheets")}>Fichas escaparate</Link>
             <Link href={getAdminSiteUrl("/admin/facturas")}>Facturas</Link>
             <Link href={getPublicSiteUrl("/properties")}>{copy.layout.viewSite}</Link>

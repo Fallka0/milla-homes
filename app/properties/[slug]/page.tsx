@@ -9,7 +9,9 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SavePropertyButton } from "@/components/save-property-button";
+import { TourBookingForm } from "@/components/tour-booking-form";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
+import { tourBookingCopy } from "@/lib/booking-copy";
 import { getAdminAuthState } from "@/lib/auth";
 import {
   getLocalizedListingModeLabel,
@@ -296,6 +298,12 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
         </div>
 
         <aside className="detail-sidebar">
+          <div className="tour-card">
+            <p className="eyebrow">{tourBookingCopy[locale].eyebrow}</p>
+            <h2>{tourBookingCopy[locale].title}</h2>
+            <p className="tour-card-intro">{tourBookingCopy[locale].intro}</p>
+            <TourBookingForm copy={tourBookingCopy[locale]} locale={locale} propertyId={localizedProperty.id} />
+          </div>
           <div className="sticky-card">
             <p className="eyebrow">{copy.detail.requestInfo}</p>
             <h2>{copy.detail.requestTitle}</h2>
