@@ -42,6 +42,12 @@ function slugify(value: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+// Number inputs react to the mouse wheel while focused, which silently
+// changes values (e.g. 180 -> 178) when scrolling the page after typing.
+function blurOnWheel(event: React.WheelEvent<HTMLInputElement>) {
+  event.currentTarget.blur();
+}
+
 function createReferenceCode(title: string, seed: string) {
   const words = title
     .trim()
@@ -176,6 +182,7 @@ export function PropertyForm({
             type="number"
             min="0"
             defaultValue={property?.priceEuro ?? 0}
+            onWheel={blurOnWheel}
             required={listingMode !== "rent"}
           />
         </label>
@@ -198,13 +205,18 @@ export function PropertyForm({
             type="number"
             min="0"
             defaultValue={property?.rentPriceEuro ?? undefined}
+            onWheel={blurOnWheel}
             required={requiresRentFields}
           />
         </label>
 
         <label>
           {copy.fields.rentPricePeriod}
-          <select name="rentPricePeriod" defaultValue={property?.rentPricePeriod ?? ""}>
+          <select
+            name="rentPricePeriod"
+            defaultValue={property?.rentPricePeriod ?? "month"}
+            required={requiresRentFields}
+          >
             <option value="">{copy.fields.rentPricePeriod}</option>
             {rentPricePeriods.map((period) => (
               <option key={period} value={period}>
@@ -238,22 +250,22 @@ export function PropertyForm({
 
         <label>
           {copy.fields.bedrooms}
-          <input name="bedrooms" type="number" min="0" defaultValue={property?.bedrooms ?? 0} required />
+          <input name="bedrooms" type="number" min="0" defaultValue={property?.bedrooms ?? 0} onWheel={blurOnWheel} required />
         </label>
 
         <label>
           {copy.fields.bathrooms}
-          <input name="bathrooms" type="number" min="0" defaultValue={property?.bathrooms ?? 0} required />
+          <input name="bathrooms" type="number" min="0" defaultValue={property?.bathrooms ?? 0} onWheel={blurOnWheel} required />
         </label>
 
         <label>
           {copy.fields.interior}
-          <input name="interiorSqm" type="number" min="0" defaultValue={property?.interiorSqm ?? undefined} />
+          <input name="interiorSqm" type="number" min="0" defaultValue={property?.interiorSqm ?? undefined} onWheel={blurOnWheel} />
         </label>
 
         <label>
           {copy.fields.plot}
-          <input name="plotSqm" type="number" min="0" defaultValue={property?.plotSqm ?? undefined} />
+          <input name="plotSqm" type="number" min="0" defaultValue={property?.plotSqm ?? undefined} onWheel={blurOnWheel} />
         </label>
 
         <label>

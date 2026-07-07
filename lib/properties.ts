@@ -333,7 +333,11 @@ function normalizePropertyRow(row: PropertyRow): PropertyRecord {
   const type = row.property_type;
   const status = row.status;
   const listingMode = row.listing_mode;
-  const rentPricePeriod = row.rent_price_period;
+  const isRentListing = listingMode === "rent" || listingMode === "both";
+  const rentPriceEuro = coerceNumber(row.rent_price_eur);
+  // Older rent listings were saved without a period; monthly is the default.
+  const rentPricePeriod =
+    row.rent_price_period ?? (isRentListing && rentPriceEuro ? "month" : null);
   const baseContent = {
     title: row.title ?? "Untitled property",
     shortDescription: row.short_description ?? "",
@@ -367,7 +371,7 @@ function normalizePropertyRow(row: PropertyRow): PropertyRecord {
     description: baseContent.description,
     mainImageUrl: row.main_image_url ?? sampleProperties[0].mainImageUrl,
     galleryUrls: row.gallery_urls ?? [],
-    rentPriceEuro: coerceNumber(row.rent_price_eur),
+    rentPriceEuro,
     rentPricePeriod: rentPricePeriods.includes(rentPricePeriod as RentPricePeriod)
       ? (rentPricePeriod as RentPricePeriod)
       : null,
@@ -508,6 +512,14 @@ export function parsePropertyFormData(formData: FormData) {
   const rentalPeriods = parseStringArray(formData.get("rentalPeriods")).filter((period): period is RentalPeriodOption =>
     rentalPeriodOptions.includes(period as RentalPeriodOption),
   );
+  const listingMode = listingModes.includes(listingModeValue as ListingMode) ? listingModeValue : "sale";
+  const rentPriceEuro = parseIntegerField(formData.get("rentPriceEuro"));
+  // Rent listings default to a monthly period so the public price is never ambiguous.
+  const rentPricePeriod = rentPricePeriods.includes(rentPricePeriodValue as RentPricePeriod)
+    ? rentPricePeriodValue
+    : (listingMode === "rent" || listingMode === "both") && rentPriceEuro
+      ? "month"
+      : null;
 
   return {
     availability_end: String(formData.get("availabilityEnd") ?? "").trim() || null,
@@ -521,7 +533,7 @@ export function parsePropertyFormData(formData: FormData) {
     bathrooms: parseIntegerField(formData.get("bathrooms")) ?? 0,
     interior_sqm: parseIntegerField(formData.get("interiorSqm")),
     internal_notes: String(formData.get("internalNotes") ?? "").trim(),
-    listing_mode: listingModes.includes(listingModeValue as ListingMode) ? listingModeValue : "sale",
+    listing_mode: listingMode,
     plot_sqm: parseIntegerField(formData.get("plotSqm")),
     property_type: propertyTypes.includes(typeValue as PropertyType)
       ? typeValue
@@ -529,10 +541,8 @@ export function parsePropertyFormData(formData: FormData) {
     status: propertyStatuses.includes(statusValue as PropertyStatus) ? statusValue : "draft",
     featured: formData.get("featured") === "on",
     features,
-    rent_price_eur: parseIntegerField(formData.get("rentPriceEuro")),
-    rent_price_period: rentPricePeriods.includes(rentPricePeriodValue as RentPricePeriod)
-      ? rentPricePeriodValue
-      : null,
+    rent_price_eur: rentPriceEuro,
+    rent_price_period: rentPricePeriod,
     rental_periods: rentalPeriods,
     short_description: String(formData.get("shortDescription") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
