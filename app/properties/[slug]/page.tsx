@@ -9,6 +9,7 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SavePropertyButton } from "@/components/save-property-button";
+import { SharePropertyButton } from "@/components/share-property-button";
 import { TourBookingForm } from "@/components/tour-booking-form";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
 import { tourBookingCopy } from "@/lib/booking-copy";
@@ -197,7 +198,10 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
             </div>
           </div>
           <aside className="detail-price-card">
-            <SavePropertyButton locale={locale} showSavedLink slug={localizedProperty.slug} />
+            <div className="detail-card-actions">
+              <SavePropertyButton locale={locale} showSavedLink slug={localizedProperty.slug} />
+              <SharePropertyButton locale={locale} title={localizedProperty.title} />
+            </div>
             {(localizedProperty.listingMode === "sale" || localizedProperty.listingMode === "both") ? (
               <div className="detail-price-block">
                 <span>{copy.detail.salePrice}</span>

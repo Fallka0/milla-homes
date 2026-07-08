@@ -4018,9 +4018,31 @@ textarea {
   color: var(--surface-strong);
 }
 
-.detail-price-card .save-property-control { width: 100%; margin-bottom: auto; }
+.detail-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  margin-bottom: auto;
+}
+
+.detail-price-card .detail-card-actions .save-property-control { width: auto; margin-bottom: 0; }
 .detail-price-card .save-property-button { background: rgba(252, 248, 240, 0.96); }
 .detail-price-card .save-property-control-detail > a { color: rgba(252, 248, 240, 0.76); }
+
+/* Match the share button to the labelled save button in the detail card. */
+.detail-card-actions .save-property-button {
+  width: auto;
+  gap: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.share-property-button { cursor: pointer; }
 
 .carousel-shell {
   display: grid;
