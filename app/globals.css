@@ -4844,10 +4844,23 @@ textarea {
   }
 
   .detail-price-card {
-    align-items: flex-start;
+    align-items: stretch;
     width: 100%;
-    padding: 1rem;
+    padding: 1.25rem;
     border-radius: 10px;
+  }
+
+  /* On the full-width mobile card, spread the two contact buttons across
+     the row instead of leaving them clustered at content width on the left. */
+  .detail-contact-actions {
+    flex-direction: row;
+  }
+
+  .detail-contact-actions .button {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    padding-inline: 1rem;
   }
 
   .detail-spotlight {
