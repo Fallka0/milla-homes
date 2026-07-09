@@ -4592,11 +4592,18 @@ textarea {
     height: 2.9rem;
   }
 
-  /* Nav scrolls horizontally rather than wrapping into a cramped block;
-     bleed to the card edges so the scroll feels intentional. */
+  /* Wrap the pills onto multiple rows on mobile instead of scrolling them
+     off-screen (which just clipped labels mid-word). */
   .admin-nav {
-    margin: 0 -1.1rem;
-    padding: 1rem 1.1rem 0.15rem;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    overflow: visible;
+    padding-top: 1rem;
+  }
+
+  .admin-nav-link {
+    font-size: 0.84rem;
+    padding: 0.45rem 0.85rem;
   }
 
   .admin-login-topline {
