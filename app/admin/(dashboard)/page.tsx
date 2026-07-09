@@ -2,17 +2,27 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
+import { DashboardPendingTours } from "@/components/admin/dashboard-pending-tours";
 import { PropertyStatusForm } from "@/components/admin/property-status-form";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
+import { getAdminBookingCopy } from "@/lib/booking-copy";
+import { getAdminBookings } from "@/lib/bookings";
 import { getAdminInquiries } from "@/lib/inquiries";
 import { formatOptionalPrice, formatPrice, getPropertyPreviewImageUrl } from "@/lib/property-shared";
 import { getAdminProperties } from "@/lib/properties";
+import { getAdminSiteUrl } from "@/lib/site-urls";
 
 export default async function AdminDashboardPage() {
   const cookieStore = await cookies();
   const locale = resolveAdminLocale(cookieStore.get("verdant-locale")?.value);
   const copy = adminCopy[locale];
-  const [properties, inquiries] = await Promise.all([getAdminProperties(), getAdminInquiries()]);
+  const bookingCopy = getAdminBookingCopy(locale);
+  const [properties, inquiries, bookings] = await Promise.all([
+    getAdminProperties(),
+    getAdminInquiries(),
+    getAdminBookings(),
+  ]);
+  const pendingTours = bookings.filter((booking) => booking.type === "tour" && booking.status === "pending");
   const liveProperties = properties.filter(
     (property) => property.status === "available" || property.status === "reserved",
   );
@@ -54,6 +64,15 @@ export default async function AdminDashboardPage() {
           <p>{copy.dashboard.stats.draftsBody}</p>
         </article>
       </div>
+
+      {pendingTours.length > 0 ? (
+        <DashboardPendingTours
+          bookingsHref={getAdminSiteUrl("/admin/bookings")}
+          copy={bookingCopy}
+          locale={locale}
+          tours={pendingTours}
+        />
+      ) : null}
 
       <div className="admin-card admin-table-card">
         <div className="admin-card-header">
