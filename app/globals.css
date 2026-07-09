@@ -3091,6 +3091,100 @@ textarea {
   font-size: 0.85rem;
 }
 
+.mortgage-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.mortgage-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.mortgage-inputs label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.mortgage-inputs input {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid rgba(18, 53, 36, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.mortgage-inputs input:focus {
+  border-color: rgba(212, 178, 106, 0.9);
+  box-shadow: 0 0 0 3px rgba(212, 178, 106, 0.16);
+}
+
+.mortgage-monthly {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem 1.15rem;
+  border-radius: 12px;
+  background: var(--surface-deep);
+  color: var(--surface-strong);
+}
+
+.mortgage-monthly span {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+}
+
+.mortgage-monthly strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.mortgage-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.mortgage-breakdown div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid rgba(18, 53, 36, 0.08);
+}
+
+.mortgage-breakdown dt {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.mortgage-breakdown dd {
+  margin: 0;
+  font-weight: 700;
+  color: var(--text);
+}
+
+@media (max-width: 560px) {
+  .mortgage-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Zone pill markers: always-readable name + count */
 .map-zone-pill-wrap {
   background: transparent;
