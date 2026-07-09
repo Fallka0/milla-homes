@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { ContactActions } from "@/components/contact-actions";
 import { ImageCarousel } from "@/components/image-carousel";
 import { InquiryForm } from "@/components/inquiry-form";
+import { PropertyCard } from "@/components/property-card";
+import { PropertyDetailMap } from "@/components/property-detail-map";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SavePropertyButton } from "@/components/save-property-button";
@@ -24,8 +26,9 @@ import {
   publicCopy,
   resolvePublicLocale,
 } from "@/lib/public-copy";
+import { getListingCoordinates, resolveZoneName } from "@/lib/geo";
 import { formatOptionalPrice, formatPrice, getPropertyPreviewImageUrl } from "@/lib/property-shared";
-import { getPropertyBySlug, localizeProperty } from "@/lib/properties";
+import { getPropertyBySlug, getPublicProperties, localizeProperty } from "@/lib/properties";
 import { getCanonicalUrl, getOpenGraphLocale, truncateSeoDescription } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -103,12 +106,32 @@ export async function generateMetadata({ params }: PropertyDetailPageProps): Pro
   };
 }
 
+const locationCopyByLocale: Record<string, { eyebrow: string; note: string }> = {
+  en: { eyebrow: "Location", note: "Approximate area shown. Exact address provided on request." },
+  es: { eyebrow: "Ubicación", note: "Zona aproximada. Dirección exacta facilitada bajo petición." },
+  ru: { eyebrow: "Расположение", note: "Показан примерный район. Точный адрес — по запросу." },
+  de: { eyebrow: "Lage", note: "Ungefähre Umgebung. Genaue Adresse auf Anfrage." },
+};
+
+const similarCopyByLocale: Record<string, { eyebrow: string; title: string }> = {
+  en: { eyebrow: "Keep exploring", title: "Similar properties" },
+  es: { eyebrow: "Sigue explorando", title: "Propiedades similares" },
+  ru: { eyebrow: "Продолжить просмотр", title: "Похожие объекты" },
+  de: { eyebrow: "Weiter entdecken", title: "Ähnliche Immobilien" },
+};
+
 export default async function PropertyDetailPage({ params }: PropertyDetailPageProps) {
   const cookieStore = await cookies();
   const locale = resolvePublicLocale(cookieStore.get("verdant-locale")?.value);
   const copy = publicCopy[locale];
+  const locationCopy = locationCopyByLocale[locale] ?? locationCopyByLocale.en;
+  const similarCopy = similarCopyByLocale[locale] ?? similarCopyByLocale.en;
   const { slug } = await params;
-  const [property, authState] = await Promise.all([getPropertyBySlug(slug), getAdminAuthState()]);
+  const [property, allPublicProperties, authState] = await Promise.all([
+    getPropertyBySlug(slug),
+    getPublicProperties(),
+    getAdminAuthState(),
+  ]);
   const adminLocale = resolveAdminLocale(locale);
 
   if (!property) {
@@ -116,6 +139,25 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
   }
 
   const localizedProperty = localizeProperty(property, locale);
+
+  // Rank other listings by shared area, then type, then listing mode, so the
+  // strip surfaces the most relevant nearby homes first.
+  const currentZone = resolveZoneName(localizedProperty.location);
+  const similarProperties = allPublicProperties
+    .filter((item) => item.id !== localizedProperty.id)
+    .map((item) => {
+      const localized = localizeProperty(item, locale);
+      const zone = resolveZoneName(localized.location);
+      let score = 0;
+      if (currentZone && zone === currentZone) score += 3;
+      if (localized.type === localizedProperty.type) score += 2;
+      if (localized.listingMode === localizedProperty.listingMode) score += 1;
+      return { localized, score };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((entry) => entry.localized);
+
   const heroSummary = localizedProperty.shortDescription || localizedProperty.description;
   const shouldShowFullDescription =
     Boolean(localizedProperty.description) &&
@@ -299,6 +341,16 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
               </>
             ) : null}
           </article>
+
+          <article className="detail-copy-card detail-location-card">
+            <p className="eyebrow">{locationCopy.eyebrow}</p>
+            <h2>{localizedProperty.location}</h2>
+            <PropertyDetailMap
+              center={getListingCoordinates({ id: localizedProperty.id, location: localizedProperty.location })}
+              label={`${locationCopy.eyebrow}: ${localizedProperty.location}`}
+            />
+            <p className="detail-location-note">{locationCopy.note}</p>
+          </article>
         </div>
 
         <aside className="detail-sidebar">
@@ -329,6 +381,27 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
           </div>
         </aside>
       </section>
+
+      {similarProperties.length > 0 ? (
+        <section className="section detail-similar">
+          <div className="section-heading compact">
+            <p className="eyebrow">{similarCopy.eyebrow}</p>
+            <h2>{similarCopy.title}</h2>
+          </div>
+          <div className="property-grid">
+            {similarProperties.map((similar) => (
+              <PropertyCard
+                bathroomsLabel={copy.propertyMeta.bathroomsShort}
+                bedroomsLabel={copy.propertyMeta.bedroomsShort}
+                buttonLabel={copy.buttons.viewDetails}
+                key={similar.id}
+                locale={locale}
+                property={similar}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <SiteFooter copy={copy} locale={locale} />
     </main>

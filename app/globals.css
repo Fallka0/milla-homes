@@ -3070,6 +3070,27 @@ textarea {
   z-index: 0;
 }
 
+.detail-location-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.property-detail-map {
+  height: clamp(240px, 40vh, 380px);
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(18, 53, 36, 0.12);
+  z-index: 0;
+}
+
+.detail-location-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 /* Zone pill markers: always-readable name + count */
 .map-zone-pill-wrap {
   background: transparent;
@@ -3587,6 +3608,17 @@ textarea {
   color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.55;
+}
+
+.admin-pending-tours-card {
+  border-color: rgba(212, 178, 106, 0.55);
+  background:
+    linear-gradient(180deg, rgba(212, 178, 106, 0.08), rgba(212, 178, 106, 0)) ,
+    var(--surface);
+}
+
+.admin-pending-tours-card .admin-card-header .eyebrow {
+  color: #a9822f;
 }
 
 .admin-card-header {
