@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { requireAdminUser } from "@/lib/auth";
+import { inquiryStatuses, type InquiryStatus } from "@/lib/inquiries";
 import { mirrorExternalImageUrls } from "@/lib/property-import";
 import { generatePropertyTranslations } from "@/lib/property-translations";
 import { createAdminClient } from "@/lib/supabase/server";
@@ -139,6 +140,26 @@ export async function deletePropertyAction(propertyId: string, slug: string) {
 
   revalidatePropertyPaths(slug);
   redirect("/admin");
+}
+
+export async function updateInquiryStatusAction(inquiryId: string, status: InquiryStatus) {
+  await requireAdminUser();
+  const supabase = getConfiguredAdminClient();
+
+  if (!inquiryStatuses.includes(status)) {
+    throw new Error("Invalid inquiry status.");
+  }
+
+  const { error } = await supabase
+    .from("inquiries")
+    .update({ status })
+    .eq("id", inquiryId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin");
 }
 
 export async function updatePropertyStatusAction(propertyId: string, slug: string, formData: FormData) {

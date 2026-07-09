@@ -4026,6 +4026,48 @@ textarea {
   background: rgba(255, 251, 244, 0.52);
 }
 
+.admin-inquiry-card.inquiry-new {
+  border-left: 3px solid var(--gold);
+}
+
+.admin-inquiry-card.inquiry-closed {
+  opacity: 0.6;
+}
+
+.inquiry-status-control {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  background: rgba(18, 53, 36, 0.06);
+  width: fit-content;
+}
+
+.inquiry-status-chip {
+  padding: 0.32rem 0.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.inquiry-status-chip:hover:not(:disabled) {
+  color: var(--text);
+}
+
+.inquiry-status-chip.is-active {
+  background: var(--surface-deep);
+  color: var(--surface-strong);
+}
+
+.inquiry-status-chip:disabled {
+  cursor: default;
+}
+
 .admin-inquiry-topline {
   display: flex;
   align-items: baseline;
