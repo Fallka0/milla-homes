@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { AdminNav } from "@/components/admin/admin-nav";
 import { BrandLogo } from "@/components/brand-logo";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SignOutButton } from "@/components/admin/sign-out-button";
@@ -43,24 +43,32 @@ export default async function AdminDashboardLayout({
   return (
     <main className="admin-shell" lang={locale}>
       <header className="admin-topbar">
-        <div className="admin-brand-block">
-          <BrandLogo />
-          <p className="eyebrow">{copy.layout.adminLabel}</p>
-          <h1>{copy.layout.title}</h1>
+        <div className="admin-topbar-bar">
+          <div className="admin-brand-block">
+            <BrandLogo />
+            <div className="admin-brand-text">
+              <p className="eyebrow">{copy.layout.adminLabel}</p>
+              <h1>{copy.layout.title}</h1>
+            </div>
+          </div>
+
+          <div className="admin-topbar-utility">
+            <LanguageSwitcher currentLocale={locale} label={copy.languageLabel} locales={adminLocales} />
+            <SignOutButton label={copy.layout.signOut} />
+          </div>
         </div>
 
-        <div className="admin-topbar-actions">
-          <nav className="primary-nav" aria-label={copy.layout.adminLabel}>
-            <Link href={getAdminSiteUrl("/admin")}>{copy.layout.dashboard}</Link>
-            <Link href={getAdminSiteUrl("/admin/properties/new")}>{copy.layout.newListing}</Link>
-            <Link href={getAdminSiteUrl("/admin/bookings")}>{getAdminBookingCopy(locale).navLabel}</Link>
-            <Link href={getAdminSiteUrl("/admin/window-sheets")}>Fichas escaparate</Link>
-            <Link href={getAdminSiteUrl("/admin/facturas")}>Facturas</Link>
-            <Link href={getPublicSiteUrl("/properties")}>{copy.layout.viewSite}</Link>
-          </nav>
-          <LanguageSwitcher currentLocale={locale} label={copy.languageLabel} locales={adminLocales} />
-          <SignOutButton label={copy.layout.signOut} />
-        </div>
+        <AdminNav
+          ariaLabel={copy.layout.adminLabel}
+          items={[
+            { href: getAdminSiteUrl("/admin"), label: copy.layout.dashboard },
+            { href: getAdminSiteUrl("/admin/properties/new"), label: copy.layout.newListing },
+            { href: getAdminSiteUrl("/admin/bookings"), label: getAdminBookingCopy(locale).navLabel },
+            { href: getAdminSiteUrl("/admin/window-sheets"), label: "Fichas escaparate" },
+            { href: getAdminSiteUrl("/admin/facturas"), label: "Facturas" },
+            { external: true, href: getPublicSiteUrl("/properties"), label: copy.layout.viewSite },
+          ]}
+        />
       </header>
 
       {children}
