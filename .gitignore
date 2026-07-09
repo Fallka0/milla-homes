@@ -12,3 +12,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+
+# Private business/strategy notes — never push to the public repo
+docs/saas-platform-plan.md
