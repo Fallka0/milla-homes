@@ -3415,32 +3415,88 @@ textarea {
 
 .admin-topbar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 1.15rem;
   margin-bottom: 2rem;
-  padding: 1.5rem;
+  padding: 1.35rem 1.6rem;
   border: 1px solid rgba(18, 53, 36, 0.08);
   border-radius: var(--radius-lg);
   background: var(--surface);
   box-shadow: var(--shadow-sm);
 }
 
+.admin-topbar-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-topbar .admin-brand-block {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.admin-topbar .brand-logo-image {
+  height: 3.4rem;
+}
+
+.admin-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
 .admin-topbar h1 {
-  margin: 0.35rem 0 0;
+  margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.05;
   letter-spacing: -0.01em;
 }
 
-.admin-topbar-actions {
+.admin-topbar-utility {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 0.4rem;
+  padding-top: 1.05rem;
+  border-top: 1px solid rgba(18, 53, 36, 0.1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.admin-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-nav-link {
+  flex: 0 0 auto;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.admin-nav-link:hover,
+.admin-nav-link:focus-visible {
+  background: rgba(18, 53, 36, 0.06);
+  color: var(--text);
+}
+
+.admin-nav-link.is-active {
+  background: var(--surface-deep);
+  color: var(--surface-strong);
 }
 
 .admin-grid {
@@ -4467,7 +4523,6 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .admin-topbar,
   .admin-dashboard-hero,
   .admin-overview-card {
     align-items: flex-start;
@@ -4475,7 +4530,6 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .admin-topbar-actions,
   .admin-quick-actions {
     justify-content: flex-start;
   }
@@ -4514,13 +4568,35 @@ textarea {
   }
 
   .admin-topbar {
-    padding: 1rem;
+    padding: 1.1rem;
     border-radius: 10px;
+    gap: 1rem;
   }
 
-  .admin-topbar .primary-nav {
-    flex-wrap: wrap;
-    gap: 0.9rem 1.25rem;
+  .admin-topbar-bar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .admin-topbar-utility {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .admin-topbar-utility .language-switcher {
+    width: auto;
+  }
+
+  .admin-topbar .brand-logo-image {
+    height: 2.9rem;
+  }
+
+  /* Nav scrolls horizontally rather than wrapping into a cramped block;
+     bleed to the card edges so the scroll feels intentional. */
+  .admin-nav {
+    margin: 0 -1.1rem;
+    padding: 1rem 1.1rem 0.15rem;
   }
 
   .admin-login-topline {
