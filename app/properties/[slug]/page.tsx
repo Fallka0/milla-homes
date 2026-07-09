@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { ContactActions } from "@/components/contact-actions";
 import { ImageCarousel } from "@/components/image-carousel";
 import { InquiryForm } from "@/components/inquiry-form";
+import { MortgageCalculator } from "@/components/mortgage-calculator";
 import { PropertyCard } from "@/components/property-card";
 import { PropertyDetailMap } from "@/components/property-detail-map";
 import { PublicHeader } from "@/components/public-header";
@@ -341,6 +342,11 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
               </>
             ) : null}
           </article>
+
+          {(localizedProperty.listingMode === "sale" || localizedProperty.listingMode === "both") &&
+          localizedProperty.priceEuro > 0 ? (
+            <MortgageCalculator locale={locale} price={localizedProperty.priceEuro} />
+          ) : null}
 
           <article className="detail-copy-card detail-location-card">
             <p className="eyebrow">{locationCopy.eyebrow}</p>

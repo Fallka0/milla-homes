@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { DashboardPendingTours } from "@/components/admin/dashboard-pending-tours";
+import { InquiryStatusControl } from "@/components/admin/inquiry-status-control";
 import { PropertyStatusForm } from "@/components/admin/property-status-form";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
 import { getAdminBookingCopy } from "@/lib/booking-copy";
@@ -180,11 +181,12 @@ export default async function AdminDashboardPage() {
                 .join("\n");
 
               return (
-                <article className="admin-inquiry-card" key={inquiry.id}>
+                <article className={`admin-inquiry-card inquiry-${inquiry.status}`} key={inquiry.id}>
                   <div className="admin-inquiry-topline">
                     <strong>{inquiry.name}</strong>
                     <span>{new Date(inquiry.createdAt).toLocaleString(locale)}</span>
                   </div>
+                  <InquiryStatusControl inquiryId={inquiry.id} locale={locale} status={inquiry.status} />
                   <div className="admin-inquiry-meta">
                     <span><strong>{copy.dashboard.inquiries.property}:</strong> {inquiry.propertyTitle ?? "General inquiry"}</span>
                     <span><strong>{copy.dashboard.inquiries.email}:</strong> {inquiry.email}</span>
