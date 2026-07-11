@@ -11,6 +11,7 @@ import { PropertyCard } from "@/components/property-card";
 import { PropertyDetailMap } from "@/components/property-detail-map";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
+import { ConciergeWidget } from "@/components/concierge-widget";
 import { SavePropertyButton } from "@/components/save-property-button";
 import { SharePropertyButton } from "@/components/share-property-button";
 import { TourBookingForm } from "@/components/tour-booking-form";
@@ -56,6 +57,7 @@ type PropertyDetailPageProps = {
   params: Promise<{
     slug: string;
   }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateMetadata({ params }: PropertyDetailPageProps): Promise<Metadata> {
@@ -121,13 +123,19 @@ const similarCopyByLocale: Record<string, { eyebrow: string; title: string }> = 
   de: { eyebrow: "Weiter entdecken", title: "Ähnliche Immobilien" },
 };
 
-export default async function PropertyDetailPage({ params }: PropertyDetailPageProps) {
+export default async function PropertyDetailPage({ params, searchParams }: PropertyDetailPageProps) {
   const cookieStore = await cookies();
   const locale = resolvePublicLocale(cookieStore.get("verdant-locale")?.value);
   const copy = publicCopy[locale];
   const locationCopy = locationCopyByLocale[locale] ?? locationCopyByLocale.en;
   const similarCopy = similarCopyByLocale[locale] ?? similarCopyByLocale.en;
   const { slug } = await params;
+  const resolvedSearchParams = (await searchParams) ?? {};
+  // Preview flag: on globally via env, or per-visit with ?concierge=1 so it can
+  // be demoed without touching the live public site until it's trusted.
+  const conciergeEnabled =
+    process.env.NEXT_PUBLIC_CONCIERGE_ENABLED === "true" ||
+    resolvedSearchParams.concierge === "1";
   const [property, allPublicProperties, authState] = await Promise.all([
     getPropertyBySlug(slug),
     getPublicProperties(),
@@ -410,6 +418,14 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
       ) : null}
 
       <SiteFooter copy={copy} locale={locale} />
+
+      {conciergeEnabled ? (
+        <ConciergeWidget
+          locale={locale}
+          propertyId={localizedProperty.id}
+          propertyTitle={localizedProperty.title}
+        />
+      ) : null}
     </main>
   );
 }
