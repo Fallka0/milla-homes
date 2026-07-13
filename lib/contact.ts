@@ -4,8 +4,8 @@ export const motherPhoneDisplay = "+34 652 679 443";
 export const officeAddressStreet = "C. Canónigo Torres, 8";
 export const officeAddressCity = "Torrevieja, Alicante";
 export const officeAddressDisplay = `${officeAddressStreet} · Torrevieja`;
-// Approximate centre of Calle Canónigo Torres in the Torrevieja old town.
-export const officeMapCenter: [number, number] = [37.9776, -0.6812];
+// Calle Canónigo Torres in the Torrevieja old town.
+export const officeMapCenter: [number, number] = [37.9764, -0.6823];
 
 export function getOfficeMapsHref() {
   const query = encodeURIComponent(`Milla Homes, ${officeAddressStreet}, Torrevieja`);
