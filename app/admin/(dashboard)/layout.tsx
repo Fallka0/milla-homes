@@ -66,6 +66,7 @@ export default async function AdminDashboardLayout({
             { href: getAdminSiteUrl("/admin/bookings"), label: getAdminBookingCopy(locale).navLabel },
             { href: getAdminSiteUrl("/admin/window-sheets"), label: "Fichas escaparate" },
             { href: getAdminSiteUrl("/admin/facturas"), label: "Facturas" },
+            { href: getAdminSiteUrl("/admin/contratos"), label: "Contratos" },
             { external: true, href: getPublicSiteUrl("/properties"), label: copy.layout.viewSite },
           ]}
         />
