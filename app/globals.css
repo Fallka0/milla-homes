@@ -2133,9 +2133,91 @@ textarea {
 
 .contact-page-hero h1 { max-width: 15ch; }
 
+.office-gallery-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 4vw, 3rem);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--border-strong);
+}
+
+.office-gallery {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.office-gallery figure {
+  margin: 0;
+  grid-column: span 2;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+.office-gallery figure.office-gallery-wide {
+  grid-column: span 3;
+  aspect-ratio: 4 / 4.2;
+}
+
+.office-gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.office-visit-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.office-address-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.office-address-label {
+  display: block;
+  color: var(--gold);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.office-address-lines {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  line-height: 1.3;
+}
+
+.office-map-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.office-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .contact-methods {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   border: 1px solid var(--border-strong);
   background: var(--border-strong);
@@ -2241,6 +2323,13 @@ textarea {
   border-bottom: 1px solid var(--gold);
   color: var(--text);
   font-weight: 600;
+}
+
+.site-footer-contact .footer-address {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .site-footer-contact p {
@@ -5185,6 +5274,18 @@ textarea {
   .contact-methods {
     grid-template-columns: 1fr;
   }
+
+  .office-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .office-gallery figure,
+  .office-gallery figure.office-gallery-wide {
+    grid-column: span 1;
+    aspect-ratio: 3 / 4;
+  }
+
+  .office-gallery figure:last-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
 
   .company-values article {
     min-height: 0;
