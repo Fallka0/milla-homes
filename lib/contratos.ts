@@ -16,6 +16,13 @@ export type ContratoParty = {
   address: string;
 };
 
+// Languages the printed document exists in. Spanish is the binding original;
+// the rest are courtesy translations that can be printed alongside it.
+export const CONTRATO_DOC_LOCALES = ["es", "en", "ru", "de"] as const;
+export type ContratoDocLocale = (typeof CONTRATO_DOC_LOCALES)[number];
+export type ContratoExtraLocale = Exclude<ContratoDocLocale, "es">;
+export const CONTRATO_EXTRA_LOCALES: ContratoExtraLocale[] = ["en", "ru", "de"];
+
 export type Contrato = {
   type: ContratoType;
   city: string; // place of signing, e.g. "Orihuela Costa (Alicante)"
@@ -39,29 +46,14 @@ export type Contrato = {
   deadlineDate: string; // sign arras contract / escritura before this date
   depositHeldByAgency: boolean; // reservation: money held by Milla Homes
   extraClauses: string; // free text, one paragraph per line
+  extraLanguages: ContratoExtraLocale[]; // courtesy versions printed after the Spanish one
 };
 
-export const CONTRATO_TYPES: { value: ContratoType; label: string; hint: string }[] = [
-  {
-    value: "short-rent",
-    label: "Alquiler de temporada",
-    hint: "Corta estancia, fechas cerradas, sin prórroga (art. 3 LAU)",
-  },
-  {
-    value: "long-rent",
-    label: "Alquiler de vivienda",
-    hint: "Residencia habitual, 1 año prorrogable hasta 5 (LAU)",
-  },
-  {
-    value: "reservation",
-    label: "Reserva",
-    hint: "Señal para retirar el inmueble del mercado",
-  },
-  {
-    value: "arras",
-    label: "Arras penitenciales",
-    hint: "Compraventa, art. 1454 CC: comprador pierde / vendedor duplica",
-  },
+export const CONTRATO_TYPES: { value: ContratoType }[] = [
+  { value: "short-rent" },
+  { value: "long-rent" },
+  { value: "reservation" },
+  { value: "arras" },
 ];
 
 export function blankContrato(type: ContratoType = "short-rent"): Contrato {
@@ -86,37 +78,8 @@ export function blankContrato(type: ContratoType = "short-rent"): Contrato {
     deadlineDate: "",
     depositHeldByAgency: true,
     extraClauses: "",
+    extraLanguages: [],
   };
-}
-
-// ---- per-type labels -------------------------------------------------------
-export function contratoTitle(type: ContratoType): string {
-  switch (type) {
-    case "short-rent":
-      return "CONTRATO DE ARRENDAMIENTO DE VIVIENDA POR TEMPORADA";
-    case "long-rent":
-      return "CONTRATO DE ARRENDAMIENTO DE VIVIENDA";
-    case "reservation":
-      return "DOCUMENTO DE RESERVA";
-    case "arras":
-      return "CONTRATO DE ARRAS PENITENCIALES";
-  }
-}
-
-// Uppercase role names used across the legal text and the signature block.
-export function contratoRoles(type: ContratoType): { a: string; b: string } {
-  if (type === "reservation" || type === "arras") {
-    return { a: "LA PARTE VENDEDORA", b: "LA PARTE COMPRADORA" };
-  }
-  return { a: "LA PARTE ARRENDADORA", b: "LA PARTE ARRENDATARIA" };
-}
-
-// Form labels for the two parties, per contract type.
-export function contratoPartyLabels(type: ContratoType): { a: string; b: string } {
-  if (type === "reservation" || type === "arras") {
-    return { a: "Vendedor (propietario)", b: "Comprador" };
-  }
-  return { a: "Arrendador (propietario)", b: "Arrendatario (inquilino)" };
 }
 
 const CONTRATO_FILE_SLUGS: Record<ContratoType, string> = {

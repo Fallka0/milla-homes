@@ -6,18 +6,261 @@ import { ContratoSheet } from "./contrato-sheet";
 import { parseAmountToCents } from "@/lib/facturas";
 import {
   CONTRATO_DRAFT_STORAGE_KEY,
+  CONTRATO_EXTRA_LOCALES,
   CONTRATO_PRINT_STORAGE_KEY,
   CONTRATO_TYPES,
   blankContrato,
-  contratoPartyLabels,
   type Contrato,
+  type ContratoDocLocale,
+  type ContratoExtraLocale,
   type ContratoParty,
   type ContratoType,
 } from "@/lib/contratos";
 
+// UI language of the tool itself (follows the admin locale switcher). The
+// printed document language is chosen separately via the version checkboxes.
+export type ContratoToolLocale = "es" | "en" | "ru";
+
+type ToolCopy = {
+  typeCard: string;
+  reset: string;
+  types: Record<ContratoType, { label: string; hint: string }>;
+  signPlace: string;
+  signDate: string;
+  partyRentA: string;
+  partyRentB: string;
+  partySaleA: string;
+  partySaleB: string;
+  fullName: string;
+  idDoc: string;
+  domicile: string;
+  propertyCard: string;
+  propAddress: string;
+  propCity: string;
+  propRef: string;
+  conditionsCard: string;
+  rentStart: string;
+  rentEnd: string;
+  duration: string;
+  durationFixed: string;
+  monthlyCheck: string;
+  rentMonthly: string;
+  rentTotal: string;
+  deposit: string;
+  depositHintLong: string;
+  iban: string;
+  utilities: string;
+  price: string;
+  signalArras: string;
+  signalReserva: string;
+  deadlineArras: string;
+  deadlineReserva: string;
+  agencyHeld: string;
+  badAmount: string;
+  extraCard: string;
+  extraPlaceholder: string;
+  langsCard: string;
+  langsHint: string;
+  langNames: Record<ContratoExtraLocale, string>;
+  previewLang: string;
+  exportPdf: string;
+};
+
+const TOOL_COPY: Record<ContratoToolLocale, ToolCopy> = {
+  es: {
+    typeCard: "Tipo de contrato",
+    reset: "Vaciar formulario",
+    types: {
+      "short-rent": {
+        label: "Alquiler de temporada",
+        hint: "Corta estancia, fechas cerradas, sin prórroga (art. 3 LAU)",
+      },
+      "long-rent": {
+        label: "Alquiler de vivienda",
+        hint: "Residencia habitual, 1 año prorrogable hasta 5 (LAU)",
+      },
+      reservation: {
+        label: "Reserva",
+        hint: "Señal para retirar el inmueble del mercado",
+      },
+      arras: {
+        label: "Arras penitenciales",
+        hint: "Compraventa, art. 1454 CC: comprador pierde / vendedor duplica",
+      },
+    },
+    signPlace: "Lugar de firma",
+    signDate: "Fecha de firma",
+    partyRentA: "Arrendador (propietario)",
+    partyRentB: "Arrendatario (inquilino)",
+    partySaleA: "Vendedor (propietario)",
+    partySaleB: "Comprador",
+    fullName: "Nombre completo",
+    idDoc: "DNI/NIE/Pasaporte",
+    domicile: "Domicilio",
+    propertyCard: "Inmueble",
+    propAddress: "Dirección",
+    propCity: "Ciudad",
+    propRef: "Ref. catastral (opcional)",
+    conditionsCard: "Condiciones",
+    rentStart: "Inicio del alquiler",
+    rentEnd: "Fin del alquiler",
+    duration: "Duración",
+    durationFixed: "1 año, prorrogable hasta 5 (LAU)",
+    monthlyCheck: "La renta es mensual (en lugar de un importe total por la temporada)",
+    rentMonthly: "Renta mensual (€)",
+    rentTotal: "Renta total temporada (€)",
+    deposit: "Fianza (€)",
+    depositHintLong: "1 mensualidad",
+    iban: "IBAN para el pago de la renta",
+    utilities: "Suministros (agua, luz, internet) incluidos en la renta",
+    price: "Precio de compraventa (€)",
+    signalArras: "Importe de las arras (€)",
+    signalReserva: "Importe de la reserva (€)",
+    deadlineArras: "Fecha límite para la escritura pública",
+    deadlineReserva: "Fecha límite para arras / escritura",
+    agencyHeld: "La reserva queda depositada en Milla Homes (si no, la recibe el vendedor)",
+    badAmount: "Hay un importe que no se entiende. Usa formato 2.500,00.",
+    extraCard: "Otras estipulaciones (opcional)",
+    extraPlaceholder:
+      "Una cláusula por línea, p. ej.:\nSe permite la estancia de una mascota de pequeño tamaño.\nEl inmueble se entrega amueblado según inventario anexo.",
+    langsCard: "Versiones adicionales",
+    langsHint:
+      "El contrato español es el que se firma; las versiones marcadas se imprimen a continuación como traducción de cortesía.",
+    langNames: { en: "Inglés", ru: "Ruso", de: "Alemán" },
+    previewLang: "Idioma de la vista previa",
+    exportPdf: "Exportar PDF",
+  },
+  en: {
+    typeCard: "Contract type",
+    reset: "Clear form",
+    types: {
+      "short-rent": {
+        label: "Seasonal rental",
+        hint: "Short stay, fixed dates, no extension (Art. 3 LAU)",
+      },
+      "long-rent": {
+        label: "Residential rental",
+        hint: "Habitual residence, 1 year extendable to 5 (LAU)",
+      },
+      reservation: {
+        label: "Reservation",
+        hint: "Deposit to take the property off the market",
+      },
+      arras: {
+        label: "Earnest money (arras)",
+        hint: "Sale, Art. 1454 CC: buyer forfeits / seller returns double",
+      },
+    },
+    signPlace: "Place of signing",
+    signDate: "Date of signing",
+    partyRentA: "Landlord (owner)",
+    partyRentB: "Tenant",
+    partySaleA: "Seller (owner)",
+    partySaleB: "Buyer",
+    fullName: "Full name",
+    idDoc: "ID/NIE/Passport",
+    domicile: "Address",
+    propertyCard: "Property",
+    propAddress: "Address",
+    propCity: "City",
+    propRef: "Cadastral ref. (optional)",
+    conditionsCard: "Terms",
+    rentStart: "Rental start",
+    rentEnd: "Rental end",
+    duration: "Duration",
+    durationFixed: "1 year, extendable to 5 (LAU)",
+    monthlyCheck: "Rent is monthly (instead of a total amount for the season)",
+    rentMonthly: "Monthly rent (€)",
+    rentTotal: "Total rent for the season (€)",
+    deposit: "Deposit (€)",
+    depositHintLong: "1 month's rent",
+    iban: "IBAN for rent payments",
+    utilities: "Utilities (water, electricity, internet) included in the rent",
+    price: "Sale price (€)",
+    signalArras: "Earnest money amount (€)",
+    signalReserva: "Reservation amount (€)",
+    deadlineArras: "Deadline for the public deed",
+    deadlineReserva: "Deadline for arras / deed",
+    agencyHeld: "The reservation is held by Milla Homes (otherwise the seller receives it)",
+    badAmount: "One of the amounts can't be read. Use the format 2.500,00.",
+    extraCard: "Other provisions (optional)",
+    extraPlaceholder:
+      "One clause per line, e.g.:\nA small pet is allowed.\nThe property is delivered furnished as per the attached inventory.",
+    langsCard: "Additional versions",
+    langsHint:
+      "The Spanish contract is the one being signed; checked versions are printed after it as a courtesy translation.",
+    langNames: { en: "English", ru: "Russian", de: "German" },
+    previewLang: "Preview language",
+    exportPdf: "Export PDF",
+  },
+  ru: {
+    typeCard: "Тип договора",
+    reset: "Очистить форму",
+    types: {
+      "short-rent": {
+        label: "Сезонная аренда",
+        hint: "Короткий срок, фиксированные даты, без продления (ст. 3 LAU)",
+      },
+      "long-rent": {
+        label: "Долгосрочная аренда",
+        hint: "Постоянное проживание, 1 год с продлением до 5 лет (LAU)",
+      },
+      reservation: {
+        label: "Резервирование",
+        hint: "Платеж, чтобы снять объект с продажи",
+      },
+      arras: {
+        label: "Задаток (arras)",
+        hint: "Купля-продажа, ст. 1454 ГК: покупатель теряет / продавец возвращает вдвойне",
+      },
+    },
+    signPlace: "Место подписания",
+    signDate: "Дата подписания",
+    partyRentA: "Арендодатель (собственник)",
+    partyRentB: "Арендатор",
+    partySaleA: "Продавец (собственник)",
+    partySaleB: "Покупатель",
+    fullName: "Полное имя",
+    idDoc: "DNI/NIE/Паспорт",
+    domicile: "Адрес",
+    propertyCard: "Объект",
+    propAddress: "Адрес",
+    propCity: "Город",
+    propRef: "Кадастровый номер (необязательно)",
+    conditionsCard: "Условия",
+    rentStart: "Начало аренды",
+    rentEnd: "Конец аренды",
+    duration: "Срок",
+    durationFixed: "1 год, с продлением до 5 лет (LAU)",
+    monthlyCheck: "Плата помесячная (вместо общей суммы за сезон)",
+    rentMonthly: "Месячная плата (€)",
+    rentTotal: "Плата за весь сезон (€)",
+    deposit: "Залог (€)",
+    depositHintLong: "1 месячная плата",
+    iban: "IBAN для оплаты аренды",
+    utilities: "Коммунальные услуги (вода, свет, интернет) включены в плату",
+    price: "Цена купли-продажи (€)",
+    signalArras: "Сумма задатка (€)",
+    signalReserva: "Сумма резервирования (€)",
+    deadlineArras: "Крайний срок нотариального акта",
+    deadlineReserva: "Крайний срок задатка / акта",
+    agencyHeld: "Резервирование хранится у Milla Homes (иначе получает продавец)",
+    badAmount: "Одна из сумм не распознана. Используйте формат 2.500,00.",
+    extraCard: "Прочие условия (необязательно)",
+    extraPlaceholder:
+      "Одно условие на строку, напр.:\nРазрешено проживание небольшого домашнего животного.\nОбъект передается с мебелью согласно приложенной описи.",
+    langsCard: "Дополнительные версии",
+    langsHint:
+      "Подписывается испанский договор; отмеченные версии печатаются после него как перевод для удобства.",
+    langNames: { en: "Английский", ru: "Русский", de: "Немецкий" },
+    previewLang: "Язык предпросмотра",
+    exportPdf: "Экспорт PDF",
+  },
+};
+
 // ---- scaled on-screen A4 preview (same approach as the facturas tool, but
 // the contract grows with its text, so the natural height is observed too) ---
-function ContratoPreview({ contrato }: { contrato: Contrato }) {
+function ContratoPreview({ contrato, locale }: { contrato: Contrato; locale: ContratoDocLocale }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.5);
@@ -42,15 +285,17 @@ function ContratoPreview({ contrato }: { contrato: Contrato }) {
     <div ref={wrapRef} className="fac-preview-frame" style={{ height: sheetHeight * scale }}>
       <div style={{ transform: `scale(${scale})`, transformOrigin: "top left", width: 794 }}>
         <div ref={sheetRef}>
-          <ContratoSheet contrato={contrato} />
+          <ContratoSheet contrato={contrato} locale={locale} />
         </div>
       </div>
     </div>
   );
 }
 
-export function ContratosTool() {
+export function ContratosTool({ locale = "es" }: { locale?: ContratoToolLocale }) {
+  const copy = TOOL_COPY[locale];
   const [contrato, setContrato] = useState<Contrato>(() => blankContrato());
+  const [previewLocale, setPreviewLocale] = useState<ContratoDocLocale>("es");
 
   // Restore the last draft so a reload doesn't lose the contract in progress.
   // localStorage isn't available during SSR, so this can't be a lazy initializer.
@@ -84,6 +329,14 @@ export function ContratosTool() {
   const setParty = (key: "partyA" | "partyB", patch: Partial<ContratoParty>) =>
     setContrato((current) => ({ ...current, [key]: { ...current[key], ...patch } }));
 
+  const toggleLanguage = (lang: ContratoExtraLocale) =>
+    setContrato((current) => ({
+      ...current,
+      extraLanguages: current.extraLanguages.includes(lang)
+        ? current.extraLanguages.filter((item) => item !== lang)
+        : [...current.extraLanguages, lang],
+    }));
+
   const resetForm = () => setContrato(blankContrato(contrato.type));
 
   const exportPdf = () => {
@@ -92,7 +345,6 @@ export function ContratosTool() {
   };
 
   const isRent = contrato.type === "short-rent" || contrato.type === "long-rent";
-  const partyLabels = contratoPartyLabels(contrato.type);
 
   const moneyFields = isRent
     ? [contrato.rentAmount, contrato.deposit]
@@ -101,21 +353,23 @@ export function ContratosTool() {
     (raw) => raw.trim() !== "" && parseAmountToCents(raw) === null,
   );
 
+  const previewLocales: ContratoDocLocale[] = ["es", ...contrato.extraLanguages];
+  const activePreviewLocale = previewLocales.includes(previewLocale) ? previewLocale : "es";
+
   const partyFields = (key: "partyA" | "partyB", label: string) => (
     <div className="fac-card">
       <h3 className="fac-card-title">{label}</h3>
       <div className="fac-grid-2">
         <div className="fac-field">
-          <label htmlFor={`con-${key}-name`}>Nombre completo</label>
+          <label htmlFor={`con-${key}-name`}>{copy.fullName}</label>
           <input
             id={`con-${key}-name`}
             value={contrato[key].name}
             onChange={(event) => setParty(key, { name: event.target.value })}
-            placeholder="Nombre y apellidos"
           />
         </div>
         <div className="fac-field">
-          <label htmlFor={`con-${key}-nif`}>DNI/NIE/Pasaporte</label>
+          <label htmlFor={`con-${key}-nif`}>{copy.idDoc}</label>
           <input
             id={`con-${key}-nif`}
             value={contrato[key].nif}
@@ -125,7 +379,7 @@ export function ContratosTool() {
         </div>
       </div>
       <div className="fac-field">
-        <label htmlFor={`con-${key}-address`}>Domicilio</label>
+        <label htmlFor={`con-${key}-address`}>{copy.domicile}</label>
         <input
           id={`con-${key}-address`}
           value={contrato[key].address}
@@ -142,12 +396,12 @@ export function ContratosTool() {
         {/* Contract type + place/date of signing */}
         <div className="fac-card">
           <div className="fac-card-head">
-            <h3 className="fac-card-title">Tipo de contrato</h3>
+            <h3 className="fac-card-title">{copy.typeCard}</h3>
             <button type="button" className="fac-link" onClick={resetForm}>
-              Vaciar formulario
+              {copy.reset}
             </button>
           </div>
-          <div className="con-type-grid" role="radiogroup" aria-label="Tipo de contrato">
+          <div className="con-type-grid" role="radiogroup" aria-label={copy.typeCard}>
             {CONTRATO_TYPES.map((option) => (
               <label
                 key={option.value}
@@ -160,14 +414,14 @@ export function ContratosTool() {
                   checked={contrato.type === option.value}
                   onChange={() => setField("type", option.value as ContratoType)}
                 />
-                <span className="con-type-label">{option.label}</span>
-                <span className="con-type-hint">{option.hint}</span>
+                <span className="con-type-label">{copy.types[option.value].label}</span>
+                <span className="con-type-hint">{copy.types[option.value].hint}</span>
               </label>
             ))}
           </div>
           <div className="fac-grid-2">
             <div className="fac-field">
-              <label htmlFor="con-city">Lugar de firma</label>
+              <label htmlFor="con-city">{copy.signPlace}</label>
               <input
                 id="con-city"
                 value={contrato.city}
@@ -176,7 +430,7 @@ export function ContratosTool() {
               />
             </div>
             <div className="fac-field">
-              <label htmlFor="con-date">Fecha de firma</label>
+              <label htmlFor="con-date">{copy.signDate}</label>
               <input
                 id="con-date"
                 type="date"
@@ -187,14 +441,14 @@ export function ContratosTool() {
           </div>
         </div>
 
-        {partyFields("partyA", partyLabels.a)}
-        {partyFields("partyB", partyLabels.b)}
+        {partyFields("partyA", isRent ? copy.partyRentA : copy.partySaleA)}
+        {partyFields("partyB", isRent ? copy.partyRentB : copy.partySaleB)}
 
         {/* Property */}
         <div className="fac-card">
-          <h3 className="fac-card-title">Inmueble</h3>
+          <h3 className="fac-card-title">{copy.propertyCard}</h3>
           <div className="fac-field">
-            <label htmlFor="con-prop-address">Dirección</label>
+            <label htmlFor="con-prop-address">{copy.propAddress}</label>
             <input
               id="con-prop-address"
               value={contrato.propertyAddress}
@@ -204,7 +458,7 @@ export function ContratosTool() {
           </div>
           <div className="fac-grid-2">
             <div className="fac-field">
-              <label htmlFor="con-prop-city">Ciudad</label>
+              <label htmlFor="con-prop-city">{copy.propCity}</label>
               <input
                 id="con-prop-city"
                 value={contrato.propertyCity}
@@ -213,7 +467,7 @@ export function ContratosTool() {
               />
             </div>
             <div className="fac-field">
-              <label htmlFor="con-prop-ref">Ref. catastral (opcional)</label>
+              <label htmlFor="con-prop-ref">{copy.propRef}</label>
               <input
                 id="con-prop-ref"
                 value={contrato.propertyRef}
@@ -226,13 +480,13 @@ export function ContratosTool() {
 
         {/* Economic terms, per type */}
         <div className="fac-card">
-          <h3 className="fac-card-title">Condiciones</h3>
+          <h3 className="fac-card-title">{copy.conditionsCard}</h3>
 
           {isRent ? (
             <>
               <div className="fac-grid-2">
                 <div className="fac-field">
-                  <label htmlFor="con-start">Inicio del alquiler</label>
+                  <label htmlFor="con-start">{copy.rentStart}</label>
                   <input
                     id="con-start"
                     type="date"
@@ -242,7 +496,7 @@ export function ContratosTool() {
                 </div>
                 {contrato.type === "short-rent" ? (
                   <div className="fac-field">
-                    <label htmlFor="con-end">Fin del alquiler</label>
+                    <label htmlFor="con-end">{copy.rentEnd}</label>
                     <input
                       id="con-end"
                       type="date"
@@ -252,8 +506,8 @@ export function ContratosTool() {
                   </div>
                 ) : (
                   <div className="fac-field">
-                    <label>Duración</label>
-                    <input value="1 año, prorrogable hasta 5 (LAU)" disabled />
+                    <label>{copy.duration}</label>
+                    <input value={copy.durationFixed} disabled />
                   </div>
                 )}
               </div>
@@ -265,7 +519,7 @@ export function ContratosTool() {
                     checked={contrato.rentIsMonthly}
                     onChange={(event) => setField("rentIsMonthly", event.target.checked)}
                   />
-                  <span>La renta es mensual (en lugar de un importe total por la temporada)</span>
+                  <span>{copy.monthlyCheck}</span>
                 </label>
               ) : null}
 
@@ -273,8 +527,8 @@ export function ContratosTool() {
                 <div className="fac-field">
                   <label htmlFor="con-rent">
                     {contrato.type === "long-rent" || contrato.rentIsMonthly
-                      ? "Renta mensual (€)"
-                      : "Renta total temporada (€)"}
+                      ? copy.rentMonthly
+                      : copy.rentTotal}
                   </label>
                   <input
                     id="con-rent"
@@ -285,19 +539,19 @@ export function ContratosTool() {
                   />
                 </div>
                 <div className="fac-field">
-                  <label htmlFor="con-deposit">Fianza (€)</label>
+                  <label htmlFor="con-deposit">{copy.deposit}</label>
                   <input
                     id="con-deposit"
                     inputMode="decimal"
                     value={contrato.deposit}
                     onChange={(event) => setField("deposit", event.target.value)}
-                    placeholder={contrato.type === "long-rent" ? "1 mensualidad" : "1.200,00"}
+                    placeholder={contrato.type === "long-rent" ? copy.depositHintLong : "1.200,00"}
                   />
                 </div>
               </div>
 
               <div className="fac-field">
-                <label htmlFor="con-iban">IBAN para el pago de la renta</label>
+                <label htmlFor="con-iban">{copy.iban}</label>
                 <input
                   id="con-iban"
                   value={contrato.iban}
@@ -313,7 +567,7 @@ export function ContratosTool() {
                     checked={contrato.utilitiesIncluded}
                     onChange={(event) => setField("utilitiesIncluded", event.target.checked)}
                   />
-                  <span>Suministros (agua, luz, internet) incluidos en la renta</span>
+                  <span>{copy.utilities}</span>
                 </label>
               ) : null}
             </>
@@ -321,7 +575,7 @@ export function ContratosTool() {
             <>
               <div className="fac-grid-2">
                 <div className="fac-field">
-                  <label htmlFor="con-price">Precio de compraventa (€)</label>
+                  <label htmlFor="con-price">{copy.price}</label>
                   <input
                     id="con-price"
                     inputMode="decimal"
@@ -332,7 +586,7 @@ export function ContratosTool() {
                 </div>
                 <div className="fac-field">
                   <label htmlFor="con-signal">
-                    {contrato.type === "arras" ? "Importe de las arras (€)" : "Importe de la reserva (€)"}
+                    {contrato.type === "arras" ? copy.signalArras : copy.signalReserva}
                   </label>
                   <input
                     id="con-signal"
@@ -345,9 +599,7 @@ export function ContratosTool() {
               </div>
               <div className="fac-field">
                 <label htmlFor="con-deadline">
-                  {contrato.type === "arras"
-                    ? "Fecha límite para la escritura pública"
-                    : "Fecha límite para arras / escritura"}
+                  {contrato.type === "arras" ? copy.deadlineArras : copy.deadlineReserva}
                 </label>
                 <input
                   id="con-deadline"
@@ -363,29 +615,43 @@ export function ContratosTool() {
                     checked={contrato.depositHeldByAgency}
                     onChange={(event) => setField("depositHeldByAgency", event.target.checked)}
                   />
-                  <span>La reserva queda depositada en Milla Homes (si no, la recibe el vendedor)</span>
+                  <span>{copy.agencyHeld}</span>
                 </label>
               ) : null}
             </>
           )}
 
-          {hasBadAmount ? (
-            <p className="fac-error">Hay un importe que no se entiende. Usa formato 2.500,00.</p>
-          ) : null}
+          {hasBadAmount ? <p className="fac-error">{copy.badAmount}</p> : null}
+        </div>
+
+        {/* Extra printed versions in other languages */}
+        <div className="fac-card">
+          <h3 className="fac-card-title">{copy.langsCard}</h3>
+          <p className="con-langs-hint">{copy.langsHint}</p>
+          <div className="con-langs-row">
+            {CONTRATO_EXTRA_LOCALES.map((lang) => (
+              <label className="fac-check" key={lang}>
+                <input
+                  type="checkbox"
+                  checked={contrato.extraLanguages.includes(lang)}
+                  onChange={() => toggleLanguage(lang)}
+                />
+                <span>{copy.langNames[lang]}</span>
+              </label>
+            ))}
+          </div>
         </div>
 
         {/* Extra clauses */}
         <div className="fac-card">
-          <h3 className="fac-card-title">Otras estipulaciones (opcional)</h3>
+          <h3 className="fac-card-title">{copy.extraCard}</h3>
           <div className="fac-field">
             <textarea
               rows={4}
-              aria-label="Otras estipulaciones"
+              aria-label={copy.extraCard}
               value={contrato.extraClauses}
               onChange={(event) => setField("extraClauses", event.target.value)}
-              placeholder={
-                "Una cláusula por línea, p. ej.:\nSe permite la estancia de una mascota de pequeño tamaño.\nEl inmueble se entrega amueblado según inventario anexo."
-              }
+              placeholder={copy.extraPlaceholder}
             />
           </div>
         </div>
@@ -395,11 +661,25 @@ export function ContratosTool() {
       <div className="fac-preview">
         <div className="fac-preview-sticky">
           <div className="fac-preview-actions">
+            {previewLocales.length > 1 ? (
+              <div className="con-preview-langs" role="tablist" aria-label={copy.previewLang}>
+                {previewLocales.map((lang) => (
+                  <button
+                    key={lang}
+                    type="button"
+                    className={`con-preview-lang${activePreviewLocale === lang ? " is-active" : ""}`}
+                    onClick={() => setPreviewLocale(lang)}
+                  >
+                    {lang.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            ) : null}
             <button type="button" className="fac-button fac-button-primary" onClick={exportPdf}>
-              Exportar PDF
+              {copy.exportPdf}
             </button>
           </div>
-          <ContratoPreview contrato={contrato} />
+          <ContratoPreview contrato={contrato} locale={activePreviewLocale} />
         </div>
       </div>
     </div>

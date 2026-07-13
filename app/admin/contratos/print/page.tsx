@@ -50,9 +50,11 @@ export default function ContratosPrintPage() {
             No hay nada que imprimir. Vuelve a la herramienta y pulsa “Exportar PDF”.
           </p>
         ) : (
-          <div className="con-print-page">
-            <ContratoSheet contrato={contrato} />
-          </div>
+          ["es" as const, ...(contrato.extraLanguages ?? [])].map((lang) => (
+            <div className="con-print-page" key={lang}>
+              <ContratoSheet contrato={contrato} locale={lang} />
+            </div>
+          ))
         )}
       </div>
     </>

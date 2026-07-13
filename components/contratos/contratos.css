@@ -48,6 +48,43 @@
   line-height: 1.35;
 }
 
+/* ---- additional-version checkboxes + preview language tabs ---- */
+.con-langs-hint {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.con-langs-row {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.con-preview-langs {
+  display: flex;
+  gap: 0.35rem;
+  margin-right: auto;
+}
+
+.con-preview-lang {
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.con-preview-lang.is-active {
+  border-color: #b08a3e;
+  color: #b08a3e;
+  background: #faf7f0;
+}
+
 /* ---- the A4 document (794px wide @96dpi; height grows with the text) ---- */
 .con-sheet {
   width: 794px;
@@ -84,6 +121,14 @@
   letter-spacing: 0.06em;
   color: #1d3a2f;
   text-align: center;
+}
+
+.con-courtesy {
+  text-align: center !important;
+  font-size: 11px;
+  font-style: italic;
+  color: #6b6b6b;
+  margin-bottom: 14px !important;
 }
 
 .con-place {
@@ -154,6 +199,11 @@
 
   .con-print-page {
     box-shadow: none;
+  }
+
+  /* Each language version starts on its own page. */
+  .con-print-page + .con-print-page {
+    break-before: page;
   }
 
   .con-sheet {
