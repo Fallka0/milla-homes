@@ -2215,8 +2215,12 @@ textarea {
   gap: 0.75rem;
 }
 
-.button .button-arrow-icon {
+.arrow-up-right {
   display: inline-flex;
+  vertical-align: -0.08em;
+}
+
+.button .button-arrow-icon {
   margin-left: 0.5rem;
 }
 

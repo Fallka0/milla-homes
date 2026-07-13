@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
+import { ArrowUpRight } from "@/components/arrow-up-right";
 import { OwnerLeadForm } from "@/components/owner-lead-form";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -49,7 +50,7 @@ export default async function SellOrRentPage() {
         </section>
 
         <section className="owner-form-section" aria-labelledby="owner-form-title">
-          <div className="owner-form-copy"><p className="eyebrow">{content.formEyebrow}</p><h2 id="owner-form-title">{content.formTitle}</h2><p>{content.formIntro}</p><Link href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank">{content.reassurance} <span aria-hidden>↗</span></Link></div>
+          <div className="owner-form-copy"><p className="eyebrow">{content.formEyebrow}</p><h2 id="owner-form-title">{content.formTitle}</h2><p>{content.formIntro}</p><Link href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank">{content.reassurance} <ArrowUpRight /></Link></div>
           <OwnerLeadForm content={content} copy={copy} locale={locale} />
         </section>
       </article>

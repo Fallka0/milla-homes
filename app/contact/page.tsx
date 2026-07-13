@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
+import { ArrowUpRight } from "@/components/arrow-up-right";
 import { InquiryForm } from "@/components/inquiry-form";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -36,9 +37,9 @@ export default async function ContactPage() {
         <header className="company-hero contact-page-hero"><p className="eyebrow">{content.eyebrow}</p><h1>{content.title}</h1><p>{content.intro}</p></header>
 
         <section className="contact-methods">
-          <Link href={getPhoneHref()}><span className="contact-method-number">01</span><div><h2>{content.callTitle}</h2><p>{content.callText}</p><strong>{motherPhoneDisplay}</strong></div><span className="contact-method-arrow" aria-hidden>↗</span></Link>
-          <Link href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank"><span className="contact-method-number">02</span><div><h2>{content.whatsappTitle}</h2><p>{content.whatsappText}</p><strong>WhatsApp</strong></div><span className="contact-method-arrow" aria-hidden>↗</span></Link>
-          <Link href="/office"><span className="contact-method-number">03</span><div><h2>{content.visitTitle}</h2><p>{content.visitText}</p><strong>{officeAddressDisplay}</strong></div><span className="contact-method-arrow" aria-hidden>↗</span></Link>
+          <Link href={getPhoneHref()}><span className="contact-method-number">01</span><div><h2>{content.callTitle}</h2><p>{content.callText}</p><strong>{motherPhoneDisplay}</strong></div><ArrowUpRight className="contact-method-arrow" /></Link>
+          <Link href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank"><span className="contact-method-number">02</span><div><h2>{content.whatsappTitle}</h2><p>{content.whatsappText}</p><strong>WhatsApp</strong></div><ArrowUpRight className="contact-method-arrow" /></Link>
+          <Link href="/office"><span className="contact-method-number">03</span><div><h2>{content.visitTitle}</h2><p>{content.visitText}</p><strong>{officeAddressDisplay}</strong></div><ArrowUpRight className="contact-method-arrow" /></Link>
         </section>
 
         <section className="contact-form-section">

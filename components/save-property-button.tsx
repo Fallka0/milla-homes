@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { ArrowUpRight } from "@/components/arrow-up-right";
 import type { PublicLocale } from "@/lib/public-copy";
 
 export const savedPropertiesStorageKey = "milla-homes-saved-properties";
@@ -49,7 +50,7 @@ export function SavePropertyButton({ locale, showSavedLink = false, slug }: Save
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 20.4 4.4 13A5.2 5.2 0 0 1 12 5.9 5.2 5.2 0 0 1 19.6 13Z" /></svg>
         {showSavedLink ? <span>{saved ? labels[locale].remove : labels[locale].add}</span> : null}
       </button>
-      {showSavedLink && saved ? <Link href="/saved">{labels[locale].view} <span aria-hidden>↗</span></Link> : null}
+      {showSavedLink && saved ? <Link href="/saved">{labels[locale].view} <ArrowUpRight /></Link> : null}
     </div>
   );
 }
