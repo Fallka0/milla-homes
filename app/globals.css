@@ -2215,6 +2215,11 @@ textarea {
   gap: 0.75rem;
 }
 
+.button .button-arrow-icon {
+  display: inline-flex;
+  margin-left: 0.5rem;
+}
+
 .contact-methods {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

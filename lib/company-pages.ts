@@ -84,9 +84,9 @@ export const aboutContent: Record<PublicLocale, AboutContent> = {
 
 export const contactContent: Record<PublicLocale, ContactContent> = {
   en: { eyebrow: "Let’s talk", title: "A useful property conversation starts with what matters to you.", intro: "Tell us whether you are buying, renting or still comparing areas. A short message is enough to begin.", callTitle: "Call directly", callText: "Best when you want a quick answer about a home, area or viewing.", whatsappTitle: "Write on WhatsApp", whatsappText: "Send your criteria or a listing link and continue the conversation at your pace.", visitTitle: "Visit the office", visitText: "We are in the centre of Torrevieja, a short walk from the seafront. See photos, the map and parking tips.", formEyebrow: "Send a message", formTitle: "Put the essentials in writing.", formText: "Share your preferred area, budget, timing and any must-haves. We will reply using the contact details you provide.", availability: "Serving Torrevieja and the surrounding Costa Blanca." },
-  es: { eyebrow: "Hablemos", title: "Una conversación útil empieza por lo que de verdad te importa.", intro: "Cuéntanos si quieres comprar, alquilar o aún estás comparando zonas. Basta un mensaje breve para empezar.", callTitle: "Llama directamente", callText: "La mejor opción para una respuesta rápida sobre una vivienda, zona o visita.", whatsappTitle: "Escribe por WhatsApp", whatsappText: "Envía tus criterios o el enlace de una vivienda y sigue la conversación a tu ritmo.", visitTitle: "Visita la oficina", visitText: "Estamos en el centro de Torrevieja, a un paseo del mar. Consulta fotos, mapa y consejos de aparcamiento.", formEyebrow: "Enviar mensaje", formTitle: "Cuéntanos lo esencial por escrito.", formText: "Indica zona, presupuesto, plazos y requisitos importantes. Responderemos a través de los datos que facilites.", availability: "Trabajamos en Torrevieja y la Costa Blanca cercana." },
+  es: { eyebrow: "Hablemos", title: "Una conversación útil empieza por lo que de verdad te importa.", intro: "Cuéntanos si quieres comprar, alquilar o aún estás comparando zonas. Basta un mensaje breve para empezar.", callTitle: "Llama directamente", callText: "La mejor opción para una respuesta rápida sobre una vivienda, zona o visita.", whatsappTitle: "Escribe por WhatsApp", whatsappText: "Envía tus criterios o el enlace de una vivienda y sigue la conversación a tu ritmo.", visitTitle: "Visita la oficina", visitText: "Estamos en el centro de Torrevieja, a pocos minutos del paseo marítimo. Consulta fotos, mapa y consejos de aparcamiento.", formEyebrow: "Enviar mensaje", formTitle: "Cuéntanos lo esencial por escrito.", formText: "Indica zona, presupuesto, plazos y requisitos importantes. Responderemos a través de los datos que facilites.", availability: "Trabajamos en Torrevieja y la Costa Blanca cercana." },
   de: { eyebrow: "Sprechen wir", title: "Ein gutes Immobiliengespräch beginnt mit dem, was Ihnen wichtig ist.", intro: "Sagen Sie uns, ob Sie kaufen, mieten oder noch Gebiete vergleichen. Eine kurze Nachricht genügt für den Anfang.", callTitle: "Direkt anrufen", callText: "Ideal für eine schnelle Antwort zu einer Immobilie, Lage oder Besichtigung.", whatsappTitle: "Über WhatsApp schreiben", whatsappText: "Senden Sie Ihre Kriterien oder einen Immobilienlink und führen Sie das Gespräch in Ihrem Tempo fort.", visitTitle: "Büro besuchen", visitText: "Wir sind im Zentrum von Torrevieja, wenige Gehminuten vom Meer. Fotos, Karte und Parkhinweise finden Sie hier.", formEyebrow: "Nachricht senden", formTitle: "Halten Sie das Wesentliche schriftlich fest.", formText: "Nennen Sie Wunschlage, Budget, Zeitplan und wichtige Kriterien. Wir antworten über die angegebenen Kontaktdaten.", availability: "Für Torrevieja und die umliegende Costa Blanca." },
-  ru: { eyebrow: "Давайте поговорим", title: "Полезный разговор о недвижимости начинается с ваших приоритетов.", intro: "Расскажите, хотите ли вы купить, арендовать или пока сравниваете районы. Для начала достаточно короткого сообщения.", callTitle: "Позвонить напрямую", callText: "Удобно, если нужен быстрый ответ об объекте, районе или просмотре.", whatsappTitle: "Написать в WhatsApp", whatsappText: "Отправьте критерии или ссылку на объект и продолжайте общение в своём темпе.", visitTitle: "Приходите в офис", visitText: "Мы в центре Торревьехи, в нескольких минутах от набережной. Здесь фото, карта и советы по парковке.", formEyebrow: "Отправить сообщение", formTitle: "Опишите главное письменно.", formText: "Укажите район, бюджет, сроки и важные требования. Мы ответим по оставленным контактным данным.", availability: "Работаем в Торревьехе и на ближайшем побережье Коста-Бланки." },
+  ru: { eyebrow: "Давайте поговорим", title: "Полезный разговор о недвижимости начинается с ваших приоритетов.", intro: "Расскажите, хотите ли вы купить, арендовать или пока сравниваете районы. Для начала достаточно короткого сообщения.", callTitle: "Позвонить напрямую", callText: "Удобно, если нужен быстрый ответ об объекте, районе или просмотре.", whatsappTitle: "Написать в WhatsApp", whatsappText: "Отправьте критерии или ссылку на объект и продолжайте общение в своём темпе.", visitTitle: "Приходите в офис", visitText: "Мы находимся в центре Торревьехи, недалеко от набережной. Посмотрите фото офиса, карту и советы по парковке.", formEyebrow: "Отправить сообщение", formTitle: "Опишите главное письменно.", formText: "Укажите район, бюджет, сроки и важные требования. Мы ответим по оставленным контактным данным.", availability: "Работаем в Торревьехе и на ближайшем побережье Коста-Бланки." },
 };
 
 export const officeContent: Record<PublicLocale, OfficeContent> = {
@@ -179,31 +179,31 @@ export const officeContent: Record<PublicLocale, OfficeContent> = {
   },
   ru: {
     eyebrow: "Наш офис",
-    title: "Приходите к нам в самый центр Торревьехи.",
-    intro: "Офис Milla Homes находится на улице Канониго Торрес (C. Canónigo Torres) — тихой пешеходной улице старого города, в нескольких минутах ходьбы от набережной. Заходите на чашку кофе и спокойный разговор о покупке, продаже или аренде на Коста-Бланке.",
+    title: "Наш офис — в самом сердце Торревьехи.",
+    intro: "Офис Milla Homes находится на тихой пешеходной улице Канониго Торрес (C. Canónigo Torres) в старом городе, в нескольких минутах ходьбы от набережной. Заходите на чашку кофе — спокойно обсудим покупку, продажу или аренду жилья на Коста-Бланке.",
     galleryEyebrow: "Внутри и снаружи",
-    galleryTitle: "Спокойное место для неспешных разговоров.",
+    galleryTitle: "Уютное место для разговора без спешки.",
     galleryAlts: [
       "Интерьер офиса Milla Homes: белый стол, зелёные бархатные кресла и золотой логотип Milla Homes на стене",
       "Стойка офиса Milla Homes с логотипом Milla Homes Real Estate",
       "Зона ожидания в офисе Milla Homes с тёмно-зелёным диваном и жёлтыми подушками",
-      "Улица Канониго Торрес — пешеходная улица у офиса Milla Homes",
+      "Улица Канониго Торрес — пешеходная улица, на которой находится офис Milla Homes",
       "Пешеходная площадь с пальмами рядом с офисом Milla Homes в центре Торревьехи",
     ],
     visitEyebrow: "Как нас найти",
     visitTitle: "В самом центре пешеходной зоны.",
-    visitText: "Мы на первом этаже, офис выходит прямо на улицу. Ориентир — золотые буквы Milla Homes на витрине.",
+    visitText: "Офис находится на первом этаже и выходит прямо на улицу. Ориентир — золотая вывеска Milla Homes на витрине.",
     addressLabel: "Адрес",
     mapsCta: "Открыть в Google Maps",
     mapLabel: "Карта с расположением офиса Milla Homes в Торревьехе",
-    mapNote: "Улица Канониго Торрес пешеходная, поэтому последний отрезок пути — пешком.",
+    mapNote: "Улица Канониго Торрес — пешеходная, поэтому подъехать к самой двери на машине не получится: последние метры нужно пройти пешком.",
     parkingEyebrow: "Парковка",
     parkingTitle: "Оставьте машину на парковке Paseo del Mar.",
     parkingText: [
-      "Удобнее всего парковка Paseo del Mar у набережной. Оттуда до нашей двери — короткая приятная прогулка через старый город.",
-      "Улицы вокруг офиса пешеходные, так что парковка Paseo del Mar избавит вас от кружения по центру в поисках места.",
+      "Удобнее всего оставить машину на парковке Paseo del Mar у набережной. Оттуда до нашего офиса — короткая приятная прогулка через старый город.",
+      "Улицы вокруг офиса пешеходные, поэтому парковка Paseo del Mar — самый простой вариант: не придётся кружить по центру в поисках свободного места.",
     ],
     ctaTitle: "Предупредите нас о визите.",
-    ctaText: "Достаточно звонка или сообщения в WhatsApp — мы позаботимся, чтобы вас встретили.",
+    ctaText: "Достаточно позвонить или написать в WhatsApp — и мы обязательно вас встретим.",
   },
 };
