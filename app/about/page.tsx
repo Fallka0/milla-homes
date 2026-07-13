@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
+import { ArrowUpRight } from "@/components/arrow-up-right";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
@@ -49,7 +50,7 @@ export default async function AboutPage() {
 
         <section className="company-areas">
           <div className="company-section-heading"><p className="eyebrow">{content.areasEyebrow}</p><h2>{content.areasTitle}</h2></div>
-          <div className="company-area-links">{regionSlugs.map((slug) => <Link href={`/regions/${slug}`} key={slug}>{regions[slug].localeContent[locale].areaLabel}<span aria-hidden>↗</span></Link>)}</div>
+          <div className="company-area-links">{regionSlugs.map((slug) => <Link href={`/regions/${slug}`} key={slug}>{regions[slug].localeContent[locale].areaLabel}<ArrowUpRight /></Link>)}</div>
         </section>
 
         <section className="company-page-cta"><div><h2>{content.ctaTitle}</h2><p>{content.ctaText}</p></div><Link className="button button-primary" href="/contact">{copy.nav.contact}</Link></section>

@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ArrowUpRight } from "@/components/arrow-up-right";
 import { PropertyDetailMap } from "@/components/property-detail-map";
 import { PublicHeader } from "@/components/public-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -21,16 +22,6 @@ import {
 import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
 
 export const dynamic = "force-dynamic";
-
-function ArrowUpRight() {
-  return (
-    <span aria-hidden className="button-arrow-icon">
-      <svg fill="none" height="1em" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-      </svg>
-    </span>
-  );
-}
 
 const galleryPhotos = [
   { src: "/office/office-desk.jpg", wide: true },
@@ -83,7 +74,7 @@ export default async function OfficePage() {
             <div className="office-address-card">
               <span className="office-address-label">{content.addressLabel}</span>
               <p className="office-address-lines">{officeAddressStreet}<br />{officeAddressCity}</p>
-              <a className="button button-primary" href={getOfficeMapsHref()} rel="noreferrer" target="_blank">{content.mapsCta} <ArrowUpRight /></a>
+              <a className="button button-primary" href={getOfficeMapsHref()} rel="noreferrer" target="_blank">{content.mapsCta} <ArrowUpRight className="button-arrow-icon" /></a>
             </div>
             <PropertyDetailMap center={officeMapCenter} label={content.mapLabel} radius={60} zoom={16} />
             <p className="office-map-note">{content.mapNote}</p>
@@ -99,7 +90,7 @@ export default async function OfficePage() {
           <div><h2>{content.ctaTitle}</h2><p>{content.ctaText}</p></div>
           <div className="office-cta-actions">
             <Link className="button button-primary" href={getPhoneHref()}>{motherPhoneDisplay}</Link>
-            <Link className="button button-primary" href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank">WhatsApp <ArrowUpRight /></Link>
+            <Link className="button button-primary" href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank">WhatsApp <ArrowUpRight className="button-arrow-icon" /></Link>
           </div>
         </section>
       </article>

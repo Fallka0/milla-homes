@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ArrowUpRight } from "@/components/arrow-up-right";
 import { getPhoneHref, getWhatsAppHref, motherPhoneDisplay, officeAddressCity, officeAddressStreet } from "@/lib/contact";
 import { type PublicCopy, type PublicLocale } from "@/lib/public-copy";
 
@@ -68,7 +69,7 @@ export function SiteFooter({ copy, locale }: SiteFooterProps) {
           <h2>{content.contact}</h2>
           <span>{content.directLine}</span>
           <Link className="footer-phone" href={getPhoneHref()}>{motherPhoneDisplay}</Link>
-          <Link className="footer-whatsapp" href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank">{content.whatsapp} <span aria-hidden>↗</span></Link>
+          <Link className="footer-whatsapp" href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank">{content.whatsapp} <ArrowUpRight /></Link>
           <Link className="footer-address" href="/office">{officeAddressStreet}<br />{officeAddressCity}</Link>
           <p>{content.response}</p>
         </div>
