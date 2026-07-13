@@ -44,6 +44,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
       url: getPublicSiteUrl("/sell-or-rent"),
     },
+    {
+      changeFrequency: "monthly",
+      lastModified: now,
+      priority: 0.6,
+      url: getPublicSiteUrl("/office"),
+    },
   ];
   const regionRoutes: MetadataRoute.Sitemap = regionSlugs.map((slug) => ({
     changeFrequency: "monthly",

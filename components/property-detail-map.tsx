@@ -7,9 +7,11 @@ import "leaflet/dist/leaflet.css";
 type PropertyDetailMapProps = {
   center: [number, number];
   label: string;
+  radius?: number;
+  zoom?: number;
 };
 
-export function PropertyDetailMap({ center, label }: PropertyDetailMapProps) {
+export function PropertyDetailMap({ center, label, radius = 550, zoom = 14 }: PropertyDetailMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<import("leaflet").Map | null>(null);
   const [lat, lng] = center;
@@ -24,7 +26,7 @@ export function PropertyDetailMap({ center, label }: PropertyDetailMapProps) {
 
       const map = L.map(containerRef.current, {
         center: [lat, lng],
-        zoom: 14,
+        zoom,
         scrollWheelZoom: false,
         zoomControl: true,
       });
@@ -38,7 +40,7 @@ export function PropertyDetailMap({ center, label }: PropertyDetailMapProps) {
       // Neighbourhood-level accuracy, so show a soft catchment circle rather
       // than a precise pin the data can't back up.
       L.circle([lat, lng], {
-        radius: 550,
+        radius,
         color: "#1b4530",
         weight: 1.5,
         fillColor: "#1b4530",
@@ -51,7 +53,7 @@ export function PropertyDetailMap({ center, label }: PropertyDetailMapProps) {
     return () => {
       cancelled = true;
     };
-  }, [lat, lng]);
+  }, [lat, lng, radius, zoom]);
 
   useEffect(() => {
     return () => {

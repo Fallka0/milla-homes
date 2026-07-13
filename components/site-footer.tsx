@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { getPhoneHref, getWhatsAppHref, motherPhoneDisplay } from "@/lib/contact";
+import { getPhoneHref, getWhatsAppHref, motherPhoneDisplay, officeAddressCity, officeAddressStreet } from "@/lib/contact";
 import { type PublicCopy, type PublicLocale } from "@/lib/public-copy";
 
 type SiteFooterProps = {
@@ -15,16 +15,17 @@ type FooterContent = {
   directLine: string;
   explore: string;
   guide: string;
+  office: string;
   response: string;
   saved: string;
   whatsapp: string;
 };
 
 const footerContent: Record<PublicLocale, FooterContent> = {
-  en: { areas: "Area guides", company: "Milla Homes", contact: "Contact", directLine: "Direct line", explore: "Property", guide: "Buying guide", response: "Calls and WhatsApp are the quickest way to reach us.", saved: "Saved properties", whatsapp: "Start a WhatsApp chat" },
-  es: { areas: "Guías de zonas", company: "Milla Homes", contact: "Contacto", directLine: "Línea directa", explore: "Propiedades", guide: "Guía de compra", response: "La forma más rápida de contactar es por teléfono o WhatsApp.", saved: "Propiedades guardadas", whatsapp: "Abrir WhatsApp" },
-  de: { areas: "Gebietsführer", company: "Milla Homes", contact: "Kontakt", directLine: "Direkte Rufnummer", explore: "Immobilien", guide: "Kaufratgeber", response: "Am schnellsten erreichen Sie uns telefonisch oder über WhatsApp.", saved: "Gespeicherte Immobilien", whatsapp: "WhatsApp-Chat starten" },
-  ru: { areas: "Гиды по районам", company: "Milla Homes", contact: "Контакты", directLine: "Прямой номер", explore: "Недвижимость", guide: "Гид покупателя", response: "Быстрее всего связаться с нами по телефону или WhatsApp.", saved: "Сохранённые объекты", whatsapp: "Написать в WhatsApp" },
+  en: { areas: "Area guides", company: "Milla Homes", contact: "Contact", directLine: "Direct line", explore: "Property", guide: "Buying guide", office: "Our office", response: "Calls and WhatsApp are the quickest way to reach us.", saved: "Saved properties", whatsapp: "Start a WhatsApp chat" },
+  es: { areas: "Guías de zonas", company: "Milla Homes", contact: "Contacto", directLine: "Línea directa", explore: "Propiedades", guide: "Guía de compra", office: "Nuestra oficina", response: "La forma más rápida de contactar es por teléfono o WhatsApp.", saved: "Propiedades guardadas", whatsapp: "Abrir WhatsApp" },
+  de: { areas: "Gebietsführer", company: "Milla Homes", contact: "Kontakt", directLine: "Direkte Rufnummer", explore: "Immobilien", guide: "Kaufratgeber", office: "Unser Büro", response: "Am schnellsten erreichen Sie uns telefonisch oder über WhatsApp.", saved: "Gespeicherte Immobilien", whatsapp: "WhatsApp-Chat starten" },
+  ru: { areas: "Гиды по районам", company: "Milla Homes", contact: "Контакты", directLine: "Прямой номер", explore: "Недвижимость", guide: "Гид покупателя", office: "Наш офис", response: "Быстрее всего связаться с нами по телефону или WhatsApp.", saved: "Сохранённые объекты", whatsapp: "Написать в WhatsApp" },
 };
 
 export function SiteFooter({ copy, locale }: SiteFooterProps) {
@@ -58,6 +59,7 @@ export function SiteFooter({ copy, locale }: SiteFooterProps) {
         <nav className="site-footer-column" aria-label={content.company}>
           <h2>{content.company}</h2>
           <Link href="/about">{copy.nav.about}</Link>
+          <Link href="/office">{content.office}</Link>
           <Link href="/contact">{copy.nav.contact}</Link>
           <Link href="/guides/buying">{copy.nav.guide}</Link>
         </nav>
@@ -67,6 +69,7 @@ export function SiteFooter({ copy, locale }: SiteFooterProps) {
           <span>{content.directLine}</span>
           <Link className="footer-phone" href={getPhoneHref()}>{motherPhoneDisplay}</Link>
           <Link className="footer-whatsapp" href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank">{content.whatsapp} <span aria-hidden>↗</span></Link>
+          <Link className="footer-address" href="/office">{officeAddressStreet}<br />{officeAddressCity}</Link>
           <p>{content.response}</p>
         </div>
       </div>

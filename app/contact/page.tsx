@@ -8,7 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
 import { getAdminAuthState } from "@/lib/auth";
 import { contactContent } from "@/lib/company-pages";
-import { getPhoneHref, getWhatsAppHref, motherPhoneDisplay } from "@/lib/contact";
+import { getPhoneHref, getWhatsAppHref, motherPhoneDisplay, officeAddressDisplay } from "@/lib/contact";
 import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
 
 export const dynamic = "force-dynamic";
@@ -38,6 +38,7 @@ export default async function ContactPage() {
         <section className="contact-methods">
           <Link href={getPhoneHref()}><span className="contact-method-number">01</span><div><h2>{content.callTitle}</h2><p>{content.callText}</p><strong>{motherPhoneDisplay}</strong></div><span className="contact-method-arrow" aria-hidden>↗</span></Link>
           <Link href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank"><span className="contact-method-number">02</span><div><h2>{content.whatsappTitle}</h2><p>{content.whatsappText}</p><strong>WhatsApp</strong></div><span className="contact-method-arrow" aria-hidden>↗</span></Link>
+          <Link href="/office"><span className="contact-method-number">03</span><div><h2>{content.visitTitle}</h2><p>{content.visitText}</p><strong>{officeAddressDisplay}</strong></div><span className="contact-method-arrow" aria-hidden>↗</span></Link>
         </section>
 
         <section className="contact-form-section">
