@@ -35,6 +35,7 @@ export const propertyLocationGroups = [
   {
     label: "Torrevieja",
     options: [
+      "Torrevieja",
       "Centro",
       "Playa del Cura",
       "Los Locos",
@@ -43,6 +44,7 @@ export const propertyLocationGroups = [
       "Los Balcones",
       "Aguas Nuevas",
       "El Chaparral",
+      "Los Frutales",
       "Punta Prima",
     ],
   },
@@ -52,7 +54,15 @@ export const propertyLocationGroups = [
   },
   {
     label: "Otras zonas",
-    options: ["Guardamar del Segura", "Pilar de la Horadada"],
+    options: [
+      "Guardamar del Segura",
+      "Pilar de la Horadada",
+      "Ciudad Quesada",
+      "Altea",
+      "Jávea",
+      "Calpe",
+      "Valencia",
+    ],
   },
 ] as const;
 

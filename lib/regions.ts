@@ -1,6 +1,12 @@
 import type { PublicLocale } from "@/lib/public-copy";
 import type { PropertyRecord } from "@/lib/property-shared";
 
+function locationMatchesAny(property: PropertyRecord, areas: string[]) {
+  const location = property.location.toLowerCase();
+
+  return areas.some((area) => location.includes(area));
+}
+
 export const regionSlugs = [
   "torrevieja",
   "la-mata",
@@ -92,7 +98,18 @@ export const regions: Record<RegionSlug, RegionEntry> = {
       },
     },
     matchLocation: (property) =>
-      property.location.toLowerCase().includes("torrevieja") && !property.location.toLowerCase().includes("la mata"),
+      locationMatchesAny(property, [
+        "torrevieja",
+        "centro",
+        "playa del cura",
+        "los locos",
+        "torreblanca",
+        "los balcones",
+        "aguas nuevas",
+        "el chaparral",
+        "los frutales",
+        "punta prima",
+      ]) && !property.location.toLowerCase().includes("la mata"),
     name: "Torrevieja",
     slug: "torrevieja",
   },
@@ -225,7 +242,8 @@ export const regions: Record<RegionSlug, RegionEntry> = {
         title: "Resort-Atmosphäre, breite Auswahl und eine Küste mit klar unterscheidbaren Teilbereichen.",
       },
     },
-    matchLocation: (property) => property.location.toLowerCase().includes("orihuela costa"),
+    matchLocation: (property) =>
+      locationMatchesAny(property, ["orihuela costa", "la zenia", "cabo roig", "la florida", "las filipinas"]),
     name: "Orihuela Costa",
     slug: "orihuela-costa",
   },
