@@ -37,6 +37,8 @@ const GENERIC_RULES: Array<[string, string]> = [
   ["guardamar", "Guardamar del Segura"],
   ["pilar de la horadada", "Pilar de la Horadada"],
   ["quesada", "Ciudad Quesada"],
+  ["benijófar", "Benijófar"],
+  ["benijofar", "Benijófar"],
   ["altea", "Altea"],
   ["jávea", "Jávea"],
   ["javea", "Jávea"],

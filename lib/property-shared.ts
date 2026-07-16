@@ -58,6 +58,7 @@ export const propertyLocationGroups = [
       "Guardamar del Segura",
       "Pilar de la Horadada",
       "Ciudad Quesada",
+      "Benijófar",
       "Altea",
       "Jávea",
       "Calpe",
