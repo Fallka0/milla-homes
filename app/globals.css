@@ -4998,6 +4998,7 @@ textarea {
 
   .language-switcher {
     width: 100%;
+    flex-direction: column;
   }
 
   .language-trigger {
