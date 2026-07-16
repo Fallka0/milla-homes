@@ -1,4 +1,4 @@
-export const publicLocales = ["en", "es", "ru", "de"] as const;
+export const publicLocales = ["en", "es", "uk", "de", "ru"] as const;
 
 export type PublicLocale = (typeof publicLocales)[number];
 
@@ -716,6 +716,248 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       title: "Cuando la búsqueda está bien guiada, el cliente avanza con más calma y confianza.",
     },
   },
+  uk: {
+    brandSubtitle: "Нерухомість на Коста-Бланці",
+    buttons: {
+      browseProperties: "Дивитися об'єкти",
+      callNow: "Зателефонувати",
+      openListings: "Усі об'єкти",
+      seeAllProperties: "Усі об'єкти",
+      sendInquiry: "Надіслати запит",
+      sending: "Надсилання...",
+      viewDetails: "Детальніше",
+      viewListing: "Дивитися об'єкт",
+      whatsapp: "WhatsApp",
+    },
+    carousel: {
+      closeZoom: "Закрити збільшене зображення",
+      enlargeImage: "Відкрити збільшене зображення",
+      galleryHint: "Гортайте, використовуйте стрілки або обирайте мініатюри.",
+      thumbnailsLabel: "Мініатюри галереї",
+      nextImage: "Показати наступне зображення",
+      previousImage: "Показати попереднє зображення",
+      showImage: "Показати зображення",
+      zoomHint: "Використовуйте бічні стрілки або клавіатуру для перегляду галереї.",
+    },
+    contact: {
+      availabilityLabel: "Зручно для",
+      availabilityValue: "Дзвінків і WhatsApp",
+      eyebrow: "Зв'язатися напряму",
+      panelSummary: "Дзвінок або повідомлення у WhatsApp зазвичай допомагають швидше уточнити ціну, дати оренди та наступний крок.",
+      panelTitle: "Хочете швидко уточнити ціну, дати чи перегляд?",
+      phoneLabel: "Телефон",
+      summary: "Коли об'єкт справді підходить, пряма розмова допомагає швидше закрити практичні питання.",
+      title: "Зв'яжіться з агентом, коли вам потрібна ясність щодо об'єкта, доступності чи наступного кроку.",
+      whatsappMessage: "Добрий день, мене зацікавив об'єкт на Milla Homes. Хотілося б отримати більше інформації.",
+    },
+    coverage: {
+      eyebrow: "Більш особистий пошук",
+      summary:
+        "Купуєте ви, орендуєте чи порівнюєте обидва варіанти — сам процес має бути спокійним, зрозумілим і підлаштованим під ваш реальний спосіб життя на Коста-Бланці.",
+      title: "Підбір нерухомості відчувається краще, коли в центрі уваги ваш ритм, ваші плани та ваші пріоритети.",
+    },
+    detail: {
+      availability: "Доступність",
+      bathrooms: "Ванні кімнати",
+      bedrooms: "Спальні",
+      features: "Особливості",
+      interior: "Площа",
+      listingOverview: "Огляд об'єкта",
+      listingMode: "Формат",
+      plot: "Ділянка",
+      requestInfo: "Запитати інформацію",
+      requestTitle: "Запитайте перегляд або додаткову інформацію.",
+      rentPrice: "Оренда",
+      rentalPeriods: "Формати оренди",
+      salePrice: "Продаж",
+      type: "Тип",
+      whyPause: "Чому цей об'єкт привертає увагу.",
+    },
+    filters: {
+      availableInventory: "Доступні об'єкти",
+      availabilityFrom: "Доступно з",
+      availabilityTo: "Доступно до",
+      bathrooms: "Ванні кімнати",
+      clearAll: "Скинути все",
+      emptyBody: "Спробуйте розширити пошук або зменшити мінімум спалень.",
+      emptyTitle: "За цими фільтрами поки нічого не знайдено.",
+      features: "Зручності",
+      heading: "Пошук нерухомості",
+      listingMode: "Цікавить",
+      listView: "Список",
+      mapView: "Карта",
+      moreFilters: "Більше фільтрів",
+      lessFilters: "Менше фільтрів",
+      max: "Макс",
+      min: "Мін",
+      mustHaveFeatures: "Обов'язкові особливості",
+      minimumBedrooms: "Мінімум спалень",
+      priceRange: "Ціна (€)",
+      propertyType: "Тип нерухомості",
+      region: "Район",
+      results: "об'єктів знайдено.",
+      search: "Пошук",
+      searchPlaceholder: "Назва, район або код",
+      sizeRange: "Площа (м²)",
+      sort: "Сортування",
+      title: "Знайдіть потрібний об'єкт швидше.",
+      types: {
+        all: "Усі типи",
+        any: "Будь-який",
+      },
+      listingModeOptions: {
+        both: "Продаж і оренда",
+        rent: "Оренда",
+        sale: "Продаж",
+      },
+      sortOptions: {
+        latest: "Спочатку нові",
+        priceAsc: "Ціна: за зростанням",
+        priceDesc: "Ціна: за спаданням",
+        sizeDesc: "Площа: спочатку більші",
+      },
+    },
+    hero: {
+      eyebrow: "Об'єкти для продажу та оренди в Торрев'єсі й поруч на узбережжі",
+      text:
+        "Milla Homes пропонує більш особистий підхід до пошуку на Коста-Бланці: ретельно підібрані об'єкти, зрозуміліший супровід і прямий зв'язок від першого шорт-листа до перегляду.",
+      title: "Знайдіть нерухомість для купівлі чи оренди із супроводом, який відчувається спокійним, особистим та уважним.",
+    },
+    inquiry: {
+      email: "Електронна пошта",
+      emailPlaceholder: "you@example.com",
+      error: "Щось пішло не так. Спробуйте ще раз.",
+      fullName: "Повне ім'я",
+      generalInquiry: "Загальний запит",
+      message: "Повідомлення",
+      messagePlaceholder: "Розкажіть, яку нерухомість ви шукаєте.",
+      optional: "Необов'язково",
+      phone: "Телефон",
+      propertyInquiry: "Запит щодо об'єкта",
+      rateLimited: "Забагато запитів за короткий час. Зачекайте кілька хвилин і спробуйте знову.",
+      requestViewing: "Запросити перегляд",
+      requestViewingPlaceholder: "Додайте зручний час, запитання або будь-які деталі щодо перегляду.",
+      requestViewingTemplate: "Добрий день, я хотів(ла) би записатися на перегляд об'єкта {title} у {location}. Підкажіть, будь ласка, які дати й час доступні.",
+      sendingAria: "Надсилання запиту щодо об'єкта",
+      success: "Запит успішно надіслано.",
+      timeline: "Бажаний час перегляду",
+      timelinePlaceholder: "Наприклад: цього тижня, у п'ятницю вдень або наступного вівторка",
+      typeLabel: "Тип запиту",
+      yourName: "Ваше ім'я",
+    },
+    languageLabel: "Оберіть мову",
+    masonry: {
+      eyebrow: "Дивитися доступні об'єкти",
+      title: "Переглядайте актуальні пропозиції з продажу та оренди й відкривайте об'єкти, які найкраще підходять за термінами та пріоритетами.",
+    },
+    footer: {
+      blurb: "Milla Homes допомагає шукати житло для купівлі та оренди в Торрев'єсі й на узбережжі поруч — спокійніше, уважніше та більш особисто.",
+      browseLabel: "Дивитися об'єкти",
+      copyright: "© Milla Homes",
+    },
+    neighborhoods: {
+      cards: [
+        {
+          area: "Torrevieja",
+          title: "Міське життя біля води",
+          summary: "Широкий вибір апартаментів, вілл і районів, де зручно жити цілий рік.",
+        },
+        {
+          area: "La Mata",
+          title: "Пляжний ритм і більше світла",
+          summary: "Район з морськими краєвидами, довгою набережною та спокійнішою атмосферою.",
+        },
+        {
+          area: "Orihuela Costa",
+          title: "Великий вибір біля узбережжя",
+          summary: "Популярна зона серед міжнародних покупців завдяки курортній інфраструктурі та новим комплексам.",
+        },
+        {
+          area: "Guardamar del Segura",
+          title: "Зеленіша й тихіша сторона",
+          summary: "Дюни, парки та м'якший темп життя для тих, хто хоче менше галасу.",
+        },
+      ],
+      eyebrow: "Райони",
+      title: "У кожної частини узбережжя свій темп, настрій і тип покупців.",
+    },
+    nav: {
+      about: "Про нас",
+      contact: "Контакти",
+      owner: "Продати чи здати",
+      home: "Головна",
+      properties: "Об'єкти",
+      guide: "Гід покупця",
+    },
+    overview: {
+      body:
+        "Клієнти отримують чесну підтримку, спокійніший ритм пошуку та подачу, з якою легше порівнювати райони, ціни та терміни оренди.",
+      eyebrow: "Що цінують клієнти",
+      items: [
+        {
+          title: "Більш особистий підхід",
+          copy: "Розмова будується навколо того, як людина хоче жити, відпочивати чи інвестувати, а не навколо тиску та поспіху.",
+        },
+        {
+          title: "Зрозуміло й без зайвого шуму",
+          copy: "Різниця між об'єктами, районами, цінами та термінами оренди пояснюється спокійно й без зайвого шуму.",
+        },
+        {
+          title: "Увага на кожному етапі",
+          copy: "Від першого шорт-листа до першого дзвінка пошук вибудовано так, щоб людям було легше довіряти своєму вибору.",
+        },
+      ],
+      title: "Коли за пошуком стоїть довіра, контекст і реальна допомога, ухвалювати рішення стає легше.",
+    },
+    propertiesPage: {
+      eyebrow: "Каталог нерухомості",
+      text: "Переглядайте об'єкти на продаж і в оренду, фільтруйте за районом і датами та відкривайте детальні картки.",
+      title: "Доступні об'єкти для продажу та оренди в Торрев'єсі й на узбережжі поруч.",
+    },
+    seo: {
+      description: "Переглядайте об'єкти на продаж і в оренду в Торрев'єсі, Ла-Маті, Оріуела-Кості та сусідніх прибережних районах разом із Milla Homes.",
+      ogDescription: "Добірка об'єктів для продажу та оренди біля узбережжя Торрев'єхи з більш зрозумілою, особистою та спокійною подачею.",
+      ogTitle: "Milla Homes | Продаж І Оренда В Торрев'єсі",
+      title: "Milla Homes | Нерухомість Для Продажу Та Оренди В Торрев'єсі",
+    },
+    propertyMeta: {
+      bathroomsShort: "ван.",
+      bedroomsShort: "спал.",
+      featuredSnapshot: "Обраний об'єкт",
+      homesOnline: "активних об'єктів зараз",
+      homesOnlineValue: "2",
+      homesSelected: "виділених об'єктів зараз",
+      homesSelectedValue: "1",
+      homesSelectedLabel: "охоплених прибережних районів",
+      targetAreasValue: "4",
+      updatedListings: "актуальна добірка об'єктів",
+    },
+    testimonials: {
+      eyebrow: "Враження клієнтів",
+      items: [
+        {
+          name: "Джеймс і Сара Торнтон",
+          quote: "Із самого початку пошук відчувався спокійним і зрозумілим. Одразу було видно, які об'єкти справді нам підходять — і ми купили за місяць.",
+          rating: 5,
+          role: "Купівля в Торрев'єсі · з Великої Британії",
+        },
+        {
+          name: "Марта Хіменес",
+          quote: "Дуже допомогло, що одразу були зрозумілі доступні дати й різниця між районами. Усе вели іспанською та англійською.",
+          rating: 5,
+          role: "Оренда в Оріуела-Кості",
+        },
+        {
+          name: "Томас Беккер",
+          quote: "Подача виглядала більш людяною, ніж на звичайних порталах. Ще до дзвінка ми були впевнені в добірці. Дуже рекомендую.",
+          rating: 5,
+          role: "Будинок для відпочинку в Ла-Сенії",
+        },
+      ],
+      summary: "Коли пошук виглядає спокійним, зрозумілим і більш особистим, людям легше перейти від перегляду до реального контакту.",
+      title: "Добре вибудуваний пошук запам'ятовується не менше, ніж самі об'єкти.",
+    },
+  },
   ru: {
     brandSubtitle: "Недвижимость на Коста-Бланке",
     buttons: {
@@ -1228,6 +1470,14 @@ export function getLocalizedPropertyTypeLabel(locale: PublicLocale, type: string
       townhouse: "Таунхаус",
       villa: "Вилла",
     },
+    uk: {
+      apartment: "Апартаменти",
+      bungalow: "Бунгало",
+      finca: "Фінка",
+      penthouse: "Пентхаус",
+      townhouse: "Таунхаус",
+      villa: "Вілла",
+    },
     de: {
       apartment: "Apartment",
       bungalow: "Bungalow",
@@ -1246,6 +1496,7 @@ export function getLocalizedPropertyStatusLabel(locale: PublicLocale, status: st
     en: { available: "Available", draft: "Draft", reserved: "Reserved", sold: "Sold" },
     es: { available: "Disponible", draft: "Borrador", reserved: "Reservada", sold: "Vendida" },
     ru: { available: "Доступно", draft: "Черновик", reserved: "Забронировано", sold: "Продано" },
+    uk: { available: "Доступно", draft: "Чернетка", reserved: "Заброньовано", sold: "Продано" },
     de: { available: "Verfügbar", draft: "Entwurf", reserved: "Reserviert", sold: "Verkauft" },
   } as const;
 
@@ -1257,6 +1508,7 @@ export function getLocalizedListingModeLabel(locale: PublicLocale, mode: string)
     en: { both: "Sale and rent", rent: "Rent", sale: "Sale" },
     es: { both: "Venta y alquiler", rent: "Alquiler", sale: "Venta" },
     ru: { both: "Продажа и аренда", rent: "Аренда", sale: "Продажа" },
+    uk: { both: "Продаж і оренда", rent: "Оренда", sale: "Продаж" },
     de: { both: "Kauf und Miete", rent: "Miete", sale: "Kauf" },
   } as const;
 
@@ -1268,6 +1520,7 @@ export function getLocalizedRentPricePeriodLabel(locale: PublicLocale, period: s
     en: { month: "per month", night: "per night", week: "per week" },
     es: { month: "al mes", night: "por noche", week: "por semana" },
     ru: { month: "в месяц", night: "за ночь", week: "в неделю" },
+    uk: { month: "на місяць", night: "за ніч", week: "на тиждень" },
     de: { month: "pro Monat", night: "pro Nacht", week: "pro Woche" },
   } as const;
 
@@ -1296,6 +1549,13 @@ export function getLocalizedRentalPeriodLabel(locale: PublicLocale, period: stri
       nightly: "Посуточно",
       seasonal: "По сезонам",
       weekly: "Понедельно",
+    },
+    uk: {
+      long_term: "Довгостроково",
+      monthly: "Помісячно",
+      nightly: "Подобово",
+      seasonal: "Посезонно",
+      weekly: "Потижнево",
     },
     de: {
       long_term: "Langfristig",
@@ -1345,6 +1605,23 @@ export function getLocalizedPropertyFeatureLabel(locale: PublicLocale, feature: 
       terrace: "Terraza",
       tourist_license: "Licencia turística",
     },
+    uk: {
+      air_conditioning: "Кондиціонер",
+      furnished: "З меблями",
+      garage: "Гараж",
+      garden: "Сад",
+      gated_community: "Закрита урбанізація",
+      heating: "Опалення",
+      lift: "Ліфт",
+      new_build: "Новобудова",
+      parking: "Паркінг",
+      pet_friendly: "Можна з тваринами",
+      pool: "Басейн",
+      sauna: "Сауна",
+      sea_view: "Вид на море",
+      terrace: "Тераса",
+      tourist_license: "Туристична ліцензія",
+    },
     ru: {
       air_conditioning: "Кондиционер",
       furnished: "С мебелью",
@@ -1385,6 +1662,21 @@ export function getLocalizedPropertyFeatureLabel(locale: PublicLocale, feature: 
 }
 
 export function getLocalizedResultsLabel(locale: PublicLocale, count: number) {
+  if (locale === "uk") {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+
+    if (mod10 === 1 && mod100 !== 11) {
+      return `${count} об'єкт знайдено`;
+    }
+
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) {
+      return `${count} об'єкти знайдено`;
+    }
+
+    return `${count} об'єктів знайдено`;
+  }
+
   if (locale === "ru") {
     const mod10 = count % 10;
     const mod100 = count % 100;

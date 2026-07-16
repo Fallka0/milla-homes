@@ -1,11 +1,12 @@
 import { type PropertyContentFields, type PropertyContentTranslations } from "@/lib/property-shared";
 
-const targetLocales = ["en", "es", "ru", "de"] as const;
+const targetLocales = ["en", "es", "uk", "ru", "de"] as const;
 const contentFieldKeys = ["title", "shortDescription", "description"] as const;
 
 const deeplTargetLanguageMap: Record<(typeof targetLocales)[number], string> = {
   en: "EN",
   es: "ES",
+  uk: "UK",
   ru: "RU",
   de: "DE",
 };
@@ -13,6 +14,7 @@ const deeplTargetLanguageMap: Record<(typeof targetLocales)[number], string> = {
 const deeplSourceLanguageMap: Partial<Record<string, (typeof targetLocales)[number]>> = {
   EN: "en",
   ES: "es",
+  UK: "uk",
   RU: "ru",
   DE: "de",
 };
@@ -20,6 +22,7 @@ const deeplSourceLanguageMap: Partial<Record<string, (typeof targetLocales)[numb
 const deeplSourceRequestLanguageMap: Record<(typeof targetLocales)[number], string> = {
   en: "EN",
   es: "ES",
+  uk: "UK",
   ru: "RU",
   de: "DE",
 };
@@ -86,6 +89,41 @@ async function translateTextWithDeepL(
     detectedSourceLocale: detectedSourceLanguage ? deeplSourceLanguageMap[detectedSourceLanguage] ?? null : null,
     text: translatedText,
   };
+}
+
+export async function translateContentToLocale(
+  content: PropertyContentFields,
+  locale: (typeof targetLocales)[number],
+): Promise<PropertyContentFields | null> {
+  const { apiKey, apiUrl } = getDeepLEnv();
+
+  if (!apiKey) {
+    return null;
+  }
+
+  try {
+    const entries = await Promise.all(
+      contentFieldKeys.map(async (fieldKey) => {
+        const originalText = content[fieldKey].trim();
+
+        if (!originalText) {
+          return [fieldKey, ""] as const;
+        }
+
+        const translated = await translateTextWithDeepL(apiUrl, apiKey, originalText, locale);
+
+        if (!translated) {
+          throw new Error("translation-failed");
+        }
+
+        return [fieldKey, translated.text] as const;
+      }),
+    );
+
+    return Object.fromEntries(entries) as PropertyContentFields;
+  } catch {
+    return null;
+  }
 }
 
 export async function generatePropertyTranslations(

@@ -56,6 +56,24 @@ export const tourBookingCopy: Record<PublicLocale, TourBookingCopy> = {
     timePlaceholder: "p. ej. 10:00 o por la tarde",
     title: "Reserva una visita",
   },
+  uk: {
+    date: "Бажана дата",
+    email: "Email",
+    error: "Щось пішло не так. Перевірте форму та спробуйте ще раз.",
+    eyebrow: "Відвідайте цей об'єкт",
+    fullName: "Повне ім'я",
+    intro: "Оберіть зручну дату, і ми підтвердимо ваш візит електронною поштою.",
+    notes: "Що нам варто знати?",
+    notesPlaceholder: "Повідомлення (необов'язково)",
+    phone: "Телефон",
+    rateLimited: "Забагато запитів. Спробуйте знову за кілька хвилин.",
+    submit: "Записатися на перегляд",
+    submitting: "Надсилання…",
+    success: "Дякуємо! Ми отримали вашу заявку на перегляд і незабаром підтвердимо її електронною поштою.",
+    time: "Бажаний час",
+    timePlaceholder: "наприклад, 10:00 або після обіду",
+    title: "Записатися на перегляд",
+  },
   ru: {
     date: "Предпочтительная дата",
     email: "Email",
@@ -164,10 +182,10 @@ export type AdminBookingCopy = {
 };
 
 export function getAdminBookingCopy(locale: PublicLocale): AdminBookingCopy {
-  return locale === "es" || locale === "ru" ? adminBookingCopy[locale] : adminBookingCopy.en;
+  return locale === "es" || locale === "ru" || locale === "uk" ? adminBookingCopy[locale] : adminBookingCopy.en;
 }
 
-export const adminBookingCopy: Record<"en" | "es" | "ru", AdminBookingCopy> = {
+export const adminBookingCopy: Record<"en" | "es" | "ru" | "uk", AdminBookingCopy> = {
   en: {
     calendar: {
       allProperties: "All properties",
@@ -318,6 +336,82 @@ export const adminBookingCopy: Record<"en" | "es" | "ru", AdminBookingCopy> = {
     typeLabels: {
       rent: "Alquiler",
       tour: "Visita",
+    },
+  },
+  uk: {
+    calendar: {
+      allProperties: "Усі об'єкти",
+      eyebrow: "Календар",
+      nextMonth: "Наступний місяць",
+      prevMonth: "Попередній місяць",
+      title: "Бронювання та перегляди",
+      weekdays: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"],
+    },
+    form: {
+      clientEmail: "Email клієнта",
+      clientName: "Ім'я клієнта",
+      clientPhone: "Телефон клієнта",
+      endDate: "Виїзд",
+      eyebrow: "Новий запис",
+      notes: "Нотатки",
+      optional: "Необов'язково",
+      property: "Об'єкт",
+      selectProperty: "Оберіть об'єкт",
+      startDate: "Заїзд",
+      submit: "Додати бронювання",
+      submitting: "Збереження…",
+      title: "Створити бронювання або перегляд",
+      tourDate: "Дата перегляду",
+      tourTime: "Час перегляду",
+      type: "Тип",
+    },
+    list: {
+      created: "Заявка від",
+      empty: "Найближчих бронювань і переглядів поки немає.",
+      eyebrow: "Розклад",
+      pastToggle: "Показати минулі",
+      title: "Найближчі",
+    },
+    navLabel: "Бронювання",
+    pageEyebrow: "Бронювання",
+    pageTitle: "Календар бронювань",
+    pending: {
+      confirm: "Підтвердити",
+      decline: "Відхилити",
+      empty: "Немає заявок на перегляд, що очікують.",
+      eyebrow: "Потребує уваги",
+      title: "Заявки на перегляд",
+    },
+    picker: {
+      change: "Змінити об'єкт",
+      choose: "Обрати об'єкт",
+      close: "Закрити",
+      empty: "За вашим запитом нічого не знайдено.",
+      searchPlaceholder: "Пошук за назвою, референсом або районом…",
+      title: "Оберіть об'єкт",
+    },
+    actions: {
+      cancel: "Скасувати бронювання",
+      confirm: "Підтвердити",
+      decline: "Відхилити",
+      delete: "Видалити",
+      deleteConfirm: "Видалити цей запис назавжди?",
+    },
+    errors: {
+      generic: "Щось пішло не так. Спробуйте ще раз.",
+      invalidDates: "Перевірте дати: виїзд має бути пізніше заїзду.",
+      missingFields: "Заповніть об'єкт, дати та ім'я клієнта.",
+      overlap: "У цього об'єкта вже є підтверджена оренда на ці дати.",
+    },
+    statusLabels: {
+      cancelled: "Скасовано",
+      confirmed: "Підтверджено",
+      declined: "Відхилено",
+      pending: "Очікує",
+    },
+    typeLabels: {
+      rent: "Оренда",
+      tour: "Перегляд",
     },
   },
   ru: {

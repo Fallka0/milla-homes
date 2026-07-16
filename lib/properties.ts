@@ -227,6 +227,29 @@ const localizedSamplePropertyContent: Partial<
         "Un ático de líneas limpias pensado tanto para compradores de estilo de vida como para quienes buscan una segunda residencia. La propiedad ofrece una distribución abierta funcional, terrazas soleadas y acceso cómodo a Punta Prima y Torrevieja.",
     },
   },
+  uk: {
+    "sample-la-mata-apartment": {
+      title: "Апартаменти з видом на море поруч із пляжем Ла-Мата",
+      shortDescription:
+        "Світла квартира з трьома спальнями, відкритою терасою, видом на море та зручною пішою дорогою до пляжу.",
+      description:
+        "Ці світлі апартаменти поєднують простору вітальню, велику терасу та зручне планування з трьома спальнями. Це хороший варіант для покупців, яким потрібна готова до проживання база біля моря в Ла-Маті. Поруч розташовані набережна, ресторани та всі повсякденні сервіси.",
+    },
+    "sample-villa-los-balcones": {
+      title: "Окрема вілла з басейном у Лос-Балконес",
+      shortDescription:
+        "Сімейна вілла з приватним басейном, просторими зовнішніми зонами та плануванням для цілорічного проживання.",
+      description:
+        "Ця окрема вілла в Лос-Балконес підійде покупцям, яким потрібні простір і приватність. Усередині багато житлової площі, є окрема їдальня, приватний басейн і зручні відкриті простори для відпочинку та зустрічей.",
+    },
+    "sample-penthouse-punta-prima": {
+      title: "Сучасний пентхаус поруч із Пунта-Прима",
+      shortDescription:
+        "Сучасне житло на верхньому поверсі з хорошим орендним потенціалом, великою кількістю світла та швидким доступом до узбережжя.",
+      description:
+        "Сучасний пентхаус для тих, хто шукає комфортне житло біля моря або другу резиденцію. В об'єкті передбачені зручне відкрите планування, сонячні тераси та швидкий доступ до Пунта-Прима й Торрев'єхи.",
+    },
+  },
   ru: {
     "sample-la-mata-apartment": {
       title: "Апартаменты с видом на море рядом с пляжем Ла Мата",
@@ -324,6 +347,7 @@ function normalizeContentTranslations(
       description: translations.en?.description?.trim() || baseContent.description,
     },
     es: translations.es,
+    uk: translations.uk,
     ru: translations.ru,
     de: translations.de,
   };

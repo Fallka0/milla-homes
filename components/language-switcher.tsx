@@ -1,90 +1,118 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { publicLocales, type PublicLocale } from "@/lib/public-copy";
 
 type LanguageSwitcherProps = {
-  compact?: boolean;
   currentLocale: PublicLocale;
   label: string;
   locales?: PublicLocale[];
 };
 
-const labels: Record<PublicLocale, string> = {
-  en: "ENG",
-  es: "ESP",
-  ru: "РУС",
+const shortLabels: Record<PublicLocale, string> = {
+  en: "EN",
+  es: "ES",
+  uk: "UA",
   de: "DE",
+  ru: "RU",
+};
+
+const nativeNames: Record<PublicLocale, string> = {
+  en: "English",
+  es: "Español",
+  uk: "Українська",
+  de: "Deutsch",
+  ru: "Русский",
 };
 
 export function LanguageSwitcher({
-  compact = false,
   currentLocale,
   label,
   locales = [...publicLocales],
 }: LanguageSwitcherProps) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  if (compact) {
-    return (
-      <div className={`language-switcher language-switcher-compact ${isOpen ? "is-open" : ""}`}>
-        <button
-          aria-expanded={isOpen}
-          aria-haspopup="true"
-          aria-label={label}
-          className="language-compact-trigger"
-          onClick={() => setIsOpen((open) => !open)}
-          type="button"
-        >
-          <span>{labels[currentLocale]}</span>
-          <span aria-hidden="true" className="language-compact-chevron">
-            ▾
-          </span>
-        </button>
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
 
-        {isOpen ? (
-          <div aria-label={label} className="language-compact-menu" role="menu">
-            {locales.map((locale) => (
-              <button
-                key={locale}
-                aria-checked={locale === currentLocale}
-                className={`language-button ${locale === currentLocale ? "active" : ""}`}
-                onClick={() => {
-                  document.cookie = `verdant-locale=${locale}; path=/; max-age=31536000; samesite=lax`;
-                  setIsOpen(false);
-                  router.refresh();
-                }}
-                role="menuitemradio"
-                type="button"
-              >
-                {labels[locale]}
-              </button>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    );
-  }
+    function handlePointerDown(event: PointerEvent) {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   return (
-    <div className="language-switcher" aria-label={label} role="group">
-      {locales.map((locale) => (
-        <button
-          key={locale}
-          className={`language-button ${locale === currentLocale ? "active" : ""}`}
-          type="button"
-          aria-pressed={locale === currentLocale}
-          onClick={() => {
-            document.cookie = `verdant-locale=${locale}; path=/; max-age=31536000; samesite=lax`;
-            router.refresh();
-          }}
+    <div className={`language-switcher ${isOpen ? "is-open" : ""}`} ref={rootRef}>
+      <button
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        aria-label={label}
+        className="language-trigger"
+        onClick={() => setIsOpen((open) => !open)}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          className="language-globe"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.6"
+          viewBox="0 0 24 24"
         >
-          {labels[locale]}
-        </button>
-      ))}
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" />
+          <path d="M12 3a13.5 13.5 0 0 1 3.5 9 13.5 13.5 0 0 1-3.5 9 13.5 13.5 0 0 1-3.5-9A13.5 13.5 0 0 1 12 3Z" />
+        </svg>
+        <span>{shortLabels[currentLocale]}</span>
+        <span aria-hidden="true" className="language-chevron">
+          ▾
+        </span>
+      </button>
+
+      {isOpen ? (
+        <div aria-label={label} className="language-menu" role="menu">
+          {locales.map((locale) => (
+            <button
+              key={locale}
+              aria-checked={locale === currentLocale}
+              className={`language-option ${locale === currentLocale ? "active" : ""}`}
+              onClick={() => {
+                document.cookie = `verdant-locale=${locale}; path=/; max-age=31536000; samesite=lax`;
+                setIsOpen(false);
+                router.refresh();
+              }}
+              role="menuitemradio"
+              type="button"
+            >
+              <span className="language-option-name">{nativeNames[locale]}</span>
+              <span className="language-option-code">{shortLabels[locale]}</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

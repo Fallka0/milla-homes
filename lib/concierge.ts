@@ -8,6 +8,7 @@ import { createAdminClient } from "@/lib/supabase/server";
 const languageNames: Record<PublicLocale, string> = {
   en: "English",
   es: "Spanish",
+  uk: "Ukrainian",
   ru: "Russian",
   de: "German",
 };

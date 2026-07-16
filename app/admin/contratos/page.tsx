@@ -19,10 +19,16 @@ const PAGE_COPY: Record<ContratoToolLocale, { eyebrow: string; title: string; bo
     body: "Seasonal rental, residential rental, reservation or arras: pick the type, fill in the parties and amounts, and export a print-ready A4 PDF. You can add English, Russian or German versions.",
     back: "← Back to dashboard",
   },
+  uk: {
+    eyebrow: "Milla Homes · Внутрішній інструмент",
+    title: "Договори",
+    body: "Сезонна оренда, довгострокова оренда, резервування або завдаток: оберіть тип, заповніть сторони та суми й експортуйте готовий PDF формату A4. Можна додати версії англійською, українською, російською чи німецькою.",
+    back: "← Назад до панелі",
+  },
   ru: {
     eyebrow: "Milla Homes · Внутренний инструмент",
     title: "Договоры",
-    body: "Сезонная аренда, долгосрочная аренда, резервирование или задаток: выберите тип, заполните стороны и суммы и экспортируйте готовый PDF формата A4. Можно добавить версии на английском, русском или немецком.",
+    body: "Сезонная аренда, долгосрочная аренда, резервирование или задаток: выберите тип, заполните стороны и суммы и экспортируйте готовый PDF формата A4. Можно добавить версии на английском, украинском, русском или немецком.",
     back: "← Назад в панель",
   },
 };
@@ -30,9 +36,9 @@ const PAGE_COPY: Record<ContratoToolLocale, { eyebrow: string; title: string; bo
 export default async function ContratosPage() {
   const cookieStore = await cookies();
   const adminLocale = resolveAdminLocale(cookieStore.get("verdant-locale")?.value);
-  // The admin switcher offers en/es/ru; anything else falls back to Spanish.
+  // The admin switcher offers en/es/uk/ru; anything else falls back to Spanish.
   const locale: ContratoToolLocale =
-    adminLocale === "ru" ? "ru" : adminLocale === "en" ? "en" : "es";
+    adminLocale === "ru" || adminLocale === "uk" || adminLocale === "en" ? adminLocale : "es";
   const copy = PAGE_COPY[locale];
 
   return (

@@ -113,6 +113,7 @@ const locationCopyByLocale: Record<string, { eyebrow: string; note: string }> = 
   en: { eyebrow: "Location", note: "Approximate area shown. Exact address provided on request." },
   es: { eyebrow: "Ubicación", note: "Zona aproximada. Dirección exacta facilitada bajo petición." },
   ru: { eyebrow: "Расположение", note: "Показан примерный район. Точный адрес — по запросу." },
+  uk: { eyebrow: "Розташування", note: "Показано приблизний район. Точна адреса — за запитом." },
   de: { eyebrow: "Lage", note: "Ungefähre Umgebung. Genaue Adresse auf Anfrage." },
 };
 
@@ -120,6 +121,7 @@ const similarCopyByLocale: Record<string, { eyebrow: string; title: string }> = 
   en: { eyebrow: "Keep exploring", title: "Similar properties" },
   es: { eyebrow: "Sigue explorando", title: "Propiedades similares" },
   ru: { eyebrow: "Продолжить просмотр", title: "Похожие объекты" },
+  uk: { eyebrow: "Продовжити перегляд", title: "Схожі об'єкти" },
   de: { eyebrow: "Weiter entdecken", title: "Ähnliche Immobilien" },
 };
 

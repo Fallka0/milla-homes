@@ -12,6 +12,7 @@ const labels: Record<
   es: { share: "Compartir", copied: "Enlace copiado", failed: "No se pudo copiar" },
   de: { share: "Teilen", copied: "Link kopiert", failed: "Kopieren fehlgeschlagen" },
   ru: { share: "Поделиться", copied: "Ссылка скопирована", failed: "Не удалось скопировать" },
+  uk: { share: "Поділитися", copied: "Посилання скопійовано", failed: "Не вдалося скопіювати" },
 };
 
 type ShareStatus = "idle" | "copied" | "failed";

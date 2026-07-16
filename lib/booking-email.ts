@@ -38,6 +38,13 @@ const confirmationCopy = {
       `Tu visita a ${property} está confirmada para el ${date}${time ? ` a las ${time}` : ""}. ¡Te esperamos!`,
     signoff: "Un saludo,\nMilla Homes",
   },
+  uk: {
+    subject: (property: string) => `Ваш перегляд підтверджено: ${property}`,
+    greeting: (name: string) => `Добрий день, ${name}!`,
+    body: (property: string, date: string, time: string) =>
+      `Ваш перегляд об'єкта ${property} підтверджено на ${date}${time ? ` о ${time}` : ""}. Чекаємо на вас!`,
+    signoff: "З повагою,\nMilla Homes",
+  },
   ru: {
     subject: (property: string) => `Ваш просмотр подтверждён: ${property}`,
     greeting: (name: string) => `Здравствуйте, ${name}!`,

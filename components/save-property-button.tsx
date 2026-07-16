@@ -14,6 +14,7 @@ const labels: Record<PublicLocale, { add: string; remove: string; view: string }
   es: { add: "Guardar propiedad", remove: "Quitar de guardadas", view: "Ver propiedades guardadas" },
   de: { add: "Immobilie speichern", remove: "Aus gespeicherten entfernen", view: "Gespeicherte Immobilien ansehen" },
   ru: { add: "Сохранить объект", remove: "Удалить из сохранённых", view: "Открыть сохранённые объекты" },
+  uk: { add: "Зберегти об'єкт", remove: "Прибрати зі збережених", view: "Відкрити збережені об'єкти" },
 };
 
 export function readSavedPropertySlugs() {

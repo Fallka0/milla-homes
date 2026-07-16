@@ -19,7 +19,7 @@ import {
 
 // UI language of the tool itself (follows the admin locale switcher). The
 // printed document language is chosen separately via the version checkboxes.
-export type ContratoToolLocale = "es" | "en" | "ru";
+export type ContratoToolLocale = "es" | "en" | "uk" | "ru";
 
 type ToolCopy = {
   typeCard: string;
@@ -126,7 +126,7 @@ const TOOL_COPY: Record<ContratoToolLocale, ToolCopy> = {
     langsCard: "Versiones adicionales",
     langsHint:
       "El contrato español es el que se firma; las versiones marcadas se imprimen a continuación como traducción de cortesía.",
-    langNames: { en: "Inglés", ru: "Ruso", de: "Alemán" },
+    langNames: { en: "Inglés", uk: "Ucraniano", ru: "Ruso", de: "Alemán" },
     previewLang: "Idioma de la vista previa",
     exportPdf: "Exportar PDF",
   },
@@ -189,7 +189,7 @@ const TOOL_COPY: Record<ContratoToolLocale, ToolCopy> = {
     langsCard: "Additional versions",
     langsHint:
       "The Spanish contract is the one being signed; checked versions are printed after it as a courtesy translation.",
-    langNames: { en: "English", ru: "Russian", de: "German" },
+    langNames: { en: "English", uk: "Ukrainian", ru: "Russian", de: "German" },
     previewLang: "Preview language",
     exportPdf: "Export PDF",
   },
@@ -252,9 +252,72 @@ const TOOL_COPY: Record<ContratoToolLocale, ToolCopy> = {
     langsCard: "Дополнительные версии",
     langsHint:
       "Подписывается испанский договор; отмеченные версии печатаются после него как перевод для удобства.",
-    langNames: { en: "Английский", ru: "Русский", de: "Немецкий" },
+    langNames: { en: "Английский", uk: "Украинский", ru: "Русский", de: "Немецкий" },
     previewLang: "Язык предпросмотра",
     exportPdf: "Экспорт PDF",
+  },
+  uk: {
+    typeCard: "Тип договору",
+    reset: "Очистити форму",
+    types: {
+      "short-rent": {
+        label: "Сезонна оренда",
+        hint: "Короткий строк, фіксовані дати, без продовження (ст. 3 LAU)",
+      },
+      "long-rent": {
+        label: "Довгострокова оренда",
+        hint: "Постійне проживання, 1 рік із продовженням до 5 років (LAU)",
+      },
+      reservation: {
+        label: "Резервування",
+        hint: "Платіж, щоб зняти об'єкт з продажу",
+      },
+      arras: {
+        label: "Завдаток (arras)",
+        hint: "Купівля-продаж, ст. 1454 ЦК: покупець втрачає / продавець повертає вдвічі",
+      },
+    },
+    signPlace: "Місце підписання",
+    signDate: "Дата підписання",
+    partyRentA: "Орендодавець (власник)",
+    partyRentB: "Орендар",
+    partySaleA: "Продавець (власник)",
+    partySaleB: "Покупець",
+    fullName: "Повне ім'я",
+    idDoc: "DNI/NIE/Паспорт",
+    domicile: "Адреса",
+    propertyCard: "Об'єкт",
+    propAddress: "Адреса",
+    propCity: "Місто",
+    propRef: "Кадастровий номер (необов'язково)",
+    conditionsCard: "Умови",
+    rentStart: "Початок оренди",
+    rentEnd: "Кінець оренди",
+    duration: "Строк",
+    durationFixed: "1 рік, із продовженням до 5 років (LAU)",
+    monthlyCheck: "Плата помісячна (замість загальної суми за сезон)",
+    rentMonthly: "Місячна плата (€)",
+    rentTotal: "Плата за весь сезон (€)",
+    deposit: "Застава (€)",
+    depositHintLong: "1 місячна плата",
+    iban: "IBAN для оплати оренди",
+    utilities: "Комунальні послуги (вода, світло, інтернет) включені в плату",
+    price: "Ціна купівлі-продажу (€)",
+    signalArras: "Сума завдатку (€)",
+    signalReserva: "Сума резервування (€)",
+    deadlineArras: "Крайній строк нотаріального акта",
+    deadlineReserva: "Крайній строк завдатку / акта",
+    agencyHeld: "Резервування зберігається в Milla Homes (інакше отримує продавець)",
+    badAmount: "Одну із сум не розпізнано. Використовуйте формат 2.500,00.",
+    extraCard: "Інші умови (необов'язково)",
+    extraPlaceholder:
+      "Одна умова на рядок, напр.:\nДозволено проживання невеликої домашньої тварини.\nОб'єкт передається з меблями згідно з доданим описом.",
+    langsCard: "Додаткові версії",
+    langsHint:
+      "Підписується іспанський договір; позначені версії друкуються після нього як переклад для зручності.",
+    langNames: { en: "Англійська", uk: "Українська", ru: "Російська", de: "Німецька" },
+    previewLang: "Мова попереднього перегляду",
+    exportPdf: "Експорт PDF",
   },
 };
 

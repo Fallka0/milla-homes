@@ -12,6 +12,7 @@ const labels: Record<string, Record<InquiryStatus, string>> = {
   en: { new: "New", contacted: "Contacted", closed: "Closed" },
   es: { new: "Nueva", contacted: "Contactado", closed: "Cerrada" },
   ru: { new: "Новая", contacted: "На связи", closed: "Закрыта" },
+  uk: { new: "Нова", contacted: "На зв'язку", closed: "Закрита" },
 };
 
 type InquiryStatusControlProps = {

@@ -70,7 +70,7 @@ export type PropertyContentFields = {
   title: string;
 };
 
-export type PropertyContentTranslations = Partial<Record<"en" | "es" | "ru" | "de", PropertyContentFields>>;
+export type PropertyContentTranslations = Partial<Record<"en" | "es" | "uk" | "ru" | "de", PropertyContentFields>>;
 
 export type PropertyRecord = {
   availabilityEnd: string | null;

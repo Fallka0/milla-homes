@@ -18,10 +18,10 @@ export type ContratoParty = {
 
 // Languages the printed document exists in. Spanish is the binding original;
 // the rest are courtesy translations that can be printed alongside it.
-export const CONTRATO_DOC_LOCALES = ["es", "en", "ru", "de"] as const;
+export const CONTRATO_DOC_LOCALES = ["es", "en", "uk", "ru", "de"] as const;
 export type ContratoDocLocale = (typeof CONTRATO_DOC_LOCALES)[number];
 export type ContratoExtraLocale = Exclude<ContratoDocLocale, "es">;
-export const CONTRATO_EXTRA_LOCALES: ContratoExtraLocale[] = ["en", "ru", "de"];
+export const CONTRATO_EXTRA_LOCALES: ContratoExtraLocale[] = ["en", "uk", "ru", "de"];
 
 export type Contrato = {
   type: ContratoType;

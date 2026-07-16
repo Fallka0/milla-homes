@@ -74,6 +74,12 @@ export const aboutContent: Record<PublicLocale, AboutContent> = {
     values: [{ title: "Klarheit zuerst", body: "Immobilien und Lagen werden verständlich erklärt, damit Sie sicher vergleichen können." }, { title: "Lokale Perspektive", body: "Unser Fokus liegt auf Torrevieja und der umliegenden Küste mit ihren unterschiedlichen Wohnlagen." }, { title: "Kein Verkaufsdruck", body: "Gute Entscheidungen brauchen Raum. Wir schärfen lieber das Suchprofil, als eine unpassende Besichtigung zu drängen." }],
     areasEyebrow: "Unsere Küste", areasTitle: "Sechs Gebiete, viele verschiedene Arten zu leben.", ctaTitle: "Erzählen Sie uns, wie sich Zuhause für Sie anfühlt.", ctaText: "Teilen Sie Lage, Budget und Zeitplan. Wir machen aus einer breiten Suche eine hilfreiche Auswahl.",
   },
+  uk: {
+    eyebrow: "Бутик-нерухомість на Коста-Бланці", title: "Більш особистий шлях до свого місця біля моря.", intro: "Milla Homes допомагає покупцям і орендарям орієнтуватися на ринку Коста-Бланки завдяки зрозумілій подачі об'єктів, чесному контексту та спокійному спілкуванню.",
+    storyEyebrow: "Наш підхід", storyTitle: "Менше шуму. Точніші рішення.", story: ["Пошук нерухомості має бути продуманим, а не перевантаженим. Ми зосереджені на будинках, районах і практичних деталях, які справді пасують вашому способу життя.", "Від першого списку до запиту на перегляд ми робимо наступний крок зрозумілішим. Юридичні та фінансові консультації залишаються за незалежними фахівцями, яких обираєте ви."],
+    values: [{ title: "Спершу ясність", body: "Ми зрозуміло розповідаємо про об'єкти та райони, щоб їх було легше впевнено порівнювати." }, { title: "Місцевий погляд", body: "Ми зосереджені на Торрев'єсі та найближчому узбережжі, де в кожного району свій ритм і вибір житла." }, { title: "Без тиску", body: "Хорошим рішенням потрібен простір. Краще уточнити запит, ніж нав'язувати невідповідний перегляд." }],
+    areasEyebrow: "Наше узбережжя", areasTitle: "Шість районів — безліч різних сценаріїв життя.", ctaTitle: "Розкажіть, яким ви бачите свій дім.", ctaText: "Поділіться бажаним районом, бюджетом і термінами. Ми перетворимо широкий пошук на корисну добірку.",
+  },
   ru: {
     eyebrow: "Бутик-недвижимость на Коста-Бланке", title: "Более личный путь к своему месту у моря.", intro: "Milla Homes помогает покупателям и арендаторам ориентироваться на рынке Коста-Бланки благодаря понятной подаче объектов, честному контексту и спокойному общению.",
     storyEyebrow: "Наш подход", storyTitle: "Меньше шума. Более точные решения.", story: ["Поиск недвижимости должен быть продуманным, а не перегруженным. Мы сосредоточены на домах, районах и практических деталях, которые действительно подходят вашему образу жизни.", "От первого списка до запроса на просмотр мы делаем следующий шаг понятнее. Юридические и финансовые консультации остаются за независимыми специалистами, которых выбираете вы."],
@@ -86,6 +92,7 @@ export const contactContent: Record<PublicLocale, ContactContent> = {
   en: { eyebrow: "Let’s talk", title: "A useful property conversation starts with what matters to you.", intro: "Tell us whether you are buying, renting or still comparing areas. A short message is enough to begin.", callTitle: "Call directly", callText: "Best when you want a quick answer about a home, area or viewing.", whatsappTitle: "Write on WhatsApp", whatsappText: "Send your criteria or a listing link and continue the conversation at your pace.", visitTitle: "Visit the office", visitText: "We are in the centre of Torrevieja, a short walk from the seafront. See photos, the map and parking tips.", formEyebrow: "Send a message", formTitle: "Put the essentials in writing.", formText: "Share your preferred area, budget, timing and any must-haves. We will reply using the contact details you provide.", availability: "Serving Torrevieja and the surrounding Costa Blanca." },
   es: { eyebrow: "Hablemos", title: "Una conversación útil empieza por lo que de verdad te importa.", intro: "Cuéntanos si quieres comprar, alquilar o aún estás comparando zonas. Basta un mensaje breve para empezar.", callTitle: "Llama directamente", callText: "La mejor opción para una respuesta rápida sobre una vivienda, zona o visita.", whatsappTitle: "Escribe por WhatsApp", whatsappText: "Envía tus criterios o el enlace de una vivienda y sigue la conversación a tu ritmo.", visitTitle: "Visita la oficina", visitText: "Estamos en el centro de Torrevieja, a pocos minutos del paseo marítimo. Consulta fotos, mapa y consejos de aparcamiento.", formEyebrow: "Enviar mensaje", formTitle: "Cuéntanos lo esencial por escrito.", formText: "Indica zona, presupuesto, plazos y requisitos importantes. Responderemos a través de los datos que facilites.", availability: "Trabajamos en Torrevieja y la Costa Blanca cercana." },
   de: { eyebrow: "Sprechen wir", title: "Ein gutes Immobiliengespräch beginnt mit dem, was Ihnen wichtig ist.", intro: "Sagen Sie uns, ob Sie kaufen, mieten oder noch Gebiete vergleichen. Eine kurze Nachricht genügt für den Anfang.", callTitle: "Direkt anrufen", callText: "Ideal für eine schnelle Antwort zu einer Immobilie, Lage oder Besichtigung.", whatsappTitle: "Über WhatsApp schreiben", whatsappText: "Senden Sie Ihre Kriterien oder einen Immobilienlink und führen Sie das Gespräch in Ihrem Tempo fort.", visitTitle: "Büro besuchen", visitText: "Wir sind im Zentrum von Torrevieja, wenige Gehminuten vom Meer. Fotos, Karte und Parkhinweise finden Sie hier.", formEyebrow: "Nachricht senden", formTitle: "Halten Sie das Wesentliche schriftlich fest.", formText: "Nennen Sie Wunschlage, Budget, Zeitplan und wichtige Kriterien. Wir antworten über die angegebenen Kontaktdaten.", availability: "Für Torrevieja und die umliegende Costa Blanca." },
+  uk: { eyebrow: "Поговорімо", title: "Корисна розмова про нерухомість починається з ваших пріоритетів.", intro: "Розкажіть, чи хочете ви купити, орендувати, чи поки порівнюєте райони. Для початку достатньо короткого повідомлення.", callTitle: "Зателефонувати напряму", callText: "Зручно, якщо потрібна швидка відповідь про об'єкт, район чи перегляд.", whatsappTitle: "Написати у WhatsApp", whatsappText: "Надішліть критерії або посилання на об'єкт і продовжуйте спілкування у своєму темпі.", visitTitle: "Завітайте до офісу", visitText: "Ми знаходимося в центрі Торрев'єхи, недалеко від набережної. Перегляньте фото офісу, карту та поради щодо паркування.", formEyebrow: "Надіслати повідомлення", formTitle: "Опишіть головне письмово.", formText: "Вкажіть район, бюджет, терміни та важливі вимоги. Ми відповімо за залишеними контактними даними.", availability: "Працюємо в Торрев'єсі та на найближчому узбережжі Коста-Бланки." },
   ru: { eyebrow: "Давайте поговорим", title: "Полезный разговор о недвижимости начинается с ваших приоритетов.", intro: "Расскажите, хотите ли вы купить, арендовать или пока сравниваете районы. Для начала достаточно короткого сообщения.", callTitle: "Позвонить напрямую", callText: "Удобно, если нужен быстрый ответ об объекте, районе или просмотре.", whatsappTitle: "Написать в WhatsApp", whatsappText: "Отправьте критерии или ссылку на объект и продолжайте общение в своём темпе.", visitTitle: "Приходите в офис", visitText: "Мы находимся в центре Торревьехи, недалеко от набережной. Посмотрите фото офиса, карту и советы по парковке.", formEyebrow: "Отправить сообщение", formTitle: "Опишите главное письменно.", formText: "Укажите район, бюджет, сроки и важные требования. Мы ответим по оставленным контактным данным.", availability: "Работаем в Торревьехе и на ближайшем побережье Коста-Бланки." },
 };
 
@@ -176,6 +183,35 @@ export const officeContent: Record<PublicLocale, OfficeContent> = {
     ],
     ctaTitle: "Sagen Sie uns, dass Sie kommen.",
     ctaText: "Ein kurzer Anruf oder eine WhatsApp-Nachricht genügt – wir sorgen dafür, dass jemand für Sie da ist.",
+  },
+  uk: {
+    eyebrow: "Наш офіс",
+    title: "Наш офіс — у самому серці Торрев'єхи.",
+    intro: "Офіс Milla Homes розташований на тихій пішохідній вулиці Каноніго Торрес (C. Canónigo Torres) у старому місті, за кілька хвилин ходьби від набережної. Заходьте на чашку кави — спокійно обговоримо купівлю, продаж чи оренду житла на Коста-Бланці.",
+    galleryEyebrow: "Всередині та зовні",
+    galleryTitle: "Затишне місце для розмови без поспіху.",
+    galleryAlts: [
+      "Інтер'єр офісу Milla Homes: білий стіл, зелені оксамитові крісла та золотий логотип Milla Homes на стіні",
+      "Стійка офісу Milla Homes з логотипом Milla Homes Real Estate",
+      "Зона очікування в офісі Milla Homes з темно-зеленим диваном і жовтими подушками",
+      "Вулиця Каноніго Торрес — пішохідна вулиця, на якій розташований офіс Milla Homes",
+      "Пішохідна площа з пальмами поруч з офісом Milla Homes у центрі Торрев'єхи",
+    ],
+    visitEyebrow: "Як нас знайти",
+    visitTitle: "У самому центрі пішохідної зони.",
+    visitText: "Офіс розташований на першому поверсі та виходить прямо на вулицю. Орієнтир — золота вивіска Milla Homes на вітрині.",
+    addressLabel: "Адреса",
+    mapsCta: "Відкрити в Google Maps",
+    mapLabel: "Карта з розташуванням офісу Milla Homes у Торрев'єсі",
+    mapNote: "Вулиця Каноніго Торрес — пішохідна, тому під'їхати до самих дверей на машині не вийде: останні метри потрібно пройти пішки.",
+    parkingEyebrow: "Паркування",
+    parkingTitle: "Залиште машину на парковці Paseo del Mar.",
+    parkingText: [
+      "Найзручніше залишити машину на парковці Paseo del Mar біля набережної. Звідти до нашого офісу — коротка приємна прогулянка через старе місто.",
+      "Вулиці навколо офісу пішохідні, тому парковка Paseo del Mar — найпростіший варіант: не доведеться кружляти центром у пошуках вільного місця.",
+    ],
+    ctaTitle: "Попередьте нас про візит.",
+    ctaText: "Достатньо зателефонувати або написати у WhatsApp — і ми обов'язково вас зустрінемо.",
   },
   ru: {
     eyebrow: "Наш офис",
