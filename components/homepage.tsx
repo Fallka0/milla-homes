@@ -6,8 +6,9 @@ import { ContactActions } from "@/components/contact-actions";
 import { PublicHeader } from "@/components/public-header";
 import { PropertyCard } from "@/components/property-card";
 import { SiteFooter } from "@/components/site-footer";
+import { heroVideoUrl } from "@/lib/hero-media";
 import { regions, regionSlugs } from "@/lib/regions";
-import { getPropertyPreviewImageUrl, type PropertyRecord } from "@/lib/property-shared";
+import { getPropertyPreviewImageUrl, isVideoAssetUrl, type PropertyRecord } from "@/lib/property-shared";
 import { type PublicCopy, type PublicLocale } from "@/lib/public-copy";
 
 const heroArrowIcon = (
@@ -42,6 +43,14 @@ export function Homepage({
   const fallbackPreviewImage = "/logos/verdant-seal.svg";
   const heroImage =
     getPropertyPreviewImageUrl(featuredProperties[0]) ?? regions[regionSlugs[0]]?.imageUrl ?? fallbackPreviewImage;
+  // Curated clip wins; otherwise reuse the featured listing's own video when
+  // its main asset is one. The image billboard always stays underneath as
+  // poster/fallback, so a failing video can never blank the hero.
+  const featuredVideo =
+    featuredProperties[0]?.mainImageUrl && isVideoAssetUrl(featuredProperties[0].mainImageUrl)
+      ? featuredProperties[0].mainImageUrl
+      : null;
+  const heroVideo = heroVideoUrl || featuredVideo;
   const coveragePills = regionSlugs
     .slice(0, 5)
     .map((slug) => regions[slug].localeContent[currentLocale].areaLabel);
@@ -61,6 +70,19 @@ export function Homepage({
           className="hero-billboard"
           style={{ "--hero-image": `url("${heroImage}")` } as CSSProperties}
         >
+          {heroVideo ? (
+            <video
+              className="hero-billboard-video"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster={heroImage}
+              src={heroVideo}
+              aria-hidden
+            />
+          ) : null}
           <div className="hero-bubbles" aria-hidden>
             <span className="hero-bubble hero-bubble-1">{copy.hero.bubbles.first}</span>
             <span className="hero-bubble hero-bubble-2">{copy.hero.bubbles.second}</span>
