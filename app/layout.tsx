@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
 import { publicSiteUrl } from "@/lib/site-urls";
 import { MobileContactFab } from "@/components/mobile-contact-fab";
+import { RevealController } from "@/components/reveal-controller";
 
 import "./globals.css";
 
@@ -82,6 +83,7 @@ export default async function RootLayout({
     <html lang={locale} className={`${cormorant.variable} ${hankenGrotesk.variable}`}>
       <body className={hankenGrotesk.className}>
         {children}
+        <RevealController />
         <MobileContactFab callLabel={copy.buttons.callNow} whatsappLabel={copy.buttons.whatsapp} whatsappMessage={copy.contact.whatsappMessage} />
         <Analytics />
         <SpeedInsights />

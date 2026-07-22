@@ -6842,3 +6842,289 @@ textarea {
     left: 0.4rem;
   }
 }
+
+/* ============================================================
+   MOTION: scroll reveal + loading skeletons
+   ============================================================ */
+
+/* Scroll reveal — only active once JS marks the document ready, so no-JS
+   and reduced-motion visitors always see fully-rendered content. */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Shimmer skeletons */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.skeleton {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    100deg,
+    rgba(18, 53, 36, 0.06) 30%,
+    rgba(18, 53, 36, 0.11) 50%,
+    rgba(18, 53, 36, 0.06) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+.skeleton-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+  overflow: hidden;
+}
+.skeleton-media {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+  margin: 0.4rem 0.4rem 0;
+  border-radius: calc(var(--radius-md) - 4px);
+}
+.skeleton-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.1rem 1.2rem 1.3rem;
+}
+.skeleton-line {
+  height: 0.85rem;
+  border-radius: var(--radius-pill);
+}
+.skeleton-line-sm {
+  width: 45%;
+}
+.skeleton-line-lg {
+  width: 80%;
+  height: 1.1rem;
+}
+.skeleton-heading {
+  height: 2rem;
+  width: min(28rem, 70%);
+}
+.skeleton-chip-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+.skeleton-chip {
+  height: 1.5rem;
+  width: 4rem;
+  border-radius: var(--radius-pill);
+}
+.skeleton-filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+.skeleton-search {
+  height: 46px;
+  flex: 1 1 240px;
+  border-radius: var(--radius-pill);
+}
+.skeleton-pill {
+  height: 46px;
+  width: 7rem;
+  border-radius: var(--radius-pill);
+}
+.skeleton-hero {
+  min-height: clamp(23rem, 46vw, 34rem);
+  border-radius: var(--radius-lg);
+}
+.skeleton-cta-card {
+  height: 5.5rem;
+  border-radius: var(--radius-md);
+}
+.skeleton-detail-media {
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  border-radius: var(--radius-lg);
+}
+.detail-loading {
+  display: grid;
+  gap: 2rem;
+}
+.detail-loading-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-width: 46rem;
+}
+
+/* ============================================================
+   COLLABORATE PAGE
+   ============================================================ */
+.collaborate-page {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 7vw, 6rem);
+}
+.collaborate-hero {
+  margin-top: 1rem;
+  padding: clamp(2.5rem, 6vw, 5rem);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 140% at 15% 0%, rgba(31, 122, 82, 0.35) 0%, transparent 55%),
+    var(--surface-deep);
+  color: #f4faf6;
+}
+.collaborate-hero h1 {
+  margin: 0.9rem 0 0;
+  max-width: 20ch;
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.collaborate-hero h1 em {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(244, 250, 246, 0.82);
+}
+.collaborate-hero-intro {
+  margin: 1.5rem 0 0;
+  max-width: 44rem;
+  color: rgba(244, 250, 246, 0.78);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+.collaborate-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+.collaborate-hero-actions .button-primary {
+  background: #ffffff;
+  color: var(--text);
+}
+.collaborate-hero-actions .button-primary:hover {
+  background: #e9f2ec;
+}
+.collaborate-ghost {
+  border-color: rgba(244, 250, 246, 0.35);
+  color: #f4faf6;
+}
+.collaborate-ghost:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+.collaborate-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.25rem;
+}
+.collaborate-benefit-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-sm);
+}
+.collaborate-benefit-number {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--accent-strong);
+}
+.collaborate-benefit-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.collaborate-benefit-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.collaborate-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+.collaborate-steps li {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--hairline);
+}
+.collaborate-steps li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.collaborate-step-number {
+  flex: none;
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  color: var(--accent-strong);
+}
+.collaborate-steps h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.collaborate-steps p {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.collaborate-closing {
+  align-items: flex-start;
+}
+.collaborate-closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.collaborate-closing .button {
+  background: #ffffff;
+  color: var(--text);
+  border-color: transparent;
+}
+.collaborate-closing-whatsapp {
+  background: transparent;
+  color: #f4faf6;
+  border: 1px solid rgba(244, 250, 246, 0.4);
+}
+.collaborate-closing-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4faf6;
+}
