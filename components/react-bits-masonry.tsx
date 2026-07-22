@@ -104,7 +104,19 @@ export function ReactBitsMasonry({
   const hasMounted = useRef(false);
 
   useEffect(() => {
-    preloadImages(items.map((item) => item.img)).then(() => setImagesReady(true));
+    // Don't hold the whole grid hostage to the slowest photo: wait briefly so
+    // cached images animate in fully painted, but cap it so the layout always
+    // appears fast and late images simply fade onto their shimmer background.
+    let cancelled = false;
+    const timeout = new Promise<void>((resolve) => setTimeout(resolve, 600));
+    Promise.race([preloadImages(items.map((item) => item.img)), timeout]).then(() => {
+      if (!cancelled) {
+        setImagesReady(true);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [items]);
 
   const grid = useMemo<GridItem[]>(() => {

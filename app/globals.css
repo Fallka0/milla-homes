@@ -6867,8 +6867,11 @@ textarea {
   }
 }
 
-/* Shimmer skeletons */
-@keyframes skeleton-shimmer {
+/* Image-level shimmer placeholders. The shimmer lives on the media
+   *wrapper* background, so while a heavy photo downloads/decodes the
+   area shows a soft moving sheen — and the photo simply covers it once
+   painted. No layout is ever replaced by placeholder blocks. */
+@keyframes media-shimmer {
   0% {
     background-position: 200% 0;
   }
@@ -6876,104 +6879,32 @@ textarea {
     background-position: -200% 0;
   }
 }
-.skeleton {
-  display: block;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(
+.property-image-wrap,
+.embla-frame,
+.carousel-image-button,
+.rb-masonry-image,
+.neighborhood-card,
+.hero-billboard {
+  background-color: rgba(18, 53, 36, 0.07);
+}
+.property-image-wrap,
+.embla-frame,
+.rb-masonry-image {
+  background-image: linear-gradient(
     100deg,
-    rgba(18, 53, 36, 0.06) 30%,
-    rgba(18, 53, 36, 0.11) 50%,
-    rgba(18, 53, 36, 0.06) 70%
+    rgba(18, 53, 36, 0.05) 30%,
+    rgba(18, 53, 36, 0.12) 50%,
+    rgba(18, 53, 36, 0.05) 70%
   );
   background-size: 200% 100%;
-  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  animation: media-shimmer 1.6s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .skeleton {
+  .property-image-wrap,
+  .embla-frame,
+  .rb-masonry-image {
     animation: none;
   }
-}
-.skeleton-card {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--surface-strong);
-  overflow: hidden;
-}
-.skeleton-media {
-  aspect-ratio: 4 / 3;
-  border-radius: 0;
-  margin: 0.4rem 0.4rem 0;
-  border-radius: calc(var(--radius-md) - 4px);
-}
-.skeleton-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  padding: 1.1rem 1.2rem 1.3rem;
-}
-.skeleton-line {
-  height: 0.85rem;
-  border-radius: var(--radius-pill);
-}
-.skeleton-line-sm {
-  width: 45%;
-}
-.skeleton-line-lg {
-  width: 80%;
-  height: 1.1rem;
-}
-.skeleton-heading {
-  height: 2rem;
-  width: min(28rem, 70%);
-}
-.skeleton-chip-row {
-  display: flex;
-  gap: 0.4rem;
-  margin-top: 0.2rem;
-}
-.skeleton-chip {
-  height: 1.5rem;
-  width: 4rem;
-  border-radius: var(--radius-pill);
-}
-.skeleton-filters-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  align-items: center;
-}
-.skeleton-search {
-  height: 46px;
-  flex: 1 1 240px;
-  border-radius: var(--radius-pill);
-}
-.skeleton-pill {
-  height: 46px;
-  width: 7rem;
-  border-radius: var(--radius-pill);
-}
-.skeleton-hero {
-  min-height: clamp(23rem, 46vw, 34rem);
-  border-radius: var(--radius-lg);
-}
-.skeleton-cta-card {
-  height: 5.5rem;
-  border-radius: var(--radius-md);
-}
-.skeleton-detail-media {
-  aspect-ratio: 16 / 10;
-  width: 100%;
-  border-radius: var(--radius-lg);
-}
-.detail-loading {
-  display: grid;
-  gap: 2rem;
-}
-.detail-loading-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  max-width: 46rem;
 }
 
 /* ============================================================
