@@ -35,9 +35,18 @@ export function SiteFooter({ copy, locale }: SiteFooterProps) {
 
   return (
     <footer className="site-footer">
+      <div className="site-footer-statement">
+        <p className="footer-statement">{copy.hero.title}</p>
+        <div className="site-footer-identity">
+          <Link className="footer-brandmark" href="/">Milla Homes</Link>
+          <span>{officeAddressStreet}</span>
+          <span>{officeAddressCity}</span>
+          <Link className="footer-identity-phone" href={getPhoneHref()}>{motherPhoneDisplay}</Link>
+        </div>
+      </div>
+
       <div className="site-footer-grid">
         <div className="site-footer-brand">
-          <Link className="footer-wordmark" href="/">Milla Homes</Link>
           <p>{copy.footer.blurb}</p>
           <span className="footer-location">Torrevieja · Costa Blanca</span>
         </div>

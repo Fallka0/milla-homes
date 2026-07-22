@@ -6143,6 +6143,9 @@ textarea {
   box-shadow: var(--shadow-sm);
 }
 .public-header.compact-header {
+  /* Match the pill's horizontal padding so the wordmark clears the rounded
+     corner (overrides the base compact rule's zero side padding). */
+  padding: 0.55rem 0.7rem 0.55rem 2.4rem;
   margin-bottom: 1.75rem;
   border-radius: var(--radius-pill);
 }
@@ -6448,7 +6451,8 @@ textarea {
 /* Nav: fewer visual events — hairline dividers, roomier hit areas,
    near-black links, no underline animation. */
 .public-header {
-  padding: 0.55rem 0.7rem 0.55rem 1.6rem;
+  /* Extra left padding so the wordmark clears the pill's rounded corner. */
+  padding: 0.55rem 0.7rem 0.55rem 2.4rem;
   box-shadow: none;
 }
 .primary-nav {
@@ -6635,5 +6639,206 @@ textarea {
 @media (max-width: 768px) {
   :root {
     --page-gutter: 1rem;
+  }
+}
+
+/* ============================================================
+   MOTION & STRUCTURE LAYER
+   Devices observed in the reference recordings: pinned glass nav,
+   two-tone statement with serif-italic accent, dark contact card,
+   card scrollers with floating circle arrows, statement footer,
+   sticky listings toolbar.
+   ============================================================ */
+
+/* --- Nav stays floating while scrolling --- */
+.public-header {
+  top: 0.75rem;
+}
+
+/* --- Listings toolbar pins below the nav --- */
+.filters-bar {
+  position: sticky;
+  top: 5.4rem;
+  z-index: 40;
+  background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
+  backdrop-filter: saturate(1.2) blur(10px);
+}
+
+/* --- Two-tone statement: bold grotesque lead, serif-italic tail --- */
+.statement {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: var(--text);
+}
+.statement em {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.06em;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+}
+
+/* --- Dark contact card --- */
+.contact-dark-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: var(--surface-deep);
+  color: #f4faf6;
+}
+.contact-dark-card h3 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.contact-dark-card p {
+  margin: 0;
+  max-width: 34rem;
+  color: rgba(244, 250, 246, 0.75);
+  line-height: 1.65;
+}
+.contact-dark-card .button {
+  border-color: transparent;
+  background: #ffffff;
+  color: var(--text);
+  box-shadow: none;
+}
+.contact-dark-card .button:hover,
+.contact-dark-card .button:focus-visible {
+  background: #e9f2ec;
+  color: var(--text);
+}
+.contact-copy > p:not(.eyebrow) {
+  margin: 1.15rem 0 0;
+  max-width: 36rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* --- Card scroller with floating circle arrows --- */
+.card-scroller {
+  position: relative;
+}
+.card-scroller-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+.card-scroller-track::-webkit-scrollbar {
+  display: none;
+}
+.card-scroller-track > * {
+  scroll-snap-align: start;
+}
+.card-scroller-arrow {
+  position: absolute;
+  top: 50%;
+  right: -0.6rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface-deep);
+  color: #f4faf6;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transform: translateY(-50%);
+  box-shadow: 0 8px 22px rgba(18, 53, 36, 0.24);
+  transition: opacity 180ms ease, background-color 180ms ease;
+}
+.card-scroller-arrow svg {
+  width: 1em;
+  height: 1em;
+}
+.card-scroller-arrow-back {
+  right: auto;
+  left: -0.6rem;
+}
+.card-scroller-arrow-back svg {
+  transform: rotate(180deg);
+}
+.card-scroller-arrow:hover {
+  background: var(--accent-strong);
+}
+.card-scroller-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+.testimonial-scroller .card-scroller-track > * {
+  flex: 0 0 min(420px, 88%);
+}
+.property-scroller .card-scroller-track > * {
+  flex: 0 0 min(360px, 85%);
+}
+
+/* --- Statement footer --- */
+.site-footer {
+  background: var(--surface);
+}
+.site-footer-statement {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--hairline);
+}
+.footer-statement {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+}
+.site-footer-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: right;
+}
+.footer-brandmark {
+  margin-bottom: 0.7rem;
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.footer-identity-phone {
+  color: var(--text);
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .site-footer-identity {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .card-scroller-arrow {
+    right: 0.4rem;
+  }
+  .card-scroller-arrow-back {
+    left: 0.4rem;
   }
 }

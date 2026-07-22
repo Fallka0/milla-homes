@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 
+import { CardScroller } from "@/components/card-scroller";
 import { ContactActions } from "@/components/contact-actions";
 import { PublicHeader } from "@/components/public-header";
 import { PropertyCard } from "@/components/property-card";
@@ -122,6 +123,12 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         </div>
       </section>
 
+      <section className="section statement-section">
+        <p className="statement">
+          {copy.statement.lead} <em>{copy.statement.tail}</em>
+        </p>
+      </section>
+
       <section className="section">
         <div className="section-heading compact neighborhood-heading">
           <p className="eyebrow">{copy.neighborhoods.eyebrow}</p>
@@ -190,10 +197,12 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         <div className="contact-copy">
           <p className="eyebrow">{copy.contact.eyebrow}</p>
           <h2>{copy.contact.title}</h2>
+          <p>{copy.contact.summary}</p>
         </div>
 
-        <div className="market-panel">
+        <div className="contact-dark-card">
           <h3>{copy.contact.panelTitle}</h3>
+          <p>{copy.contact.panelSummary}</p>
           <ContactActions
             callLabel={copy.buttons.callNow}
             className="contact-actions"
@@ -209,7 +218,11 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
           <h2>{copy.testimonials.title}</h2>
         </div>
 
-        <div className="testimonial-grid">
+        <CardScroller
+          className="testimonial-scroller"
+          nextLabel={copy.carousel.nextImage}
+          previousLabel={copy.carousel.previousImage}
+        >
           {copy.testimonials.items.map((item) => (
             <article className="testimonial-card" key={`${item.name}-${item.role}`}>
               <div className="testimonial-stars" aria-label={`${item.rating} / 5`}>
@@ -231,7 +244,7 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
               </div>
             </article>
           ))}
-        </div>
+        </CardScroller>
       </section>
 
       <section className="section">
