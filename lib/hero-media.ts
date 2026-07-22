@@ -17,4 +17,6 @@
  * public URL here. Keep it under ~8 MB — trim/re-encode if needed:
  *   ffmpeg -i in.mp4 -vf scale=1920:-2 -an -t 20 -crf 28 hero.mp4
  */
-export const heroVideoUrl = "";
+// Aerial Mediterranean coastal loop (Pexels #16275011, free for commercial
+// use, no attribution required) — re-encoded to 1920px / 3.3 MB.
+export const heroVideoUrl = "/hero/hero.mp4";
