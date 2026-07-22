@@ -27,7 +27,7 @@ const hankenGrotesk = Hanken_Grotesk({
 // the grotesque, matching huspy's "serif for the hero, sans for the UI" system.
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
