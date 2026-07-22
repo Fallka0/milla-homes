@@ -6771,6 +6771,61 @@ textarea {
   color: var(--border-strong);
 }
 
+/* ============================================================
+   SUB-PAGE POLISH — regions, about/office, contact, guide, owner
+   Brings the inner pages up to the homepage's design language.
+   ============================================================ */
+
+/* Region hero becomes the same rounded billboard as the homepage hero. */
+.region-hero {
+  min-height: clamp(24rem, 44vw, 32rem);
+  border: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  background:
+    linear-gradient(180deg, rgba(11, 30, 21, 0.06) 35%, rgba(11, 30, 21, 0.64) 100%),
+    var(--region-image, linear-gradient(135deg, #1f7a52, #133c2a));
+  background-size: cover;
+  background-position: center;
+}
+
+/* Serif page heroes get the same confident weight as the homepage headline. */
+.region-hero-copy h1,
+.owner-hero h1,
+.company-hero h1 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 0.98;
+}
+
+/* Cards on sub-pages: hairline borders, homepage radii, quiet shadows. */
+.region-highlight-card,
+.region-copy-card,
+.company-values article,
+.owner-option-grid article {
+  border-color: var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Guide accents move from gold to the green accent + serif-italic numerals,
+   matching the collaborate page's number treatment. */
+.guide-step-number {
+  border-color: var(--border);
+  background: var(--surface-strong);
+  color: var(--accent-strong);
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 1.2rem;
+}
+.guide-cost-marker {
+  color: var(--accent-strong);
+}
+.guide-costs .eyebrow {
+  color: var(--accent-strong);
+}
+
 /* --- Listings toolbar pins below the nav: same frosted glass --- */
 .filters-bar {
   position: sticky;

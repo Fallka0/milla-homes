@@ -57,7 +57,7 @@ export default async function OfficePage() {
           <p>{content.intro}</p>
         </header>
 
-        <section className="office-gallery-section">
+        <section className="office-gallery-section" data-reveal>
           <div className="company-section-heading"><p className="eyebrow">{content.galleryEyebrow}</p><h2>{content.galleryTitle}</h2></div>
           <div className="office-gallery">
             {galleryPhotos.map((photo, index) => (
@@ -68,7 +68,7 @@ export default async function OfficePage() {
           </div>
         </section>
 
-        <section className="company-story office-visit">
+        <section className="company-story office-visit" data-reveal>
           <div className="company-section-heading"><p className="eyebrow">{content.visitEyebrow}</p><h2>{content.visitTitle}</h2><p>{content.visitText}</p></div>
           <div className="office-visit-details">
             <div className="office-address-card">
@@ -81,12 +81,12 @@ export default async function OfficePage() {
           </div>
         </section>
 
-        <section className="company-story office-parking">
+        <section className="company-story office-parking" data-reveal>
           <div className="company-section-heading"><p className="eyebrow">{content.parkingEyebrow}</p><h2>{content.parkingTitle}</h2></div>
           <div className="company-story-copy">{content.parkingText.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
         </section>
 
-        <section className="company-page-cta">
+        <section className="company-page-cta" data-reveal>
           <div><h2>{content.ctaTitle}</h2><p>{content.ctaText}</p></div>
           <div className="office-cta-actions">
             <Link className="button button-primary" href={getPhoneHref()}>{motherPhoneDisplay}</Link>

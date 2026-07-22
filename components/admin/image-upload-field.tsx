@@ -6,6 +6,14 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const maxUploadSizeBytes = 50 * 1024 * 1024;
 
+// Every photo is downscaled to a display rendition before upload: the site
+// serves images unoptimized (Vercel optimizer quota), so what we store is
+// exactly what visitors download. 2000px covers the widest layout at retina
+// density; WebP ~0.82 keeps files in the low hundreds of KB.
+const displayMaxDimension = 2000;
+const displayQuality = 0.82;
+const displaySkipBelowBytes = 400 * 1024;
+
 type ImageUploadFieldProps = {
   accept?: string;
   defaultValue?: string;
@@ -127,6 +135,57 @@ async function compressImageFile(file: File) {
   throw new Error("This image is still larger than 50 MB after compression.");
 }
 
+async function resizeImageForDisplay(file: File) {
+  const image = await loadImageElement(file);
+  const originalWidth = "width" in image ? image.width : 0;
+  const originalHeight = "height" in image ? image.height : 0;
+
+  try {
+    if (!originalWidth || !originalHeight) {
+      return file;
+    }
+
+    const scale = Math.min(1, displayMaxDimension / Math.max(originalWidth, originalHeight));
+
+    // Already small enough on both axes and in bytes — keep the original.
+    if (scale === 1 && file.size <= displaySkipBelowBytes) {
+      return file;
+    }
+
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    if (!context) {
+      return file;
+    }
+
+    canvas.width = Math.max(1, Math.round(originalWidth * scale));
+    canvas.height = Math.max(1, Math.round(originalHeight * scale));
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+    const blob =
+      (await renderCanvasToBlob(canvas, "image/webp", displayQuality)) ??
+      (await renderCanvasToBlob(canvas, "image/jpeg", displayQuality));
+
+    // Only swap in the rendition when it actually saves bytes.
+    if (!blob || blob.size >= file.size) {
+      return file;
+    }
+
+    const arrayBuffer = await blob.arrayBuffer();
+    const extension = blob.type === "image/jpeg" ? "jpg" : "webp";
+
+    return new File([arrayBuffer], replaceFileExtension(file.name, extension), {
+      type: blob.type,
+      lastModified: Date.now(),
+    });
+  } finally {
+    if ("close" in image && typeof image.close === "function") {
+      image.close();
+    }
+  }
+}
+
 const extensionMimeMap: Record<string, string> = {
   avif: "image/avif",
   gif: "image/gif",
@@ -237,11 +296,18 @@ export function ImageUploadField({
       processedFile = await convertHeicToJpeg(file);
     }
 
+    const resolvedType = resolveContentType(processedFile);
+
+    // Downscale every still image to the display rendition (GIFs keep their
+    // animation, videos pass through).
+    if (resolvedType.startsWith("image/") && resolvedType !== "image/gif") {
+      setUploadState({ message: uploadCopy.compressingImage, type: "idle" });
+      processedFile = await resizeImageForDisplay(processedFile);
+    }
+
     if (processedFile.size <= maxUploadSizeBytes) {
       return processedFile;
     }
-
-    const resolvedType = resolveContentType(processedFile);
 
     if (resolvedType.startsWith("image/")) {
       setUploadState({

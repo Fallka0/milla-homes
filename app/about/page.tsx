@@ -39,21 +39,21 @@ export default async function AboutPage() {
           <p>{content.intro}</p>
         </header>
 
-        <section className="company-story">
+        <section className="company-story" data-reveal>
           <div className="company-section-heading"><p className="eyebrow">{content.storyEyebrow}</p><h2>{content.storyTitle}</h2></div>
           <div className="company-story-copy">{content.story.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
         </section>
 
-        <section className="company-values">
+        <section className="company-values" data-reveal>
           {content.values.map((value, index) => <article key={value.title}><span>{String(index + 1).padStart(2, "0")}</span><h2>{value.title}</h2><p>{value.body}</p></article>)}
         </section>
 
-        <section className="company-areas">
+        <section className="company-areas" data-reveal>
           <div className="company-section-heading"><p className="eyebrow">{content.areasEyebrow}</p><h2>{content.areasTitle}</h2></div>
           <div className="company-area-links">{regionSlugs.map((slug) => <Link href={`/regions/${slug}`} key={slug}>{regions[slug].localeContent[locale].areaLabel}<ArrowUpRight /></Link>)}</div>
         </section>
 
-        <section className="company-page-cta"><div><h2>{content.ctaTitle}</h2><p>{content.ctaText}</p></div><Link className="button button-primary" href="/contact">{copy.nav.contact}</Link></section>
+        <section className="company-page-cta" data-reveal><div><h2>{content.ctaTitle}</h2><p>{content.ctaText}</p></div><Link className="button button-primary" href="/contact">{copy.nav.contact}</Link></section>
       </article>
 
       <SiteFooter copy={copy} locale={locale} />

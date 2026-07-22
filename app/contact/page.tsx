@@ -36,13 +36,13 @@ export default async function ContactPage() {
       <article className="contact-page">
         <header className="company-hero contact-page-hero"><p className="eyebrow">{content.eyebrow}</p><h1>{content.title}</h1><p>{content.intro}</p></header>
 
-        <section className="contact-methods">
+        <section className="contact-methods" data-reveal>
           <Link href={getPhoneHref()}><span className="contact-method-number">01</span><div><h2>{content.callTitle}</h2><p>{content.callText}</p><strong>{motherPhoneDisplay}</strong></div><ArrowUpRight className="contact-method-arrow" /></Link>
           <Link href={getWhatsAppHref(copy.contact.whatsappMessage)} rel="noreferrer" target="_blank"><span className="contact-method-number">02</span><div><h2>{content.whatsappTitle}</h2><p>{content.whatsappText}</p><strong>WhatsApp</strong></div><ArrowUpRight className="contact-method-arrow" /></Link>
           <Link href="/office"><span className="contact-method-number">03</span><div><h2>{content.visitTitle}</h2><p>{content.visitText}</p><strong>{officeAddressDisplay}</strong></div><ArrowUpRight className="contact-method-arrow" /></Link>
         </section>
 
-        <section className="contact-form-section">
+        <section className="contact-form-section" data-reveal>
           <div className="company-section-heading"><p className="eyebrow">{content.formEyebrow}</p><h2>{content.formTitle}</h2><p>{content.formText}</p><span>{content.availability}</span></div>
           <InquiryForm copy={copy} locale={locale} />
         </section>

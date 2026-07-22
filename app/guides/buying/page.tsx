@@ -265,7 +265,7 @@ export default async function BuyingGuidePage() {
           </aside>
         </header>
 
-        <section className="guide-section" aria-labelledby="guide-process-title">
+        <section className="guide-section" data-reveal aria-labelledby="guide-process-title">
           <div className="guide-section-heading">
             <p className="eyebrow">{content.processEyebrow}</p>
             <h2 id="guide-process-title">{content.processTitle}</h2>
@@ -275,7 +275,7 @@ export default async function BuyingGuidePage() {
           </ol>
         </section>
 
-        <section className="guide-costs" aria-labelledby="guide-costs-title">
+        <section className="guide-costs" data-reveal aria-labelledby="guide-costs-title">
           <div className="guide-costs-heading">
             <p className="eyebrow">{content.costs.eyebrow}</p>
             <h2 id="guide-costs-title">{content.costs.title}</h2>
@@ -289,12 +289,12 @@ export default async function BuyingGuidePage() {
           <p className="guide-legal-note">{content.costs.note}</p>
         </section>
 
-        <section className="guide-section guide-faq" aria-labelledby="guide-faq-title">
+        <section className="guide-section guide-faq" data-reveal aria-labelledby="guide-faq-title">
           <div className="guide-section-heading"><p className="eyebrow">{content.faqEyebrow}</p><h2 id="guide-faq-title">{content.faqTitle}</h2></div>
           <div className="guide-faq-list">{content.faq.map((item) => <details className="guide-faq-item" key={item.q}><summary>{item.q}</summary><p>{item.a}</p></details>)}</div>
         </section>
 
-        <section className="guide-cta">
+        <section className="guide-cta" data-reveal>
           <div><p className="eyebrow">{content.ctaEyebrow}</p><h2>{content.ctaTitle}</h2><p>{content.ctaText}</p></div>
           <div className="guide-cta-actions"><Link className="button button-primary" href="/properties">{copy.buttons.browseProperties}</Link><ContactActions callLabel={copy.buttons.callNow} className="contact-actions" whatsappLabel={copy.buttons.whatsapp} whatsappMessage={copy.contact.whatsappMessage} /></div>
         </section>
