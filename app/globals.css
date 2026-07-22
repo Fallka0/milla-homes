@@ -6610,3 +6610,30 @@ textarea {
     border-left: 0;
   }
 }
+
+/* ============================================================
+   WIDER PAGE — use more of the viewport, keep readable gutters.
+   Single source of truth for the public content column width.
+   ============================================================ */
+
+:root {
+  --page-max: 1440px;
+  --page-gutter: 1.75rem;
+}
+
+.site-shell,
+.page-shell {
+  width: min(var(--page-max), calc(100% - 2 * var(--page-gutter)));
+}
+
+/* Full-bleed footer: align its inner content to the widened column. */
+.site-footer {
+  padding-right: max(var(--page-gutter), calc((100vw - var(--page-max)) / 2));
+  padding-left: max(var(--page-gutter), calc((100vw - var(--page-max)) / 2));
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-gutter: 1rem;
+  }
+}
