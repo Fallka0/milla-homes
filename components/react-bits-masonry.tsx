@@ -14,7 +14,6 @@ export type ReactBitsMasonryItem = {
 };
 
 type ReactBitsMasonryProps = {
-  animateFrom?: "bottom" | "center" | "left" | "random" | "right" | "top";
   items: ReactBitsMasonryItem[];
 };
 
@@ -90,10 +89,7 @@ type GridItem = ReactBitsMasonryItem & {
   y: number;
 };
 
-export function ReactBitsMasonry({
-  items,
-  animateFrom = "bottom",
-}: ReactBitsMasonryProps) {
+export function ReactBitsMasonry({ items }: ReactBitsMasonryProps) {
   const columns = useMedia(
     ["(min-width: 1500px)", "(min-width: 1100px)", "(min-width: 800px)"],
     [4, 3, 2],
@@ -170,30 +166,24 @@ export function ReactBitsMasonry({
       };
 
       if (!hasMounted.current) {
-        const initialY =
-          animateFrom === "top"
-            ? -220
-            : animateFrom === "bottom"
-              ? window.innerHeight + 220
-              : item.y + 100;
-
+        // Quiet entrance: each tile rises a few pixels into place with a
+        // gentle stagger. (The previous fly-in-from-offscreen + blur drew
+        // attention to tiles whose photos hadn't loaded yet.)
         gsap.fromTo(
           selector,
           {
             opacity: 0,
-            x: animateFrom === "left" ? -220 : animateFrom === "right" ? window.innerWidth + 220 : item.x,
-            y: initialY,
+            x: item.x,
+            y: item.y + 36,
             width: item.w,
             height: item.h,
-            filter: "blur(10px)",
           },
           {
             opacity: 1,
             ...animationProps,
-            filter: "blur(0px)",
-            duration: 0.8,
-            ease: "power3.out",
-            delay: index * 0.04,
+            duration: 0.7,
+            ease: "power2.out",
+            delay: index * 0.05,
           },
         );
       } else {
@@ -207,7 +197,7 @@ export function ReactBitsMasonry({
     });
 
     hasMounted.current = true;
-  }, [animateFrom, grid, imagesReady]);
+  }, [grid, imagesReady]);
 
   return (
     <div
