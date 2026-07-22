@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Hanken_Grotesk } from "next/font/google";
 import { cookies } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -10,22 +10,26 @@ import { MobileContactFab } from "@/components/mobile-contact-fab";
 
 import "./globals.css";
 
-// DM Sans as the base body font — applied directly as className so it's
-// baked into the SSR HTML, no CSS variable race on first paint.
-const dmSans = DM_Sans({
+// Hanken Grotesk is the base UI + body font — a clean modern grotesque in the
+// spirit of huspy's type. Applied directly as className so it's baked into the
+// SSR HTML (no variable race on first paint) and also exposed as --font-sans so
+// heading rules in globals.css can reference it.
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   style: ["normal", "italic"],
+  variable: "--font-sans",
   display: "swap",
 });
 
-// Cormorant Garamond for headings — exposed as a CSS variable so heading
-// rules in globals.css can reference it via var(--font-display).
+// Cormorant Garamond is reserved for the big brand-moment headlines (hero,
+// region/company/owner heroes) — exposed as --font-serif. Everything else uses
+// the grotesque, matching huspy's "serif for the hero, sans for the UI" system.
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   style: ["normal", "italic"],
-  variable: "--font-display",
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -73,10 +77,10 @@ export default async function RootLayout({
   const copy = publicCopy[locale];
 
   return (
-    // cormorant.variable puts --font-display on <html> for heading CSS rules
-    // dmSans.className applies DM Sans directly — no variable indirection needed
-    <html lang={locale} className={cormorant.variable}>
-      <body className={dmSans.className}>
+    // --font-serif (Cormorant) + --font-sans (Hanken Grotesk) are exposed on
+    // <html>; Hanken's className also applies it as the baked-in base font.
+    <html lang={locale} className={`${cormorant.variable} ${hankenGrotesk.variable}`}>
+      <body className={hankenGrotesk.className}>
         {children}
         <MobileContactFab callLabel={copy.buttons.callNow} whatsappLabel={copy.buttons.whatsapp} whatsappMessage={copy.contact.whatsappMessage} />
         <Analytics />
