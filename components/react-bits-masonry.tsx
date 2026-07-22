@@ -156,7 +156,7 @@ export function ReactBitsMasonry({ items }: ReactBitsMasonryProps) {
       return;
     }
 
-    grid.forEach((item, index) => {
+    grid.forEach((item) => {
       const selector = `[data-masonry-key="${item.id}"]`;
       const animationProps = {
         x: item.x,
