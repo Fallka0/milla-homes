@@ -6090,6 +6090,13 @@ textarea {
   min-height: 3rem;
   padding: 0.8rem 1.6rem;
   letter-spacing: 0;
+  /* Reference signature: hover states fade in slowly (600ms bg/border). */
+  transition:
+    background-color 600ms ease,
+    border-color 600ms ease,
+    color 200ms ease,
+    box-shadow 300ms ease,
+    transform 200ms ease;
 }
 .button-primary {
   background: var(--surface-deep);
@@ -6660,10 +6667,16 @@ textarea {
 }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .public-header {
-    background: rgba(255, 255, 255, 0.68);
-    -webkit-backdrop-filter: blur(22px) saturate(1.7);
-    backdrop-filter: blur(22px) saturate(1.7);
+    /* Reference glass recipe: diagonal white gradient + heavy 35px blur. */
+    background: linear-gradient(137deg, rgba(255, 255, 255, 0.7) 24%, rgba(255, 255, 255, 0.62) 126%);
+    -webkit-backdrop-filter: blur(35px);
+    backdrop-filter: blur(35px);
   }
+}
+/* Rounded-rect bar (16px), not a full pill — matches the reference nav. */
+.public-header,
+.public-header.compact-header {
+  border-radius: 16px;
 }
 
 /* --- Listings toolbar pins below the nav: same frosted glass --- */
@@ -6677,9 +6690,10 @@ textarea {
 }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .filters-bar {
-    background: rgba(255, 255, 255, 0.72);
-    -webkit-backdrop-filter: blur(22px) saturate(1.7);
-    backdrop-filter: blur(22px) saturate(1.7);
+    background: linear-gradient(137deg, rgba(255, 255, 255, 0.74) 24%, rgba(255, 255, 255, 0.66) 126%);
+    -webkit-backdrop-filter: blur(35px);
+    backdrop-filter: blur(35px);
+    border-radius: 16px;
   }
 }
 
@@ -6869,9 +6883,10 @@ textarea {
 /* Scroll reveal — only active once JS marks the document ready, so no-JS
    and reduced-motion visitors always see fully-rendered content. */
 .reveal-ready [data-reveal] {
+  /* Reference vocabulary: small distance, quick settle (y 10–20px, ~0.5s). */
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
   /* Failsafe: if the observer never fires (bug, race, odd browser), the
      content force-reveals itself after 2.5s — nothing can stay hidden. */

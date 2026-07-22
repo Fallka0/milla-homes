@@ -174,14 +174,14 @@ export function ReactBitsMasonry({ items }: ReactBitsMasonryProps) {
           {
             opacity: 0,
             x: item.x,
-            y: item.y + 36,
+            y: item.y + 20,
             width: item.w,
             height: item.h,
           },
           {
             opacity: 1,
             ...animationProps,
-            duration: 0.7,
+            duration: 0.5,
             ease: "power2.out",
             delay: index * 0.05,
           },
