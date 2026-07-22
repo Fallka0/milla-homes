@@ -9,6 +9,7 @@
   left: 0;
   padding: 6px;
   cursor: pointer;
+  opacity: 0; /* revealed instantly by gsap.set once layout is measured */
   will-change: transform, width, height, opacity;
 }
 
@@ -20,6 +21,20 @@
   background-position: center;
   background-size: cover;
   box-shadow: 0 18px 50px -18px rgba(0, 0, 0, 0.26);
+  transition: opacity 300ms ease;
+}
+
+/* Hover: image dims slightly and the caption deepens — color only, no motion. */
+.rb-masonry-item:hover .rb-masonry-image {
+  opacity: 0.85;
+}
+
+.rb-masonry-item:hover .rb-masonry-overlay {
+  background: linear-gradient(180deg, rgba(13, 25, 18, 0), rgba(13, 25, 18, 0.88));
+}
+
+.rb-masonry-overlay {
+  transition: background 600ms ease;
 }
 
 .rb-masonry-overlay {

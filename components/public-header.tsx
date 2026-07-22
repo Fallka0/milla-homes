@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { type PublicLocale } from "@/lib/public-copy";
@@ -31,11 +31,23 @@ export function PublicHeader({
   nav,
 }: PublicHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // The bar rides transparent at the top of the page and fades to frosted
+  // glass once scrolling starts (600ms background transition in CSS).
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const menuLabel = isMenuOpen ? "Close navigation menu" : "Open navigation menu";
 
   return (
-    <header className={`public-header ${compact ? "compact-header" : ""}`}>
+    <header
+      className={`public-header ${compact ? "compact-header" : ""} ${isScrolled || isMenuOpen ? "is-scrolled" : "at-top"}`}
+    >
       <Link className="brand-link brand-wordmark" href="/">
         Milla Homes
       </Link>

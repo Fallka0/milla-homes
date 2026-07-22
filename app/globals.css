@@ -6677,6 +6677,17 @@ textarea {
 .public-header,
 .public-header.compact-header {
   border-radius: 16px;
+  transition: background 600ms ease, border-color 600ms ease, box-shadow 600ms ease;
+}
+
+/* At the very top of the page the bar is invisible chrome; it fades to
+   glass once scrolling starts (the reference's header behavior). */
+.public-header.at-top {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 /* --- Listings toolbar pins below the nav: same frosted glass --- */

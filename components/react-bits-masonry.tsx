@@ -166,26 +166,10 @@ export function ReactBitsMasonry({ items }: ReactBitsMasonryProps) {
       };
 
       if (!hasMounted.current) {
-        // Quiet entrance: each tile rises a few pixels into place with a
-        // gentle stagger. (The previous fly-in-from-offscreen + blur drew
-        // attention to tiles whose photos hadn't loaded yet.)
-        gsap.fromTo(
-          selector,
-          {
-            opacity: 0,
-            x: item.x,
-            y: item.y + 20,
-            width: item.w,
-            height: item.h,
-          },
-          {
-            opacity: 1,
-            ...animationProps,
-            duration: 0.5,
-            ease: "power2.out",
-            delay: index * 0.05,
-          },
-        );
+        // No entrance choreography: tiles are placed instantly and the
+        // section's standard scroll reveal handles the fade-up. GSAP only
+        // animates *relayouts* (column-count or container-width changes).
+        gsap.set(selector, { opacity: 1, ...animationProps });
       } else {
         gsap.to(selector, {
           ...animationProps,
@@ -212,20 +196,6 @@ export function ReactBitsMasonry({ items }: ReactBitsMasonryProps) {
           className="rb-masonry-item"
           onClick={() => {
             window.location.assign(item.url);
-          }}
-          onMouseEnter={(event) => {
-            gsap.to(event.currentTarget, {
-              scale: 0.975,
-              duration: 0.3,
-              ease: "power2.out",
-            });
-          }}
-          onMouseLeave={(event) => {
-            gsap.to(event.currentTarget, {
-              scale: 1,
-              duration: 0.3,
-              ease: "power2.out",
-            });
           }}
         >
           <div className="rb-masonry-image" style={{ backgroundImage: `url(${item.img})` }} />
