@@ -1,22 +1,41 @@
 :root {
-  --background: #f5f0e6;
-  --surface: #faf5ea;
-  --surface-strong: #fcf8f0;
-  --surface-deep: #1b4530;
+  /* Airier, brighter surfaces — a near-white warm base with white cards,
+     in the spirit of huspy, while keeping Milla's warm green identity. */
+  --background: #f6f4ef;
+  --surface: #fefdfb;
+  --surface-strong: #ffffff;
+  --surface-deep: #133c2a;
   --text: #123524;
-  --muted: #4d6659;
-  --border: rgba(18, 53, 36, 0.12);
-  --border-strong: rgba(18, 53, 36, 0.2);
-  --hairline: rgba(18, 53, 36, 0.08);
-  --gold: #d4b26a;
-  --gold-soft: rgba(212, 178, 106, 0.24);
-  --shadow: 0 1px 2px rgba(18, 53, 36, 0.05), 0 16px 36px rgba(18, 53, 36, 0.06);
+  --muted: #556b5e;
+  --border: rgba(18, 53, 36, 0.1);
+  --border-strong: rgba(18, 53, 36, 0.18);
+  --hairline: rgba(18, 53, 36, 0.07);
+
+  /* Confident green accent (kept in the brand hue family, lifted & saturated)
+     for eyebrow pills, active states, focus rings and links. */
+  --accent: #1f7a52;
+  --accent-strong: #145c3c;
+  --accent-soft: rgba(31, 122, 82, 0.12);
+
+  /* Gold is retained as a warm secondary touch (testimonial stars etc.). */
+  --gold: #c79a4e;
+  --gold-soft: rgba(199, 154, 78, 0.22);
+
+  --shadow: 0 1px 2px rgba(18, 53, 36, 0.04), 0 18px 44px rgba(18, 53, 36, 0.07);
   --shadow-sm: 0 1px 2px rgba(18, 53, 36, 0.05);
-  --radius-lg: 14px;
-  --radius-md: 10px;
-  --radius-sm: 6px;
-  /* --font-display is injected by next/font onto <html> via cormorant.variable in layout.tsx.
-     Body font (DM Sans) is applied via dmSans.className on <body> — no variable needed. */
+
+  /* Rounder, softer geometry throughout. */
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+
+  /* Type system — grotesque for UI/headings, serif reserved for hero moments.
+     --font-serif (Cormorant) and --font-sans (Hanken Grotesk) come from next/font
+     in layout.tsx. Headings default to the grotesque via --font-display; the big
+     hero headlines opt back into --font-serif explicitly. */
+  --font-display: var(--font-sans, "Hanken Grotesk", system-ui, sans-serif);
+  --font-ui: var(--font-sans, "Hanken Grotesk", system-ui, sans-serif);
 }
 
 * {
@@ -6045,4 +6064,364 @@ textarea {
 
 @media (max-width: 767px) {
   .concierge { right: 1rem; bottom: 5.5rem; }
+}
+
+/* ============================================================
+   HUSPY-INSPIRED REDESIGN LAYER
+   Appended last so it overrides earlier equal-specificity rules.
+   Keeps Milla's green identity, lifted & brightened, with huspy's
+   rounded geometry, pill eyebrows, floating nav and search-first hero.
+   ============================================================ */
+
+/* --- Serif reserved for the big brand-moment headlines only --- */
+.hero h1,
+.hero-copy h1,
+.homepage-hero-copy h1,
+.region-hero-copy h1,
+.owner-hero h1,
+.company-hero h1,
+.hero-billboard-copy h1 {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+}
+
+/* --- Pill buttons + confident green --- */
+.button {
+  border-radius: var(--radius-pill);
+  min-height: 3rem;
+  padding: 0.8rem 1.6rem;
+  letter-spacing: 0;
+}
+.button-primary {
+  background: var(--surface-deep);
+  color: #f4faf6;
+  box-shadow: 0 2px 12px rgba(18, 53, 36, 0.16);
+}
+.button-primary:hover,
+.button-primary:focus-visible {
+  background: var(--accent-strong);
+  box-shadow: 0 8px 20px rgba(20, 92, 60, 0.26);
+}
+.button-secondary {
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+}
+.button-secondary:hover,
+.button-secondary:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+/* --- Eyebrows become muted green pill chips --- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.34rem 0.82rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+/* Light pill variant for dark backgrounds (hero image, region hero, cards). */
+.eyebrow-on-dark,
+.neighborhood-card .eyebrow,
+.region-hero .eyebrow {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fbfdfb;
+}
+
+/* --- Floating pill nav --- */
+.public-header {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.7rem 0.5rem 1.35rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--surface-strong) 84%, transparent);
+  backdrop-filter: saturate(1.3) blur(12px);
+  box-shadow: var(--shadow-sm);
+}
+.public-header.compact-header {
+  margin-bottom: 1.75rem;
+  border-radius: var(--radius-pill);
+}
+.brand-wordmark {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+/* --- Section rhythm: a touch more air --- */
+.section {
+  padding-top: clamp(4rem, 8vw, 7rem);
+}
+
+/* --- Search-first hero --- */
+.hero-v2 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+.hero-billboard {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(23rem, 46vw, 34rem);
+  border-radius: var(--radius-lg);
+  background-image:
+    linear-gradient(180deg, rgba(11, 30, 21, 0.12) 0%, rgba(11, 30, 21, 0.74) 100%),
+    var(--hero-image, linear-gradient(135deg, #1f7a52, #133c2a));
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: flex-end;
+}
+.hero-billboard-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem) clamp(3.5rem, 6vw, 5rem);
+}
+.hero-billboard-copy h1 {
+  margin: 0.7rem 0 0;
+  max-width: 16ch;
+  color: #fbfdfb;
+  font-weight: 600;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+.hero-billboard-text {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  color: rgba(251, 253, 251, 0.9);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+.hero-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  max-width: 46rem;
+}
+.hero-search input {
+  flex: 1 1 260px;
+  min-width: 0;
+  height: 3.4rem;
+  padding: 0 1.3rem 0 3rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background:
+    #ffffff
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23556b5e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='7'/><path d='M21 21l-4.3-4.3'/></svg>")
+    no-repeat 1.1rem center;
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  box-shadow: var(--shadow-sm);
+}
+.hero-search input:focus {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.hero-search .button {
+  height: 3.4rem;
+  flex: 0 0 auto;
+}
+/* Three CTA cards overlapping the billboard's lower edge, huspy-style. */
+.hero-cta-row {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: -3.25rem clamp(0.5rem, 3vw, 2rem) 0;
+}
+.hero-cta-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.3rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.hero-cta-card:hover,
+.hero-cta-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(18, 53, 36, 0.15);
+}
+.hero-cta-arrow {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--accent-strong);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+.hero-cta-card:hover .hero-cta-arrow {
+  background: var(--accent-strong);
+  color: #f4faf6;
+}
+.hero-cta-arrow svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+.hero-coverage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.6rem clamp(0.5rem, 3vw, 2rem) 0;
+}
+.hero-coverage-label {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hero-coverage-pill {
+  padding: 0.3rem 0.78rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* --- Listings toolbar: pill inputs + buy/rent segmented toggle --- */
+.filters-bar {
+  border-radius: var(--radius-lg);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-sm);
+}
+.filters-bar input,
+.filters-bar select {
+  height: 46px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+}
+.filters-bar input:focus,
+.filters-bar select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.filters-more-toggle,
+.filters-reset {
+  border-radius: var(--radius-pill);
+}
+.filters-more-toggle.is-open {
+  background: var(--surface-deep);
+  color: #f4faf6;
+}
+.listing-mode-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+}
+.listing-mode-toggle button {
+  min-height: 38px;
+  padding: 0 0.95rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.listing-mode-toggle button:hover {
+  color: var(--text);
+}
+.listing-mode-toggle button.is-active {
+  background: var(--surface-deep);
+  color: #f4faf6;
+}
+.filters-pill-button.active,
+.filters-chip {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+.results-sort {
+  height: 44px;
+  border-radius: var(--radius-pill);
+}
+.view-toggle {
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+/* --- Property cards: rounder + meta becomes icon chips --- */
+.property-card {
+  border-radius: var(--radius-md);
+}
+.property-meta {
+  gap: 0.4rem;
+  padding: 0;
+  margin: 0.35rem 0 0;
+  border: 0;
+}
+.property-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.62rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.property-meta span svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: none;
+  opacity: 0.85;
+}
+.property-image-wrap {
+  border-radius: calc(var(--radius-md) - 4px);
+  margin: 0.4rem 0.4rem 0;
+}
+.price-tag {
+  font-size: 1.3rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .hero-cta-row {
+    grid-template-columns: 1fr;
+    margin-top: -2.5rem;
+  }
+}
+@media (max-width: 640px) {
+  .hero-cta-row {
+    margin: 1rem 0 0;
+  }
+  .hero-search .button {
+    flex: 1 1 100%;
+  }
+  .brand-wordmark {
+    font-size: 1.2rem;
+  }
 }

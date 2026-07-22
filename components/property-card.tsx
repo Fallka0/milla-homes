@@ -25,6 +25,24 @@ type PropertyCardProps = {
   property: PropertyRecord;
 };
 
+const bedIcon = (
+  <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+    <path d="M3 18v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5M3 18v2M21 18v2M3 13V7M7 11V9a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const bathIcon = (
+  <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+    <path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3ZM6 12V6a2 2 0 0 1 2-2 2 2 0 0 1 2 2M7 19l-1 2M18 19l1 2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const areaIcon = (
+  <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+    <path d="M4 4h16v16H4V4Zm0 6h4M4 15h4M14 20v-4M9 20v-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export function PropertyCard({
   bathroomsLabel,
   bedroomsLabel,
@@ -84,9 +102,9 @@ export function PropertyCard({
           </div>
           <h3>{property.title}</h3>
           <div className="property-meta">
-            <span>{property.bedrooms} {bedroomsLabel}</span>
-            <span>{property.bathrooms} {bathroomsLabel}</span>
-            {property.interiorSqm ? <span>{property.interiorSqm} m²</span> : null}
+            <span>{bedIcon}{property.bedrooms} {bedroomsLabel}</span>
+            <span>{bathIcon}{property.bathrooms} {bathroomsLabel}</span>
+            {property.interiorSqm ? <span>{areaIcon}{property.interiorSqm} m²</span> : null}
           </div>
 
         <div className="property-card-footer">

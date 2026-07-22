@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { ContactActions } from "@/components/contact-actions";
@@ -8,13 +7,20 @@ import { PropertyCard } from "@/components/property-card";
 import { ReactBitsMasonry } from "@/components/react-bits-masonry";
 import { SiteFooter } from "@/components/site-footer";
 import { regions, regionSlugs } from "@/lib/regions";
-import { formatOptionalPrice, formatPrice, getPropertyPreviewImageUrl, type PropertyRecord } from "@/lib/property-shared";
-import {
-  getLocalizedListingModeLabel,
-  getLocalizedRentPricePeriodLabel,
-  type PublicCopy,
-  type PublicLocale,
-} from "@/lib/public-copy";
+import { getPropertyPreviewImageUrl, type PropertyRecord } from "@/lib/property-shared";
+import { type PublicCopy, type PublicLocale } from "@/lib/public-copy";
+
+const heroArrowIcon = (
+  <svg fill="none" height="1em" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M7 17L17 7M17 7H9M17 7V15"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    />
+  </svg>
+);
 
 type HomepageProps = {
   adminLabel?: string;
@@ -28,6 +34,11 @@ const masonryHeights = [300, 420, 340, 390, 460, 320];
 
 export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, latestProperties }: HomepageProps) {
   const fallbackPreviewImage = "/logos/verdant-seal.svg";
+  const heroImage =
+    getPropertyPreviewImageUrl(featuredProperties[0]) ?? regions[regionSlugs[0]]?.imageUrl ?? fallbackPreviewImage;
+  const coveragePills = regionSlugs
+    .slice(0, 5)
+    .map((slug) => regions[slug].localeContent[currentLocale].areaLabel);
   const masonryItems = latestProperties.map((property, index) => ({
     id: property.id,
     img: getPropertyPreviewImageUrl(property) ?? fallbackPreviewImage,
@@ -46,72 +57,59 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         nav={copy.nav}
       />
 
-      <section className="homepage-intro">
-        <div className="hero-panel homepage-hero-panel">
-          <div className="section-heading homepage-hero-copy">
-            <p className="eyebrow">{copy.hero.eyebrow}</p>
-            <h1>{copy.hero.title}</h1>
-            <div className="hero-actions">
-              <Link className="button button-primary hero-primary-button" href="/properties">
-                {copy.buttons.browseProperties}
-              </Link>
-              <ContactActions
-                callLabel={copy.buttons.callNow}
-                whatsappLabel={copy.buttons.whatsapp}
-                whatsappMessage={copy.contact.whatsappMessage}
-              />
+      <section className="hero-v2">
+        <div
+          className="hero-billboard"
+          style={{ "--hero-image": `url("${heroImage}")` } as CSSProperties}
+        >
+          <div className="hero-billboard-inner">
+            <div className="hero-billboard-copy">
+              <p className="eyebrow eyebrow-on-dark">{copy.hero.eyebrow}</p>
+              <h1>{copy.hero.title}</h1>
+              <p className="hero-billboard-text">{copy.hero.text}</p>
             </div>
+            <form className="hero-search" action="/properties" method="get" role="search">
+              <input
+                type="text"
+                name="q"
+                placeholder={copy.filters.searchPlaceholder}
+                aria-label={copy.filters.search}
+              />
+              <button type="submit" className="button button-primary">
+                {copy.buttons.browseProperties}
+              </button>
+            </form>
           </div>
+        </div>
 
-          <aside className="hero-side-card">
-            <p className="eyebrow">{copy.propertyMeta.featuredSnapshot}</p>
-            {featuredProperties[0] ? (
-              <>
-                <Link className="hero-side-image-link" href={`/properties/${featuredProperties[0].slug}`}>
-                  <Image
-                    className="hero-side-image"
-                    src={getPropertyPreviewImageUrl(featuredProperties[0]) ?? fallbackPreviewImage}
-                    alt={featuredProperties[0].title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 360px"
-                    priority
-                  />
-                </Link>
-                <h2>{featuredProperties[0].title}</h2>
-                <p>{featuredProperties[0].shortDescription}</p>
-                <div className="hero-side-facts">
-                  <span>{featuredProperties[0].location}</span>
-                  <span>{getLocalizedListingModeLabel(currentLocale, featuredProperties[0].listingMode)}</span>
-                  <span>
-                    {featuredProperties[0].bedrooms} {copy.propertyMeta.bedroomsShort} •{" "}
-                    {featuredProperties[0].bathrooms} {copy.propertyMeta.bathroomsShort}
-                  </span>
-                </div>
-                <div className="price-stack hero-price-stack">
-                  {(featuredProperties[0].listingMode === "sale" || featuredProperties[0].listingMode === "both") ? (
-                    <strong className="price-tag">{formatPrice(featuredProperties[0].priceEuro)}</strong>
-                  ) : null}
-                  {(featuredProperties[0].listingMode === "rent" || featuredProperties[0].listingMode === "both") &&
-                  featuredProperties[0].rentPriceEuro ? (
-                    <span className="rent-price-tag">
-                      {formatOptionalPrice(featuredProperties[0].rentPriceEuro)}{" "}
-                      {featuredProperties[0].rentPricePeriod
-                        ? getLocalizedRentPricePeriodLabel(currentLocale, featuredProperties[0].rentPricePeriod)
-                        : ""}
-                    </span>
-                  ) : null}
-                </div>
-                <Link className="button button-ghost" href={`/properties/${featuredProperties[0].slug}`}>
-                  {copy.buttons.viewListing}
-                </Link>
-              </>
-            ) : (
-              <>
-                <h2>{copy.coverage.title}</h2>
-                <p>{copy.coverage.summary}</p>
-              </>
-            )}
-          </aside>
+        <div className="hero-cta-row">
+          <Link className="hero-cta-card" href="/properties">
+            <span>{copy.buttons.browseProperties}</span>
+            <span className="hero-cta-arrow" aria-hidden>
+              {heroArrowIcon}
+            </span>
+          </Link>
+          <Link className="hero-cta-card" href="/sell-or-rent">
+            <span>{copy.nav.owner}</span>
+            <span className="hero-cta-arrow" aria-hidden>
+              {heroArrowIcon}
+            </span>
+          </Link>
+          <Link className="hero-cta-card" href="/guides/buying">
+            <span>{copy.nav.guide}</span>
+            <span className="hero-cta-arrow" aria-hidden>
+              {heroArrowIcon}
+            </span>
+          </Link>
+        </div>
+
+        <div className="hero-coverage">
+          <span className="hero-coverage-label">{copy.neighborhoods.eyebrow}</span>
+          {coveragePills.map((label) => (
+            <span className="hero-coverage-pill" key={label}>
+              {label}
+            </span>
+          ))}
         </div>
       </section>
 

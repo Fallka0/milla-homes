@@ -29,13 +29,22 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function PropertiesPage() {
+export default async function PropertiesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const cookieStore = await cookies();
   const locale = resolvePublicLocale(cookieStore.get("verdant-locale")?.value);
   const copy = publicCopy[locale];
-  const [rawProperties, authState] = await Promise.all([getPublicProperties(), getAdminAuthState()]);
+  const [rawProperties, authState, params] = await Promise.all([
+    getPublicProperties(),
+    getAdminAuthState(),
+    searchParams,
+  ]);
   const properties = localizeProperties(rawProperties, locale);
   const adminLocale = resolveAdminLocale(locale);
+  const initialSearch = typeof params.q === "string" ? params.q : "";
 
   return (
     <main className="site-shell section-stack" data-locale={locale} lang={locale}>
@@ -51,7 +60,7 @@ export default async function PropertiesPage() {
         <h1>{copy.propertiesPage.title}</h1>
       </section>
 
-      <PropertyFilters copy={copy} locale={locale} properties={properties} />
+      <PropertyFilters copy={copy} locale={locale} properties={properties} initialSearch={initialSearch} />
       <SiteFooter copy={copy} locale={locale} />
     </main>
   );

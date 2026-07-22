@@ -26,6 +26,7 @@ type PropertyFiltersProps = {
   copy: PublicCopy;
   locale: PublicLocale;
   properties: PropertyRecord[];
+  initialSearch?: string;
 };
 
 type SortOption = "latest" | "price-asc" | "price-desc" | "size-desc";
@@ -47,8 +48,8 @@ const DEFAULT_STATE = {
   sort: "latest" as SortOption,
 };
 
-export function PropertyFilters({ copy, locale, properties }: PropertyFiltersProps) {
-  const [search, setSearch] = useState(DEFAULT_STATE.search);
+export function PropertyFilters({ copy, locale, properties, initialSearch = "" }: PropertyFiltersProps) {
+  const [search, setSearch] = useState(initialSearch || DEFAULT_STATE.search);
   const [selectedListingMode, setSelectedListingMode] = useState(DEFAULT_STATE.listingMode);
   const [selectedRegion, setSelectedRegion] = useState(DEFAULT_STATE.region);
   const [selectedType, setSelectedType] = useState(DEFAULT_STATE.type);
@@ -242,18 +243,27 @@ export function PropertyFilters({ copy, locale, properties }: PropertyFiltersPro
             ))}
           </select>
 
-          <select
-            value={selectedListingMode}
-            onChange={(event) => setSelectedListingMode(event.target.value as "all" | ListingMode)}
-            aria-label={copy.filters.listingMode}
-          >
-            <option value="all">{copy.filters.listingMode}</option>
+          <div className="listing-mode-toggle" role="group" aria-label={copy.filters.listingMode}>
+            <button
+              type="button"
+              className={selectedListingMode === "all" ? "is-active" : ""}
+              aria-pressed={selectedListingMode === "all"}
+              onClick={() => setSelectedListingMode("all")}
+            >
+              {copy.filters.types.any}
+            </button>
             {listingModes.map((mode) => (
-              <option key={mode} value={mode}>
+              <button
+                key={mode}
+                type="button"
+                className={selectedListingMode === mode ? "is-active" : ""}
+                aria-pressed={selectedListingMode === mode}
+                onClick={() => setSelectedListingMode(mode)}
+              >
                 {copy.filters.listingModeOptions[mode]}
-              </option>
+              </button>
             ))}
-          </select>
+          </div>
 
           <select
             value={selectedType}
