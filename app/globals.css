@@ -6653,15 +6653,22 @@ textarea {
 /* --- Nav stays floating while scrolling --- */
 .public-header {
   top: 0.75rem;
+  /* Solid first for browsers without color-mix, then near-opaque glass. */
+  background: var(--surface-strong);
+  background: color-mix(in srgb, var(--surface-strong) 96%, transparent);
 }
 
-/* --- Listings toolbar pins below the nav --- */
+/* --- Listings toolbar pins below the nav ---
+   Solid, like a real toolbar: content scrolling behind a translucent
+   smear reads as broken, so the pinned bars stay opaque with a
+   hairline edge. */
 .filters-bar {
   position: sticky;
-  top: 5.4rem;
+  top: 4.9rem;
   z-index: 40;
-  background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
-  backdrop-filter: saturate(1.2) blur(10px);
+  background: var(--surface-strong);
+  border-color: var(--border);
+  box-shadow: 0 8px 24px rgba(18, 53, 36, 0.08);
 }
 
 /* --- Two-tone statement: bold grotesque lead, serif-italic tail --- */
@@ -6854,10 +6861,20 @@ textarea {
   transform: translateY(22px);
   transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
+  /* Failsafe: if the observer never fires (bug, race, odd browser), the
+     content force-reveals itself after 2.5s — nothing can stay hidden. */
+  animation: reveal-failsafe 0.01s linear 2.5s forwards;
+}
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .reveal-ready [data-reveal].is-visible {
   opacity: 1;
   transform: none;
+  animation: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal-ready [data-reveal] {
