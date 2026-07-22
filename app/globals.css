@@ -6448,7 +6448,8 @@ textarea {
 /* Nav: fewer visual events — hairline dividers, roomier hit areas,
    near-black links, no underline animation. */
 .public-header {
-  padding: 0.55rem 0.7rem 0.55rem 1.6rem;
+  /* Extra left padding so the wordmark clears the pill's rounded corner. */
+  padding: 0.55rem 0.7rem 0.55rem 2.4rem;
   box-shadow: none;
 }
 .primary-nav {
