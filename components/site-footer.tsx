@@ -55,6 +55,7 @@ export function SiteFooter({ copy, locale }: SiteFooterProps) {
           <h2>{content.explore}</h2>
           <Link href="/properties">{copy.footer.browseLabel}</Link>
           <Link href="/sell-or-rent">{copy.nav.owner}</Link>
+          <Link href="/collaborate">{copy.nav.collaborate}</Link>
           <Link href="/saved">{content.saved}</Link>
           <Link href="/guides/buying">{content.guide}</Link>
         </nav>

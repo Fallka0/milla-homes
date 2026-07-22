@@ -123,13 +123,13 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         </div>
       </section>
 
-      <section className="section statement-section">
+      <section className="section statement-section" data-reveal>
         <p className="statement">
           {copy.statement.lead} <em>{copy.statement.tail}</em>
         </p>
       </section>
 
-      <section className="section">
+      <section className="section" data-reveal>
         <div className="section-heading compact neighborhood-heading">
           <p className="eyebrow">{copy.neighborhoods.eyebrow}</p>
           <h3>{copy.neighborhoods.title}</h3>
@@ -168,7 +168,7 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" data-reveal>
         <div className="section-heading with-action">
           <div>
             <p className="eyebrow">{copy.propertyMeta.featuredSnapshot}</p>
@@ -193,7 +193,7 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         </div>
       </section>
 
-      <section className="section contact-section">
+      <section className="section contact-section" data-reveal>
         <div className="contact-copy">
           <p className="eyebrow">{copy.contact.eyebrow}</p>
           <h2>{copy.contact.title}</h2>
@@ -212,7 +212,7 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" data-reveal>
         <div className="section-heading">
           <p className="eyebrow">{copy.testimonials.eyebrow}</p>
           <h2>{copy.testimonials.title}</h2>
@@ -247,7 +247,7 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
         </CardScroller>
       </section>
 
-      <section className="section">
+      <section className="section" data-reveal>
         <div className="section-heading with-action">
           <div>
             <p className="eyebrow">{copy.masonry.eyebrow}</p>

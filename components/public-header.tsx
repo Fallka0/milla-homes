@@ -14,6 +14,7 @@ type PublicHeaderProps = {
   languageLabel: string;
   nav: {
     about: string;
+    collaborate: string;
     contact: string;
     owner: string;
     home: string;
@@ -65,6 +66,9 @@ export function PublicHeader({
           </Link>
           <Link className="primary-nav-owner" href="/sell-or-rent" onClick={() => setIsMenuOpen(false)}>
             {nav.owner}
+          </Link>
+          <Link href="/collaborate" onClick={() => setIsMenuOpen(false)}>
+            {nav.collaborate}
           </Link>
           <Link href="/about" onClick={() => setIsMenuOpen(false)}>
             {nav.about}

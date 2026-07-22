@@ -6653,15 +6653,22 @@ textarea {
 /* --- Nav stays floating while scrolling --- */
 .public-header {
   top: 0.75rem;
+  /* Solid first for browsers without color-mix, then near-opaque glass. */
+  background: var(--surface-strong);
+  background: color-mix(in srgb, var(--surface-strong) 96%, transparent);
 }
 
-/* --- Listings toolbar pins below the nav --- */
+/* --- Listings toolbar pins below the nav ---
+   Solid, like a real toolbar: content scrolling behind a translucent
+   smear reads as broken, so the pinned bars stay opaque with a
+   hairline edge. */
 .filters-bar {
   position: sticky;
-  top: 5.4rem;
+  top: 4.9rem;
   z-index: 40;
-  background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
-  backdrop-filter: saturate(1.2) blur(10px);
+  background: var(--surface-strong);
+  border-color: var(--border);
+  box-shadow: 0 8px 24px rgba(18, 53, 36, 0.08);
 }
 
 /* --- Two-tone statement: bold grotesque lead, serif-italic tail --- */
@@ -6841,4 +6848,231 @@ textarea {
   .card-scroller-arrow-back {
     left: 0.4rem;
   }
+}
+
+/* ============================================================
+   MOTION: scroll reveal + loading skeletons
+   ============================================================ */
+
+/* Scroll reveal — only active once JS marks the document ready, so no-JS
+   and reduced-motion visitors always see fully-rendered content. */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+  /* Failsafe: if the observer never fires (bug, race, odd browser), the
+     content force-reveals itself after 2.5s — nothing can stay hidden. */
+  animation: reveal-failsafe 0.01s linear 2.5s forwards;
+}
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Image-level shimmer placeholders. The shimmer lives on the media
+   *wrapper* background, so while a heavy photo downloads/decodes the
+   area shows a soft moving sheen — and the photo simply covers it once
+   painted. No layout is ever replaced by placeholder blocks. */
+@keyframes media-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.property-image-wrap,
+.embla-frame,
+.carousel-image-button,
+.rb-masonry-image,
+.neighborhood-card,
+.hero-billboard {
+  background-color: rgba(18, 53, 36, 0.07);
+}
+.property-image-wrap,
+.embla-frame,
+.rb-masonry-image {
+  background-image: linear-gradient(
+    100deg,
+    rgba(18, 53, 36, 0.05) 30%,
+    rgba(18, 53, 36, 0.12) 50%,
+    rgba(18, 53, 36, 0.05) 70%
+  );
+  background-size: 200% 100%;
+  animation: media-shimmer 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .property-image-wrap,
+  .embla-frame,
+  .rb-masonry-image {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   COLLABORATE PAGE
+   ============================================================ */
+.collaborate-page {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 7vw, 6rem);
+}
+.collaborate-hero {
+  margin-top: 1rem;
+  padding: clamp(2.5rem, 6vw, 5rem);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 140% at 15% 0%, rgba(31, 122, 82, 0.35) 0%, transparent 55%),
+    var(--surface-deep);
+  color: #f4faf6;
+}
+.collaborate-hero h1 {
+  margin: 0.9rem 0 0;
+  max-width: 20ch;
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.collaborate-hero h1 em {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(244, 250, 246, 0.82);
+}
+.collaborate-hero-intro {
+  margin: 1.5rem 0 0;
+  max-width: 44rem;
+  color: rgba(244, 250, 246, 0.78);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+.collaborate-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+.collaborate-hero-actions .button-primary {
+  background: #ffffff;
+  color: var(--text);
+}
+.collaborate-hero-actions .button-primary:hover {
+  background: #e9f2ec;
+}
+.collaborate-ghost {
+  border-color: rgba(244, 250, 246, 0.35);
+  color: #f4faf6;
+}
+.collaborate-ghost:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+.collaborate-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.25rem;
+}
+.collaborate-benefit-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-sm);
+}
+.collaborate-benefit-number {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--accent-strong);
+}
+.collaborate-benefit-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.collaborate-benefit-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.collaborate-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+.collaborate-steps li {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--hairline);
+}
+.collaborate-steps li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.collaborate-step-number {
+  flex: none;
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  color: var(--accent-strong);
+}
+.collaborate-steps h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.collaborate-steps p {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.collaborate-closing {
+  align-items: flex-start;
+}
+.collaborate-closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.collaborate-closing .button {
+  background: #ffffff;
+  color: var(--text);
+  border-color: transparent;
+}
+.collaborate-closing-whatsapp {
+  background: transparent;
+  color: #f4faf6;
+  border: 1px solid rgba(244, 250, 246, 0.4);
+}
+.collaborate-closing-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4faf6;
 }

@@ -48,6 +48,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       lastModified: now,
       priority: 0.6,
+      url: getPublicSiteUrl("/collaborate"),
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: now,
+      priority: 0.6,
       url: getPublicSiteUrl("/office"),
     },
   ];
