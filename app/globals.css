@@ -6425,3 +6425,188 @@ textarea {
     font-size: 1.2rem;
   }
 }
+
+/* ============================================================
+   POLISH PASS — premium restraint
+   Quieter color, hairline borders, near-zero shadows, heavier
+   type at large sizes, more air. Appended last on purpose.
+   ============================================================ */
+
+:root {
+  /* Cooler, cleaner near-white; less beige. */
+  --background: #f7f7f4;
+  --surface: #fcfcfb;
+  --surface-strong: #ffffff;
+  --muted: #5c6a61;
+  --border: rgba(18, 53, 36, 0.09);
+  --hairline: rgba(18, 53, 36, 0.06);
+  /* Shadows almost disappear — depth comes from borders and spacing. */
+  --shadow: 0 1px 2px rgba(18, 53, 36, 0.03), 0 10px 30px rgba(18, 53, 36, 0.05);
+  --shadow-sm: 0 1px 2px rgba(18, 53, 36, 0.04);
+}
+
+/* Nav: fewer visual events — hairline dividers, roomier hit areas,
+   near-black links, no underline animation. */
+.public-header {
+  padding: 0.55rem 0.7rem 0.55rem 1.6rem;
+  box-shadow: none;
+}
+.primary-nav {
+  gap: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.primary-nav a {
+  padding: 0.4rem 1.15rem;
+}
+.primary-nav a + a {
+  border-left: 1px solid var(--hairline);
+}
+.primary-nav a::after {
+  display: none;
+}
+.primary-nav a:hover {
+  color: var(--accent-strong);
+}
+
+/* Hero: three words, huge and heavy; let the photo breathe. */
+.hero-billboard {
+  background-image:
+    linear-gradient(180deg, rgba(11, 30, 21, 0.04) 35%, rgba(11, 30, 21, 0.62) 100%),
+    var(--hero-image, linear-gradient(135deg, #1f7a52, #133c2a));
+}
+.hero-billboard-copy h1 {
+  max-width: 13ch;
+  font-weight: 700;
+  font-size: clamp(3rem, 7.5vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  text-shadow: 0 2px 24px rgba(11, 30, 21, 0.25);
+}
+.hero-billboard-text {
+  max-width: 36rem;
+  font-size: 0.98rem;
+  color: rgba(251, 253, 251, 0.82);
+}
+
+/* CTA cards: bold title over quiet subtitle, soft gray circle arrow. */
+.hero-cta-card {
+  padding: 1.5rem 1.6rem;
+  box-shadow: var(--shadow-sm);
+}
+.hero-cta-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+.hero-cta-copy strong {
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.hero-cta-copy > span {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+.hero-cta-arrow {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  background: #f1f2f0;
+  color: var(--text);
+}
+.hero-cta-card:hover {
+  box-shadow: 0 12px 28px rgba(18, 53, 36, 0.1);
+}
+.hero-cta-card:hover .hero-cta-arrow {
+  background: var(--surface-deep);
+  color: #f4faf6;
+}
+
+/* Section headings: big, bold grotesque with tight tracking. */
+.section-heading h1,
+.section-heading h2 {
+  font-weight: 700;
+  font-size: clamp(2.1rem, 4.2vw, 3.3rem);
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+}
+.section-heading h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.section-heading p {
+  font-size: 1.02rem;
+  max-width: 44rem;
+}
+.contact-copy h2,
+.market-panel h2,
+.market-panel h3 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* Cards: hairline borders carry the design; shadows retire. */
+.property-card,
+.testimonial-card,
+.info-card,
+.stat-card,
+.hero-side-card {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--border);
+}
+.property-card-link:hover .property-card,
+.property-card-link:focus-visible .property-card {
+  box-shadow: 0 12px 28px rgba(18, 53, 36, 0.09);
+}
+.testimonial-card,
+.info-card,
+.stat-card {
+  border-radius: var(--radius-md);
+}
+.neighborhood-card {
+  border-radius: var(--radius-md);
+}
+
+/* Buttons: primary goes near-black green — the "expensive" action color. */
+.button {
+  font-size: 0.95rem;
+}
+.button-primary {
+  background: #0e2b1e;
+}
+.button-primary:hover,
+.button-primary:focus-visible {
+  background: var(--accent-strong);
+}
+
+/* Eyebrow chips: a touch larger, calmer tracking. */
+.eyebrow {
+  padding: 0.4rem 0.95rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+/* Rhythm: more air between sections. */
+.section {
+  padding-top: clamp(4.5rem, 9vw, 8rem);
+}
+.hero-coverage {
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 900px) {
+  .primary-nav a {
+    padding: 0.35rem 0.7rem;
+  }
+}
+@media (max-width: 768px) {
+  /* Mobile menu stacks links vertically — no dividers there. */
+  .primary-nav a + a {
+    border-left: 0;
+  }
+}

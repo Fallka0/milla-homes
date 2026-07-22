@@ -115,6 +115,11 @@ export type PublicCopy = {
     };
   };
   hero: {
+    ctaSubtitles: {
+      browse: string;
+      guide: string;
+      owner: string;
+    };
     eyebrow: string;
     text: string;
     title: string;
@@ -334,10 +339,15 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      ctaSubtitles: {
+        browse: "Find your ideal home",
+        guide: "Costs, steps and timelines",
+        owner: "We handle it for you",
+      },
       eyebrow: "Homes for sale and rent in Torrevieja and nearby coastal areas",
       text:
         "Milla Homes offers a more personal way to search across the Costa Blanca: carefully selected homes, clearer guidance, and support that stays close from the first shortlist to the first viewing.",
-      title: "Find a place to buy or rent with guidance that feels calm, personal, and genuinely attentive.",
+      title: "Find your place in the sun.",
     },
     inquiry: {
       email: "Email Address",
@@ -576,10 +586,15 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      ctaSubtitles: {
+        browse: "Encuentra tu hogar ideal",
+        guide: "Costes, pasos y plazos",
+        owner: "Nos encargamos de todo",
+      },
       eyebrow: "Viviendas en venta y alquiler en Torrevieja y la costa cercana",
       text:
         "Milla Homes ofrece una forma más personal de buscar en la Costa Blanca: viviendas bien seleccionadas, orientación más clara y acompañamiento cercano desde la primera selección hasta la visita.",
-      title: "Encuentra una vivienda para comprar o alquilar con una guía serena, cercana y realmente atenta.",
+      title: "Encuentra tu lugar al sol.",
     },
     inquiry: {
       email: "Correo electrónico",
@@ -818,10 +833,15 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      ctaSubtitles: {
+        browse: "Знайдіть свій ідеальний дім",
+        guide: "Витрати, кроки та строки",
+        owner: "Ми подбаємо про все",
+      },
       eyebrow: "Об'єкти для продажу та оренди в Торрев'єсі й поруч на узбережжі",
       text:
         "Milla Homes пропонує більш особистий підхід до пошуку на Коста-Бланці: ретельно підібрані об'єкти, зрозуміліший супровід і прямий зв'язок від першого шорт-листа до перегляду.",
-      title: "Знайдіть нерухомість для купівлі чи оренди із супроводом, який відчувається спокійним, особистим та уважним.",
+      title: "Знайдіть своє місце під сонцем.",
     },
     inquiry: {
       email: "Електронна пошта",
@@ -1060,10 +1080,15 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      ctaSubtitles: {
+        browse: "Найдите свой идеальный дом",
+        guide: "Расходы, шаги и сроки",
+        owner: "Мы позаботимся обо всём",
+      },
       eyebrow: "Объекты для продажи и аренды в Торревьехе и на ближайшем побережье",
       text:
         "Milla Homes — это личный подход к поиску недвижимости на Коста-Бланке: тщательно подобранные объекты, понятное сопровождение и прямая связь с нами от первой подборки до просмотра.",
-      title: "Найдите жильё для покупки или аренды — со спокойным, внимательным и личным сопровождением.",
+      title: "Найдите своё место под солнцем.",
     },
     inquiry: {
       email: "Электронная почта",
@@ -1302,10 +1327,15 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      ctaSubtitles: {
+        browse: "Finden Sie Ihr ideales Zuhause",
+        guide: "Kosten, Schritte und Fristen",
+        owner: "Wir kümmern uns um alles",
+      },
       eyebrow: "Immobilien zum Kauf und zur Miete in Torrevieja und an der nahen Küste",
       text:
         "Milla Homes steht für einen persönlicheren Weg der Suche an der Costa Blanca: sorgfältig ausgewählte Angebote, klarere Begleitung und direkte Unterstützung vom ersten Shortlist-Moment bis zur Besichtigung.",
-      title: "Finden Sie ein Zuhause zum Kauf oder zur Miete mit einer Begleitung, die ruhig, persönlich und aufmerksam wirkt.",
+      title: "Finden Sie Ihren Platz an der Sonne.",
     },
     inquiry: {
       email: "E-Mail-Adresse",

@@ -84,19 +84,28 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
 
         <div className="hero-cta-row">
           <Link className="hero-cta-card" href="/properties">
-            <span>{copy.buttons.browseProperties}</span>
+            <span className="hero-cta-copy">
+              <strong>{copy.buttons.browseProperties}</strong>
+              <span>{copy.hero.ctaSubtitles.browse}</span>
+            </span>
             <span className="hero-cta-arrow" aria-hidden>
               {heroArrowIcon}
             </span>
           </Link>
           <Link className="hero-cta-card" href="/sell-or-rent">
-            <span>{copy.nav.owner}</span>
+            <span className="hero-cta-copy">
+              <strong>{copy.nav.owner}</strong>
+              <span>{copy.hero.ctaSubtitles.owner}</span>
+            </span>
             <span className="hero-cta-arrow" aria-hidden>
               {heroArrowIcon}
             </span>
           </Link>
           <Link className="hero-cta-card" href="/guides/buying">
-            <span>{copy.nav.guide}</span>
+            <span className="hero-cta-copy">
+              <strong>{copy.nav.guide}</strong>
+              <span>{copy.hero.ctaSubtitles.guide}</span>
+            </span>
             <span className="hero-cta-arrow" aria-hidden>
               {heroArrowIcon}
             </span>
