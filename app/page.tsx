@@ -5,7 +5,7 @@ import { Homepage } from "@/components/homepage";
 import { adminCopy, resolveAdminLocale } from "@/lib/admin-copy";
 import { getAdminAuthState } from "@/lib/auth";
 import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
-import { getFeaturedProperties, getLatestPublicProperties, localizeProperties } from "@/lib/properties";
+import { getFeaturedProperties, getLatestPublicProperties, getPublicProperties, localizeProperties } from "@/lib/properties";
 import { getPropertyPreviewImageUrl } from "@/lib/property-shared";
 import { motherPhoneNumber } from "@/lib/contact";
 import { getCanonicalUrl, getOpenGraphLocale } from "@/lib/seo";
@@ -54,9 +54,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const cookieStore = await cookies();
   const locale = resolvePublicLocale(cookieStore.get("verdant-locale")?.value);
-  const [rawFeaturedProperties, rawLatestProperties, authState] = await Promise.all([
+  const [rawFeaturedProperties, rawLatestProperties, allPublicProperties, authState] = await Promise.all([
     getFeaturedProperties(3),
     getLatestPublicProperties(6),
+    getPublicProperties(),
     getAdminAuthState(),
   ]);
   const adminLocale = resolveAdminLocale(locale);
@@ -102,6 +103,7 @@ export default async function Home() {
       currentLocale={locale}
       featuredProperties={featuredProperties}
       latestProperties={latestProperties}
+      totalPropertyCount={allPublicProperties.length}
     />
     </>
   );

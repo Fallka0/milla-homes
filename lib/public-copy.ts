@@ -115,6 +115,10 @@ export type PublicCopy = {
     };
   };
   hero: {
+    bubbles: {
+      first: string;
+      second: string;
+    };
     ctaSubtitles: {
       browse: string;
       guide: string;
@@ -123,6 +127,11 @@ export type PublicCopy = {
     eyebrow: string;
     text: string;
     title: string;
+    trust: {
+      homes: string;
+      languages: string;
+      local: string;
+    };
   };
   statement: {
     lead: string;
@@ -344,6 +353,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      bubbles: {
+        first: "Your home by the sea, closer than you think",
+        second: "Tell us what you're looking for — we'll find it",
+      },
       ctaSubtitles: {
         browse: "Find your ideal home",
         guide: "Costs, steps and timelines",
@@ -353,6 +366,11 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       text:
         "Milla Homes offers a more personal way to search across the Costa Blanca: carefully selected homes, clearer guidance, and support that stays close from the first shortlist to the first viewing.",
       title: "Find your place in the sun.",
+      trust: {
+        homes: "{count} homes for sale & rent",
+        languages: "Service in 5 languages",
+        local: "Local team in Torrevieja",
+      },
     },
     statement: {
       lead: "Selling, buying or renting on the Costa Blanca —",
@@ -596,6 +614,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      bubbles: {
+        first: "Tu casa junto al mar, más cerca de lo que crees",
+        second: "Cuéntanos qué buscas y lo encontramos",
+      },
       ctaSubtitles: {
         browse: "Encuentra tu hogar ideal",
         guide: "Costes, pasos y plazos",
@@ -605,6 +627,11 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       text:
         "Milla Homes ofrece una forma más personal de buscar en la Costa Blanca: viviendas bien seleccionadas, orientación más clara y acompañamiento cercano desde la primera selección hasta la visita.",
       title: "Encuentra tu lugar al sol.",
+      trust: {
+        homes: "{count} viviendas en venta y alquiler",
+        languages: "Atención en 5 idiomas",
+        local: "Equipo local en Torrevieja",
+      },
     },
     statement: {
       lead: "Vender, comprar o alquilar en la Costa Blanca:",
@@ -848,6 +875,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      bubbles: {
+        first: "Ваш дім біля моря — ближче, ніж здається",
+        second: "Розкажіть, що шукаєте, — ми знайдемо",
+      },
       ctaSubtitles: {
         browse: "Знайдіть свій ідеальний дім",
         guide: "Витрати, кроки та строки",
@@ -857,6 +888,11 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       text:
         "Milla Homes пропонує більш особистий підхід до пошуку на Коста-Бланці: ретельно підібрані об'єкти, зрозуміліший супровід і прямий зв'язок від першого шорт-листа до перегляду.",
       title: "Знайдіть своє місце під сонцем.",
+      trust: {
+        homes: "{count} об'єктів у продажу та оренді",
+        languages: "Обслуговування 5 мовами",
+        local: "Місцева команда в Торрев'єсі",
+      },
     },
     statement: {
       lead: "Продати, купити чи орендувати на Коста-Бланці —",
@@ -1100,6 +1136,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      bubbles: {
+        first: "Ваш дом у моря — ближе, чем кажется",
+        second: "Расскажите, что ищете, — мы найдём",
+      },
       ctaSubtitles: {
         browse: "Найдите свой идеальный дом",
         guide: "Расходы, шаги и сроки",
@@ -1109,6 +1149,11 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       text:
         "Milla Homes — это личный подход к поиску недвижимости на Коста-Бланке: тщательно подобранные объекты, понятное сопровождение и прямая связь с нами от первой подборки до просмотра.",
       title: "Найдите своё место под солнцем.",
+      trust: {
+        homes: "{count} объектов в продаже и аренде",
+        languages: "Обслуживание на 5 языках",
+        local: "Местная команда в Торревьехе",
+      },
     },
     statement: {
       lead: "Продать, купить или арендовать на Коста-Бланке —",
@@ -1352,6 +1397,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       },
     },
     hero: {
+      bubbles: {
+        first: "Ihr Zuhause am Meer — näher, als Sie denken",
+        second: "Sagen Sie uns, was Sie suchen — wir finden es",
+      },
       ctaSubtitles: {
         browse: "Finden Sie Ihr ideales Zuhause",
         guide: "Kosten, Schritte und Fristen",
@@ -1361,6 +1410,11 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       text:
         "Milla Homes steht für einen persönlicheren Weg der Suche an der Costa Blanca: sorgfältig ausgewählte Angebote, klarere Begleitung und direkte Unterstützung vom ersten Shortlist-Moment bis zur Besichtigung.",
       title: "Finden Sie Ihren Platz an der Sonne.",
+      trust: {
+        homes: "{count} Immobilien zum Kauf & zur Miete",
+        languages: "Beratung in 5 Sprachen",
+        local: "Lokales Team in Torrevieja",
+      },
     },
     statement: {
       lead: "Verkaufen, kaufen oder mieten an der Costa Blanca –",
