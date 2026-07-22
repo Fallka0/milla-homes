@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 
 import { notFound } from "next/navigation";
 
+import { CardScroller } from "@/components/card-scroller";
 import { ContactActions } from "@/components/contact-actions";
 import { ImageCarousel } from "@/components/image-carousel";
 import { InquiryForm } from "@/components/inquiry-form";
@@ -404,7 +405,11 @@ export default async function PropertyDetailPage({ params, searchParams }: Prope
             <p className="eyebrow">{similarCopy.eyebrow}</p>
             <h2>{similarCopy.title}</h2>
           </div>
-          <div className="property-grid">
+          <CardScroller
+            className="property-scroller"
+            nextLabel={copy.carousel.nextImage}
+            previousLabel={copy.carousel.previousImage}
+          >
             {similarProperties.map((similar) => (
               <PropertyCard
                 bathroomsLabel={copy.propertyMeta.bathroomsShort}
@@ -415,7 +420,7 @@ export default async function PropertyDetailPage({ params, searchParams }: Prope
                 property={similar}
               />
             ))}
-          </div>
+          </CardScroller>
         </section>
       ) : null}
 

@@ -124,6 +124,10 @@ export type PublicCopy = {
     text: string;
     title: string;
   };
+  statement: {
+    lead: string;
+    tail: string;
+  };
   inquiry: {
     email: string;
     emailPlaceholder: string;
@@ -348,6 +352,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       text:
         "Milla Homes offers a more personal way to search across the Costa Blanca: carefully selected homes, clearer guidance, and support that stays close from the first shortlist to the first viewing.",
       title: "Find your place in the sun.",
+    },
+    statement: {
+      lead: "Selling, buying or renting on the Costa Blanca —",
+      tail: "we're with you at every step.",
     },
     inquiry: {
       email: "Email Address",
@@ -596,6 +604,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
         "Milla Homes ofrece una forma más personal de buscar en la Costa Blanca: viviendas bien seleccionadas, orientación más clara y acompañamiento cercano desde la primera selección hasta la visita.",
       title: "Encuentra tu lugar al sol.",
     },
+    statement: {
+      lead: "Vender, comprar o alquilar en la Costa Blanca:",
+      tail: "estamos contigo en cada paso.",
+    },
     inquiry: {
       email: "Correo electrónico",
       emailPlaceholder: "tu@correo.com",
@@ -842,6 +854,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       text:
         "Milla Homes пропонує більш особистий підхід до пошуку на Коста-Бланці: ретельно підібрані об'єкти, зрозуміліший супровід і прямий зв'язок від першого шорт-листа до перегляду.",
       title: "Знайдіть своє місце під сонцем.",
+    },
+    statement: {
+      lead: "Продати, купити чи орендувати на Коста-Бланці —",
+      tail: "ми поруч на кожному кроці.",
     },
     inquiry: {
       email: "Електронна пошта",
@@ -1090,6 +1106,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
         "Milla Homes — это личный подход к поиску недвижимости на Коста-Бланке: тщательно подобранные объекты, понятное сопровождение и прямая связь с нами от первой подборки до просмотра.",
       title: "Найдите своё место под солнцем.",
     },
+    statement: {
+      lead: "Продать, купить или арендовать на Коста-Бланке —",
+      tail: "мы рядом на каждом шагу.",
+    },
     inquiry: {
       email: "Электронная почта",
       emailPlaceholder: "you@example.com",
@@ -1336,6 +1356,10 @@ export const publicCopy: Record<PublicLocale, PublicCopy> = {
       text:
         "Milla Homes steht für einen persönlicheren Weg der Suche an der Costa Blanca: sorgfältig ausgewählte Angebote, klarere Begleitung und direkte Unterstützung vom ersten Shortlist-Moment bis zur Besichtigung.",
       title: "Finden Sie Ihren Platz an der Sonne.",
+    },
+    statement: {
+      lead: "Verkaufen, kaufen oder mieten an der Costa Blanca –",
+      tail: "wir begleiten Sie bei jedem Schritt.",
     },
     inquiry: {
       email: "E-Mail-Adresse",
