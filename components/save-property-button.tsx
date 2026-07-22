@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 import { ArrowUpRight } from "@/components/arrow-up-right";
 import type { PublicLocale } from "@/lib/public-copy";
@@ -32,16 +32,29 @@ type SavePropertyButtonProps = {
   slug: string;
 };
 
-export function SavePropertyButton({ locale, showSavedLink = false, slug }: SavePropertyButtonProps) {
-  const [saved, setSaved] = useState(false);
+// localStorage is an external store: subscribe to our change event (and the
+// cross-tab storage event) and read through a snapshot, so every save button
+// for the same property stays in sync without setState-in-effect.
+function subscribeToSavedProperties(onChange: () => void) {
+  window.addEventListener(savedPropertiesChangedEvent, onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    window.removeEventListener(savedPropertiesChangedEvent, onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
 
-  useEffect(() => setSaved(readSavedPropertySlugs().includes(slug)), [slug]);
+export function SavePropertyButton({ locale, showSavedLink = false, slug }: SavePropertyButtonProps) {
+  const saved = useSyncExternalStore(
+    subscribeToSavedProperties,
+    useCallback(() => readSavedPropertySlugs().includes(slug), [slug]),
+    () => false,
+  );
 
   function toggleSaved() {
     const current = readSavedPropertySlugs();
     const next = current.includes(slug) ? current.filter((item) => item !== slug) : [...current, slug];
     localStorage.setItem(savedPropertiesStorageKey, JSON.stringify(next));
-    setSaved(next.includes(slug));
     window.dispatchEvent(new CustomEvent(savedPropertiesChangedEvent));
   }
 

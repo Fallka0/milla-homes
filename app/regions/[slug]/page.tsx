@@ -114,7 +114,7 @@ export default async function RegionPage({ params }: RegionPageProps) {
       </section>
 
       <section className="region-page">
-        <div className="region-content-grid">
+        <div className="region-content-grid" data-reveal>
           <article className="region-copy-card">
             <p className="eyebrow">{copy.coverage.eyebrow}</p>
             <h2>{content.areaLabel}</h2>
@@ -145,7 +145,7 @@ export default async function RegionPage({ params }: RegionPageProps) {
           </Link>
         </div>
 
-        <div className="region-listing-stack">
+        <div className="region-listing-stack" data-reveal>
           {properties.length > 0 ? (
             <div className="property-grid">
               {properties.map((property) => (
