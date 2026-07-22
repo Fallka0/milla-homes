@@ -5,7 +5,6 @@ import { CardScroller } from "@/components/card-scroller";
 import { ContactActions } from "@/components/contact-actions";
 import { PublicHeader } from "@/components/public-header";
 import { PropertyCard } from "@/components/property-card";
-import { ReactBitsMasonry } from "@/components/react-bits-masonry";
 import { SiteFooter } from "@/components/site-footer";
 import { regions, regionSlugs } from "@/lib/regions";
 import { getPropertyPreviewImageUrl, type PropertyRecord } from "@/lib/property-shared";
@@ -29,24 +28,23 @@ type HomepageProps = {
   currentLocale: PublicLocale;
   featuredProperties: PropertyRecord[];
   latestProperties: PropertyRecord[];
+  totalPropertyCount: number;
 };
 
-const masonryHeights = [300, 420, 340, 390, 460, 320];
-
-export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, latestProperties }: HomepageProps) {
+export function Homepage({
+  adminLabel,
+  copy,
+  currentLocale,
+  featuredProperties,
+  latestProperties,
+  totalPropertyCount,
+}: HomepageProps) {
   const fallbackPreviewImage = "/logos/verdant-seal.svg";
   const heroImage =
     getPropertyPreviewImageUrl(featuredProperties[0]) ?? regions[regionSlugs[0]]?.imageUrl ?? fallbackPreviewImage;
   const coveragePills = regionSlugs
     .slice(0, 5)
     .map((slug) => regions[slug].localeContent[currentLocale].areaLabel);
-  const masonryItems = latestProperties.map((property, index) => ({
-    id: property.id,
-    img: getPropertyPreviewImageUrl(property) ?? fallbackPreviewImage,
-    title: property.title,
-    url: `/properties/${property.slug}`,
-    height: masonryHeights[index % masonryHeights.length],
-  }));
 
   return (
     <main className="site-shell section-stack" data-locale={currentLocale} lang={currentLocale}>
@@ -63,6 +61,10 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
           className="hero-billboard"
           style={{ "--hero-image": `url("${heroImage}")` } as CSSProperties}
         >
+          <div className="hero-bubbles" aria-hidden>
+            <span className="hero-bubble hero-bubble-1">{copy.hero.bubbles.first}</span>
+            <span className="hero-bubble hero-bubble-2">{copy.hero.bubbles.second}</span>
+          </div>
           <div className="hero-billboard-inner">
             <div className="hero-billboard-copy">
               <p className="eyebrow eyebrow-on-dark">{copy.hero.eyebrow}</p>
@@ -111,6 +113,14 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
               {heroArrowIcon}
             </span>
           </Link>
+        </div>
+
+        <div className="hero-trust">
+          {totalPropertyCount > 0 ? (
+            <span>{copy.hero.trust.homes.replace("{count}", String(totalPropertyCount))}</span>
+          ) : null}
+          <span>{copy.hero.trust.languages}</span>
+          <span>{copy.hero.trust.local}</span>
         </div>
 
         <div className="hero-coverage">
@@ -258,24 +268,22 @@ export function Homepage({ adminLabel, copy, currentLocale, featuredProperties, 
           </Link>
         </div>
 
-        <div className="masonry-desktop">
-          <ReactBitsMasonry items={masonryItems} />
-        </div>
-
-        <div className="masonry-mobile-fallback">
-          <div className="property-grid">
-            {latestProperties.map((property) => (
-              <PropertyCard
-                bathroomsLabel={copy.propertyMeta.bathroomsShort}
-                bedroomsLabel={copy.propertyMeta.bedroomsShort}
-                buttonLabel={copy.buttons.viewDetails}
-                key={property.id}
-                locale={currentLocale}
-                property={property}
-              />
-            ))}
-          </div>
-        </div>
+        <CardScroller
+          className="property-scroller"
+          nextLabel={copy.carousel.nextImage}
+          previousLabel={copy.carousel.previousImage}
+        >
+          {latestProperties.map((property) => (
+            <PropertyCard
+              bathroomsLabel={copy.propertyMeta.bathroomsShort}
+              bedroomsLabel={copy.propertyMeta.bedroomsShort}
+              buttonLabel={copy.buttons.viewDetails}
+              key={property.id}
+              locale={currentLocale}
+              property={property}
+            />
+          ))}
+        </CardScroller>
       </section>
 
       <SiteFooter copy={copy} locale={currentLocale} />

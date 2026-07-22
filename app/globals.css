@@ -6090,6 +6090,13 @@ textarea {
   min-height: 3rem;
   padding: 0.8rem 1.6rem;
   letter-spacing: 0;
+  /* Reference signature: hover states fade in slowly (600ms bg/border). */
+  transition:
+    background-color 600ms ease,
+    border-color 600ms ease,
+    color 200ms ease,
+    box-shadow 300ms ease,
+    transform 200ms ease;
 }
 .button-primary {
   background: var(--surface-deep);
@@ -6650,25 +6657,136 @@ textarea {
    sticky listings toolbar.
    ============================================================ */
 
-/* --- Nav stays floating while scrolling --- */
+/* --- Nav stays floating while scrolling: real frosted glass ---
+   The trick is low-ish opacity with STRONG blur — weak blur over busy
+   photos reads as a smear, heavy blur reads as expensive glass. */
 .public-header {
   top: 0.75rem;
-  /* Solid first for browsers without color-mix, then near-opaque glass. */
-  background: var(--surface-strong);
-  background: color-mix(in srgb, var(--surface-strong) 96%, transparent);
+  background: rgba(255, 255, 255, 0.98);
+  /* Frosted variant only where the browser can actually blur the backdrop. */
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .public-header {
+    /* Reference glass recipe: diagonal white gradient + heavy 35px blur. */
+    background: linear-gradient(137deg, rgba(255, 255, 255, 0.7) 24%, rgba(255, 255, 255, 0.62) 126%);
+    -webkit-backdrop-filter: blur(35px);
+    backdrop-filter: blur(35px);
+  }
+}
+/* Rounded-rect bar (16px), not a full pill — matches the reference nav. */
+.public-header,
+.public-header.compact-header {
+  border-radius: 16px;
+  transition: background 600ms ease, border-color 600ms ease, box-shadow 600ms ease;
 }
 
-/* --- Listings toolbar pins below the nav ---
-   Solid, like a real toolbar: content scrolling behind a translucent
-   smear reads as broken, so the pinned bars stay opaque with a
-   hairline edge. */
+/* At the very top of the page the bar is invisible chrome; it fades to
+   glass once scrolling starts (the reference's header behavior). */
+.public-header.at-top {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* --- Hero speech bubbles (decorative, reference-style) --- */
+@keyframes hero-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-bubbles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.hero-bubble {
+  position: absolute;
+  max-width: 15rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: 0 10px 30px rgba(11, 30, 21, 0.18);
+  animation: hero-bubble-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.hero-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 22px;
+  border: 8px solid transparent;
+  border-top-color: rgba(255, 255, 255, 0.92);
+  border-bottom: 0;
+}
+.hero-bubble-1 {
+  top: 16%;
+  right: 6%;
+  animation-delay: 0.5s;
+}
+.hero-bubble-2 {
+  top: 44%;
+  right: 16%;
+  animation-delay: 0.9s;
+}
+@media (max-width: 900px) {
+  .hero-bubbles {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bubble {
+    animation: none;
+  }
+}
+
+/* --- Hero trust strip: quiet, honest facts --- */
+.hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0;
+  margin: 1.5rem clamp(0.5rem, 3vw, 2rem) 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.hero-trust span {
+  display: inline-flex;
+  align-items: center;
+}
+.hero-trust span + span::before {
+  content: "·";
+  margin: 0 0.7rem;
+  color: var(--border-strong);
+}
+
+/* --- Listings toolbar pins below the nav: same frosted glass --- */
 .filters-bar {
   position: sticky;
   top: 4.9rem;
   z-index: 40;
-  background: var(--surface-strong);
+  background: rgba(255, 255, 255, 0.98);
   border-color: var(--border);
-  box-shadow: 0 8px 24px rgba(18, 53, 36, 0.08);
+  box-shadow: 0 8px 24px rgba(18, 53, 36, 0.06);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .filters-bar {
+    background: linear-gradient(137deg, rgba(255, 255, 255, 0.74) 24%, rgba(255, 255, 255, 0.66) 126%);
+    -webkit-backdrop-filter: blur(35px);
+    backdrop-filter: blur(35px);
+    border-radius: 16px;
+  }
 }
 
 /* --- Two-tone statement: bold grotesque lead, serif-italic tail --- */
@@ -6857,9 +6975,10 @@ textarea {
 /* Scroll reveal — only active once JS marks the document ready, so no-JS
    and reduced-motion visitors always see fully-rendered content. */
 .reveal-ready [data-reveal] {
+  /* Reference vocabulary: small distance, quick settle (y 10–20px, ~0.5s). */
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
   /* Failsafe: if the observer never fires (bug, race, odd browser), the
      content force-reveals itself after 2.5s — nothing can stay hidden. */
