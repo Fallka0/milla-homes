@@ -6143,6 +6143,9 @@ textarea {
   box-shadow: var(--shadow-sm);
 }
 .public-header.compact-header {
+  /* Match the pill's horizontal padding so the wordmark clears the rounded
+     corner (overrides the base compact rule's zero side padding). */
+  padding: 0.55rem 0.7rem 0.55rem 2.4rem;
   margin-bottom: 1.75rem;
   border-radius: var(--radius-pill);
 }
