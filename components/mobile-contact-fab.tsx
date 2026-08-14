@@ -18,7 +18,9 @@ export function MobileContactFab({ callLabel, whatsappLabel, whatsappMessage }: 
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  if (pathname.startsWith("/admin")) return null;
+  // Share pages (/p/...) carry their own sticky WhatsApp bar; two floating
+  // contact affordances on one screen is one too many.
+  if (pathname.startsWith("/admin") || pathname.startsWith("/p/")) return null;
 
   return (
     <div className={`contact-fab${open ? " is-open" : ""}`}>

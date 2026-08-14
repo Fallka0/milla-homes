@@ -69,6 +69,29 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      {
+        // Shareable property pages are built from a checked-in JSON file, so the
+        // CDN can hold them and serve a buyer on 4G from the edge. Content only
+        // changes on deploy, and stale-while-revalidate keeps the first request
+        // after a deploy fast too.
+        source: "/p/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+          },
+        ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        // English is served at the bare /p/[slug]; keep a single canonical URL.
+        source: "/p/:slug/en",
+        destination: "/p/:slug",
+        permanent: true,
+      },
     ];
   },
   turbopack: {

@@ -7411,3 +7411,642 @@ textarea {
     height: 2.5rem;
   }
 }
+
+/* ==========================================================================
+   Shareable property pages (/p/[slug])
+   --------------------------------------------------------------------------
+   A self-contained, single-column layout built for one job: a buyer opening a
+   WhatsApp link on a phone. Deliberately lighter than the main site chrome —
+   no nav, no reveal animations, nothing that delays the first photo.
+   ========================================================================== */
+
+.share-page {
+  width: min(46rem, 100%);
+  margin: 0 auto;
+  /* Room for the sticky WhatsApp bar plus the phone's home indicator. */
+  padding: 0 0 calc(6.5rem + env(safe-area-inset-bottom));
+  background: var(--background);
+  /* Hanken Grotesk is Latin-only, so Russian would otherwise drop to the
+     browser's default serif. Name the system sans explicitly and Cyrillic
+     stays a grotesque, matching the other three languages. */
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+
+.share-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.15rem;
+}
+
+.share-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.share-brand-logo {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+}
+
+.share-brand-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* --- Language switcher: plain links, wrapping on narrow phones. --- */
+.share-languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.share-language {
+  min-width: 2.4rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.share-language:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.share-language.is-active {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent-strong);
+}
+
+/* --- Gallery: native scroll-snap, so swiping is the browser's own. --- */
+.share-gallery {
+  position: relative;
+}
+
+.share-gallery-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* No overscroll chaining, or a fast swipe navigates the browser back. */
+  overscroll-behavior-x: contain;
+}
+
+.share-gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.share-gallery-slide {
+  flex: 0 0 100%;
+  margin: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.share-gallery-image {
+  display: block;
+  width: 100%;
+  /* Fixed aspect ratio reserves the space before the photo arrives, so the
+     layout never shifts (CLS) while the LCP image is still downloading. */
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+  background: var(--hairline);
+}
+
+.share-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: rgba(254, 253, 251, 0.92);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.share-gallery-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.share-gallery-arrow-prev {
+  left: 0.75rem;
+}
+
+.share-gallery-arrow-next {
+  right: 0.75rem;
+}
+
+.share-gallery-counter {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  margin: 0;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: rgba(18, 53, 36, 0.62);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.share-gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.7rem 0 0.2rem;
+}
+
+.share-gallery-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.share-gallery-dot.is-active {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+
+.share-gallery-hint {
+  margin: 0;
+  padding: 0.1rem 1.15rem 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+/* --- Title, price, town --- */
+.share-intro {
+  padding: 1.1rem 1.15rem 0;
+}
+
+.share-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5.5vw, 1.95rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.share-price {
+  margin: 0.5rem 0 0;
+  color: var(--accent-strong);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.share-town {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.share-section-heading {
+  margin: 0 0 0.7rem;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* --- Key facts --- */
+.share-facts {
+  padding: 1.5rem 1.15rem 0;
+}
+
+.share-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.share-fact {
+  padding: 0.7rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  text-align: center;
+}
+
+.share-fact-label {
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.share-fact-value {
+  margin: 0.25rem 0 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+/* --- Description --- */
+.share-description {
+  padding: 1.6rem 1.15rem 0;
+}
+
+.share-description-body {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* --- Rent-to-own: native <details> --- */
+.share-rto {
+  margin: 1.6rem 1.15rem 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.share-rto-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.share-rto-summary::-webkit-details-marker {
+  display: none;
+}
+
+.share-rto-heading {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.share-rto-chevron {
+  flex-shrink: 0;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg) translate(-0.12rem, -0.12rem);
+  transition: transform 0.2s ease;
+}
+
+.share-rto[open] .share-rto-chevron {
+  transform: rotate(-135deg) translate(-0.12rem, -0.12rem);
+}
+
+.share-rto-body {
+  padding: 0 1.1rem 1.1rem;
+}
+
+.share-rto-intro {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.share-rto-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.share-rto-step {
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--accent-soft);
+}
+
+.share-rto-step-title {
+  margin: 0 0 0.2rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.share-rto-step-body {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.share-rto-footnote {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+/* --- Agent --- */
+.share-agent {
+  padding: 1.6rem 1.15rem 0;
+}
+
+.share-agent-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.share-agent-photo {
+  flex-shrink: 0;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+}
+
+.share-agent-initials {
+  display: grid;
+  place-items: center;
+  background: var(--surface-deep);
+  color: var(--surface);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.share-agent-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.share-agent-role {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* --- Reference --- */
+.share-reference {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.4rem 1.15rem 0;
+  padding: 0.75rem 0.95rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.share-reference-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.share-reference-code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  /* Double-tap selects the whole code rather than one word of it. */
+  user-select: all;
+}
+
+.share-reference-copy {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.share-reference-copy:hover {
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.share-reference-copied {
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.share-reference-copied.is-visible {
+  opacity: 1;
+}
+
+/* --- Sticky WhatsApp bar --- */
+.share-whatsapp-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  padding: 0.6rem 0.9rem calc(0.6rem + env(safe-area-inset-bottom));
+  background: rgba(246, 244, 239, 0.92);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+}
+
+.share-whatsapp-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  width: min(46rem, 100%);
+  margin: 0 auto;
+}
+
+.share-whatsapp-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.share-whatsapp-prompt {
+  color: var(--muted);
+  font-size: 0.78rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.share-whatsapp-reference {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.share-whatsapp-action {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.72rem 1.1rem;
+  border-radius: var(--radius-pill);
+  background: #25d366;
+  color: #08341c;
+  font-size: 0.92rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.share-whatsapp-action:hover {
+  background: #1fbb5a;
+}
+
+@media (min-width: 768px) {
+  .share-page {
+    padding-bottom: 6rem;
+  }
+  .share-gallery-arrow {
+    display: grid;
+  }
+  .share-gallery-hint {
+    display: none;
+  }
+  .share-facts-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .share-gallery-track {
+    scroll-behavior: auto;
+  }
+  .share-gallery-dot,
+  .share-rto-chevron {
+    transition: none;
+  }
+}
+
+/* --- /p/preview: development-only link-card mock-up. --- */
+.preview-page {
+  width: min(72rem, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.preview-header h1 {
+  margin: 0 0 0.4rem;
+  font-size: 1.5rem;
+}
+
+.preview-header p {
+  margin: 0 0 2rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.preview-property {
+  margin-bottom: 2.5rem;
+}
+
+.preview-property h2 {
+  margin: 0 0 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1rem;
+}
+
+.preview-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.preview-card-locale {
+  margin: 0;
+  padding: 0.4rem 0.75rem;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.preview-card-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  background: var(--hairline);
+}
+
+.preview-card-body {
+  padding: 0.7rem 0.85rem;
+}
+
+.preview-card-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.preview-card-description {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.preview-card-host {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.preview-card-link {
+  display: block;
+  padding: 0.5rem 0.85rem 0.7rem;
+  color: var(--accent-strong);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.75rem;
+}

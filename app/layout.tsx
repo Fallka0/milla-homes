@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Hanken_Grotesk } from "next/font/google";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { publicCopy, resolvePublicLocale } from "@/lib/public-copy";
+import { isShareLocale, shareLocaleHeaderName } from "@/lib/share-property";
 import { publicSiteUrl } from "@/lib/site-urls";
 import { MobileContactFab } from "@/components/mobile-contact-fab";
 import { RevealController } from "@/components/reveal-controller";
@@ -73,14 +74,21 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
+  const [cookieStore, headerStore] = await Promise.all([cookies(), headers()]);
   const locale = resolvePublicLocale(cookieStore.get("verdant-locale")?.value);
   const copy = publicCopy[locale];
+
+  // Shareable property pages (/p/...) pick their language from the URL, not the
+  // visitor's cookie — the link an agent sends has to open in the language it
+  // was sent in. proxy.ts resolves it and forwards it on this header, because
+  // the [lang] segment sits below this layout and is invisible from here.
+  const shareLocale = headerStore.get(shareLocaleHeaderName);
+  const documentLocale = shareLocale && isShareLocale(shareLocale) ? shareLocale : locale;
 
   return (
     // --font-serif (Cormorant) + --font-sans (Hanken Grotesk) are exposed on
     // <html>; Hanken's className also applies it as the baked-in base font.
-    <html lang={locale} className={`${cormorant.variable} ${hankenGrotesk.variable}`}>
+    <html lang={documentLocale} className={`${cormorant.variable} ${hankenGrotesk.variable}`}>
       <body className={hankenGrotesk.className}>
         {children}
         <RevealController />

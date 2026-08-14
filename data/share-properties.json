@@ -1,0 +1,485 @@
+[
+  {
+    "slug": "villa-marina-cabo-roig",
+    "reference": "MH-2041",
+    "priceEuro": 795000,
+    "images": [
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+    ],
+    "facts": {
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "builtSqm": 245,
+      "plotSqm": 640,
+      "pool": "private",
+      "beachDistanceMeters": 450
+    },
+    "agent": {
+      "name": "Milla Fernández",
+      "photoUrl": "/agents/milla-fernandez.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Villa con piscina privada y vistas al mar",
+        "town": "Cabo Roig",
+        "shortDescription": "Villa independiente de cuatro dormitorios en una calle tranquila de Cabo Roig, a un paseo de las calas. Salón con doble altura, cocina abierta al porche cubierto y piscina privada orientada al sur, con sol durante todo el día. Se vende amueblada."
+      },
+      "en": {
+        "title": "Detached villa with private pool and sea views",
+        "town": "Cabo Roig",
+        "shortDescription": "A four-bedroom detached villa on a quiet Cabo Roig street, a short walk from the coves. Double-height living room, kitchen opening onto the covered porch, and a south-facing private pool that holds the sun all day. Sold furnished."
+      },
+      "ru": {
+        "title": "Отдельная вилла с бассейном и видом на море",
+        "town": "Кабо Роиг",
+        "shortDescription": "Вилла с четырьмя спальнями на тихой улице в Кабо Роиг, в нескольких минутах ходьбы от бухт. Гостиная с двойной высотой потолка, кухня с выходом на крытую террасу и собственный бассейн на южной стороне, где солнце держится весь день. Продаётся с мебелью."
+      },
+      "de": {
+        "title": "Freistehende Villa mit Privatpool und Meerblick",
+        "town": "Cabo Roig",
+        "shortDescription": "Freistehende Villa mit vier Schlafzimmern in einer ruhigen Straße von Cabo Roig, wenige Gehminuten von den Buchten entfernt. Wohnzimmer mit doppelter Raumhöhe, Küche mit Zugang zur überdachten Terrasse und ein nach Süden ausgerichteter Privatpool, der den ganzen Tag Sonne hat. Möbliert zu verkaufen."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "atico-playa-del-cura",
+    "reference": "MH-2042",
+    "priceEuro": 329000,
+    "images": [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d",
+      "https://images.unsplash.com/photo-1430285561322-7808604715df",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156"
+    ],
+    "facts": {
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "builtSqm": 118,
+      "plotSqm": null,
+      "pool": "communal",
+      "beachDistanceMeters": 180
+    },
+    "agent": {
+      "name": "Milla Fernández",
+      "photoUrl": "/agents/milla-fernandez.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Ático reformado a dos calles de la playa",
+        "town": "Playa del Cura, Torrevieja",
+        "shortDescription": "Ático de tres dormitorios reformado en 2024, con terraza de 30 m² y vistas abiertas sobre los tejados hasta el mar. Ascensor, plaza de garaje incluida y piscina comunitaria. La playa del Cura queda a dos calles."
+      },
+      "en": {
+        "title": "Renovated penthouse two streets from the beach",
+        "town": "Playa del Cura, Torrevieja",
+        "shortDescription": "A three-bedroom penthouse renovated in 2024, with a 30 m² terrace and open views over the rooftops to the sea. Lift, parking space included, and a communal pool. Playa del Cura is two streets away."
+      },
+      "ru": {
+        "title": "Пентхаус после ремонта в двух улицах от пляжа",
+        "town": "Плайя-дель-Кура, Торревьеха",
+        "shortDescription": "Пентхаус с тремя спальнями, отремонтированный в 2024 году, с террасой 30 м² и открытым видом поверх крыш на море. Лифт, парковочное место в цене и общий бассейн. До пляжа Плайя-дель-Кура — две улицы."
+      },
+      "de": {
+        "title": "Sanierte Penthouse-Wohnung zwei Straßen vom Strand",
+        "town": "Playa del Cura, Torrevieja",
+        "shortDescription": "Penthouse mit drei Schlafzimmern, 2024 renoviert, mit 30 m² Terrasse und freiem Blick über die Dächer bis zum Meer. Aufzug, Stellplatz inklusive und Gemeinschaftspool. Der Playa del Cura liegt zwei Straßen entfernt."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "bungalow-la-zenia",
+    "reference": "MH-2043",
+    "priceEuro": 214000,
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d",
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+    ],
+    "facts": {
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "builtSqm": 76,
+      "plotSqm": 120,
+      "pool": "communal",
+      "beachDistanceMeters": 900
+    },
+    "agent": {
+      "name": "Elena Sokolova",
+      "photoUrl": "/agents/elena-sokolova.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Bungalow de planta baja con jardín privado",
+        "town": "La Zenia",
+        "shortDescription": "Bungalow de dos dormitorios en planta baja, con jardín privado de 45 m² y acceso directo a la zona de piscina. Urbanización tranquila y bien mantenida, a diez minutos andando de La Zenia Boulevard y de la playa de Cala Cerrada."
+      },
+      "en": {
+        "title": "Ground-floor bungalow with private garden",
+        "town": "La Zenia",
+        "shortDescription": "A two-bedroom ground-floor bungalow with a 45 m² private garden and direct access to the pool area. Quiet, well-kept urbanisation, ten minutes on foot from La Zenia Boulevard and Cala Cerrada beach."
+      },
+      "ru": {
+        "title": "Бунгало на первом этаже с собственным садом",
+        "town": "Ла Зения",
+        "shortDescription": "Бунгало с двумя спальнями на первом этаже, с собственным садом 45 м² и прямым выходом к бассейну. Тихий ухоженный комплекс, десять минут пешком до торгового центра La Zenia Boulevard и пляжа Кала Серрада."
+      },
+      "de": {
+        "title": "Erdgeschoss-Bungalow mit eigenem Garten",
+        "town": "La Zenia",
+        "shortDescription": "Bungalow mit zwei Schlafzimmern im Erdgeschoss, mit 45 m² eigenem Garten und direktem Zugang zum Poolbereich. Ruhige, gepflegte Wohnanlage, zehn Gehminuten vom La Zenia Boulevard und dem Strand Cala Cerrada entfernt."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "villa-los-balcones",
+    "reference": "MH-2044",
+    "priceEuro": 458000,
+    "images": [
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156",
+      "https://images.unsplash.com/photo-1430285561322-7808604715df",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d"
+    ],
+    "facts": {
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "builtSqm": 168,
+      "plotSqm": 500,
+      "pool": "private",
+      "beachDistanceMeters": 2600
+    },
+    "agent": {
+      "name": "Milla Fernández",
+      "photoUrl": "/agents/milla-fernandez.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Villa de una planta con piscina y garaje",
+        "town": "Los Balcones, Torrevieja",
+        "shortDescription": "Villa de una sola planta sobre parcela de 500 m², con piscina privada, garaje cerrado y solárium. Toda la vivienda está adaptada para vivir sin escaleras. Zona residencial consolidada, con colegios y supermercados a cinco minutos en coche."
+      },
+      "en": {
+        "title": "Single-storey villa with pool and garage",
+        "town": "Los Balcones, Torrevieja",
+        "shortDescription": "A single-storey villa on a 500 m² plot, with private pool, enclosed garage and roof solarium. The whole house is laid out for step-free living. Established residential area, with schools and supermarkets five minutes away by car."
+      },
+      "ru": {
+        "title": "Одноэтажная вилла с бассейном и гаражом",
+        "town": "Лос Балконес, Торревьеха",
+        "shortDescription": "Одноэтажная вилла на участке 500 м², с собственным бассейном, закрытым гаражом и солярием на крыше. Весь дом спланирован без лестниц. Сложившийся жилой район, школы и супермаркеты в пяти минутах на машине."
+      },
+      "de": {
+        "title": "Ebenerdige Villa mit Pool und Garage",
+        "town": "Los Balcones, Torrevieja",
+        "shortDescription": "Ebenerdige Villa auf einem 500 m² großen Grundstück, mit Privatpool, geschlossener Garage und Dachsolarium. Das ganze Haus ist stufenlos angelegt. Etabliertes Wohngebiet, Schulen und Supermärkte in fünf Autominuten."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "apartamento-la-mata",
+    "reference": "MH-2045",
+    "priceEuro": 186500,
+    "images": [
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+    ],
+    "facts": {
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "builtSqm": 68,
+      "plotSqm": null,
+      "pool": "none",
+      "beachDistanceMeters": 250
+    },
+    "agent": {
+      "name": "Elena Sokolova",
+      "photoUrl": "/agents/elena-sokolova.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Apartamento a pie de playa en La Mata",
+        "town": "La Mata, Torrevieja",
+        "shortDescription": "Apartamento de dos dormitorios en segunda línea de playa, con terraza acristalada y vistas laterales al mar. Edificio con ascensor y bajos comerciales. La Mata mantiene vida durante todo el año, no sólo en verano."
+      },
+      "en": {
+        "title": "Beachside apartment in La Mata",
+        "town": "La Mata, Torrevieja",
+        "shortDescription": "A two-bedroom apartment one row back from the beach, with a glazed terrace and side sea views. Building with lift and shops at street level. La Mata stays alive all year, not only in summer."
+      },
+      "ru": {
+        "title": "Квартира у самого пляжа в Ла Мата",
+        "town": "Ла Мата, Торревьеха",
+        "shortDescription": "Квартира с двумя спальнями во второй линии от пляжа, с застеклённой террасой и боковым видом на море. Дом с лифтом и магазинами на первом этаже. Ла Мата живёт круглый год, а не только летом."
+      },
+      "de": {
+        "title": "Strandnahe Wohnung in La Mata",
+        "town": "La Mata, Torrevieja",
+        "shortDescription": "Wohnung mit zwei Schlafzimmern in zweiter Strandlinie, mit verglaster Terrasse und seitlichem Meerblick. Gebäude mit Aufzug und Geschäften im Erdgeschoss. La Mata ist das ganze Jahr über belebt, nicht nur im Sommer."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "villa-punta-prima",
+    "reference": "MH-2046",
+    "priceEuro": 615000,
+    "images": [
+      "https://images.unsplash.com/photo-1494526585095-c41746248156",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+      "https://images.unsplash.com/photo-1430285561322-7808604715df",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750"
+    ],
+    "facts": {
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "builtSqm": 198,
+      "plotSqm": 410,
+      "pool": "private",
+      "beachDistanceMeters": 320
+    },
+    "agent": {
+      "name": "Milla Fernández",
+      "photoUrl": "/agents/milla-fernandez.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Villa moderna a tres minutos del paseo marítimo",
+        "town": "Punta Prima",
+        "shortDescription": "Obra nueva de cuatro dormitorios con acabados de calidad, suelo radiante y piscina de desbordamiento. La planta baja se abre por completo al porche mediante cristaleras correderas. El paseo marítimo de Punta Prima queda a tres minutos andando."
+      },
+      "en": {
+        "title": "Modern villa three minutes from the seafront",
+        "town": "Punta Prima",
+        "shortDescription": "A new-build four-bedroom villa with quality finishes, underfloor heating and an infinity pool. Sliding glass doors open the ground floor completely onto the porch. The Punta Prima seafront promenade is a three-minute walk away."
+      },
+      "ru": {
+        "title": "Современная вилла в трёх минутах от набережной",
+        "town": "Пунта Прима",
+        "shortDescription": "Новая вилла с четырьмя спальнями, качественной отделкой, тёплыми полами и переливным бассейном. Раздвижные стеклянные двери полностью открывают первый этаж на террасу. До набережной Пунта Прима — три минуты пешком."
+      },
+      "de": {
+        "title": "Moderne Villa drei Minuten von der Strandpromenade",
+        "town": "Punta Prima",
+        "shortDescription": "Neubauvilla mit vier Schlafzimmern, hochwertiger Ausstattung, Fußbodenheizung und Infinity-Pool. Schiebeelemente aus Glas öffnen das Erdgeschoss vollständig zur Terrasse. Die Strandpromenade von Punta Prima ist in drei Gehminuten erreichbar."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "adosado-guardamar",
+    "reference": "MH-2047",
+    "priceEuro": 268000,
+    "images": [
+      "https://images.unsplash.com/photo-1430285561322-7808604715df",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d",
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118"
+    ],
+    "facts": {
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "builtSqm": 132,
+      "plotSqm": 160,
+      "pool": "communal",
+      "beachDistanceMeters": 1100
+    },
+    "agent": {
+      "name": "Elena Sokolova",
+      "photoUrl": "/agents/elena-sokolova.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Adosado entre los pinos de Guardamar",
+        "town": "Guardamar del Segura",
+        "shortDescription": "Adosado de tres dormitorios en una urbanización rodeada del pinar de Guardamar. Patio delantero, solárium con vistas al parque natural y piscina comunitaria a treinta metros del portal. Guardamar es de los pocos sitios de la costa con sombra real en agosto."
+      },
+      "en": {
+        "title": "Townhouse among the Guardamar pines",
+        "town": "Guardamar del Segura",
+        "shortDescription": "A three-bedroom townhouse in an urbanisation surrounded by the Guardamar pine forest. Front patio, solarium looking over the natural park, and a communal pool thirty metres from the door. Guardamar is one of the few places on this coast with real shade in August."
+      },
+      "ru": {
+        "title": "Таунхаус среди сосен Гуардамара",
+        "town": "Гуардамар-дель-Сегура",
+        "shortDescription": "Таунхаус с тремя спальнями в комплексе, окружённом сосновым лесом Гуардамара. Патио перед домом, солярий с видом на природный парк и общий бассейн в тридцати метрах от подъезда. Гуардамар — одно из немногих мест на побережье, где в августе есть настоящая тень."
+      },
+      "de": {
+        "title": "Reihenhaus zwischen den Pinien von Guardamar",
+        "town": "Guardamar del Segura",
+        "shortDescription": "Reihenhaus mit drei Schlafzimmern in einer Anlage, die vom Pinienwald von Guardamar umgeben ist. Vorgarten, Solarium mit Blick auf den Naturpark und ein Gemeinschaftspool dreißig Meter vor der Tür. Guardamar ist einer der wenigen Orte an dieser Küste mit echtem Schatten im August."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "atico-torreblanca",
+    "reference": "MH-2048",
+    "priceEuro": 289000,
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+    ],
+    "facts": {
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "builtSqm": 94,
+      "plotSqm": null,
+      "pool": "communal",
+      "beachDistanceMeters": 600
+    },
+    "agent": {
+      "name": "Milla Fernández",
+      "photoUrl": "/agents/milla-fernandez.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Ático con solárium privado de 40 m²",
+        "town": "Torreblanca, Torrevieja",
+        "shortDescription": "Ático de dos dormitorios con solárium privado en la cubierta, orientado al oeste para las puestas de sol. Comunidad con piscina y zona ajardinada. A seis minutos andando de la playa de Los Náufragos y del mercadillo de los viernes."
+      },
+      "en": {
+        "title": "Penthouse with a 40 m² private solarium",
+        "town": "Torreblanca, Torrevieja",
+        "shortDescription": "A two-bedroom penthouse with a private rooftop solarium facing west for the sunsets. Community with pool and landscaped grounds. Six minutes on foot from Los Náufragos beach and the Friday market."
+      },
+      "ru": {
+        "title": "Пентхаус с собственным солярием 40 м²",
+        "town": "Торребланка, Торревьеха",
+        "shortDescription": "Пентхаус с двумя спальнями и собственным солярием на крыше, ориентированным на запад — на закаты. Комплекс с бассейном и озеленённой территорией. Шесть минут пешком до пляжа Лос Науфрагос и пятничного рынка."
+      },
+      "de": {
+        "title": "Penthouse mit 40 m² privatem Solarium",
+        "town": "Torreblanca, Torrevieja",
+        "shortDescription": "Penthouse mit zwei Schlafzimmern und privatem Dachsolarium nach Westen — für die Sonnenuntergänge. Anlage mit Pool und begrünter Außenfläche. Sechs Gehminuten vom Strand Los Náufragos und vom Freitagsmarkt entfernt."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "finca-ciudad-quesada",
+    "reference": "MH-2049",
+    "priceEuro": 372000,
+    "images": [
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156",
+      "https://images.unsplash.com/photo-1430285561322-7808604715df"
+    ],
+    "facts": {
+      "bedrooms": 4,
+      "bathrooms": 2,
+      "builtSqm": 210,
+      "plotSqm": 1400,
+      "pool": "private",
+      "beachDistanceMeters": 7500
+    },
+    "agent": {
+      "name": "Elena Sokolova",
+      "photoUrl": "/agents/elena-sokolova.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Finca con parcela de 1.400 m² y naranjos",
+        "town": "Ciudad Quesada",
+        "shortDescription": "Finca de cuatro dormitorios sobre una parcela de 1.400 m² con naranjos adultos, pozo y piscina privada. Casa de campo de verdad, pero con todos los servicios de Ciudad Quesada a cinco minutos. Ideal para quien quiere espacio y no le importa conducir hasta la playa."
+      },
+      "en": {
+        "title": "Country house on a 1,400 m² plot with orange trees",
+        "town": "Ciudad Quesada",
+        "shortDescription": "A four-bedroom finca on a 1,400 m² plot with mature orange trees, a well and a private pool. A genuine country house, but with all the services of Ciudad Quesada five minutes away. For buyers who want space and don't mind driving to the beach."
+      },
+      "ru": {
+        "title": "Загородный дом на участке 1400 м² с апельсиновыми деревьями",
+        "town": "Сьюдад Кесада",
+        "shortDescription": "Финка с четырьмя спальнями на участке 1400 м² со взрослыми апельсиновыми деревьями, скважиной и собственным бассейном. Настоящий загородный дом, но вся инфраструктура Сьюдад Кесада — в пяти минутах. Для тех, кому нужен простор и кто не против доехать до пляжа на машине."
+      },
+      "de": {
+        "title": "Landhaus auf 1.400 m² Grundstück mit Orangenbäumen",
+        "town": "Ciudad Quesada",
+        "shortDescription": "Finca mit vier Schlafzimmern auf einem 1.400 m² großen Grundstück mit alten Orangenbäumen, Brunnen und Privatpool. Ein echtes Landhaus, aber mit allen Einrichtungen von Ciudad Quesada in fünf Minuten Entfernung. Für Käufer, die Platz wollen und die Fahrt zum Strand nicht scheuen."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  },
+  {
+    "slug": "apartamento-pilar-horadada",
+    "reference": "MH-2050",
+    "priceEuro": 159000,
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118"
+    ],
+    "facts": {
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "builtSqm": 62,
+      "plotSqm": null,
+      "pool": "communal",
+      "beachDistanceMeters": 1800
+    },
+    "agent": {
+      "name": "Milla Fernández",
+      "photoUrl": "/agents/milla-fernandez.svg",
+      "phone": "+34652679443"
+    },
+    "content": {
+      "es": {
+        "title": "Apartamento luminoso con piscina comunitaria",
+        "town": "Pilar de la Horadada",
+        "shortDescription": "Apartamento de dos dormitorios en una comunidad tranquila con piscina y zona infantil. Orientación este, así que la terraza da el sol de la mañana. Es la entrada más asequible de nuestra cartera y la que mejor funciona en alquiler todo el año."
+      },
+      "en": {
+        "title": "Bright apartment with communal pool",
+        "town": "Pilar de la Horadada",
+        "shortDescription": "A two-bedroom apartment in a quiet community with a pool and children's area. East-facing, so the terrace gets the morning sun. This is the most affordable entry in our portfolio and the one that performs best as a year-round rental."
+      },
+      "ru": {
+        "title": "Светлая квартира с общим бассейном",
+        "town": "Пилар-де-ла-Орадада",
+        "shortDescription": "Квартира с двумя спальнями в тихом комплексе с бассейном и детской площадкой. Восточная сторона, поэтому на террасе — утреннее солнце. Самый доступный вариант в нашем портфеле и лучший для круглогодичной аренды."
+      },
+      "de": {
+        "title": "Helle Wohnung mit Gemeinschaftspool",
+        "town": "Pilar de la Horadada",
+        "shortDescription": "Wohnung mit zwei Schlafzimmern in einer ruhigen Anlage mit Pool und Kinderbereich. Ostausrichtung, die Terrasse bekommt also die Morgensonne. Der günstigste Einstieg in unserem Portfolio und das Objekt, das sich ganzjährig am besten vermieten lässt."
+      }
+    },
+    "updatedAt": "2026-07-20"
+  }
+]
