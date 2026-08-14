@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Elena Sokolova">
+  <defs>
+    <clipPath id="c"><circle cx="64" cy="64" r="64"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="128" height="128" fill="#1f7a52"/>
+    <circle cx="64" cy="52" r="22" fill="#f6f4ef" opacity="0.92"/>
+    <path d="M18 128c0-25.4 20.6-46 46-46s46 20.6 46 46z" fill="#f6f4ef" opacity="0.92"/>
+  </g>
+</svg>

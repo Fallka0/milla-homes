@@ -1,9 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { adminSiteHost, adminSiteUrl, publicSiteHost, publicSiteUrl } from "@/lib/site-urls";
+import { getShareLocaleFromPathname, shareLocaleHeaderName } from "@/lib/share-property";
 
 function isLocalDevelopmentHost(host: string) {
   return host.startsWith("localhost") || host.startsWith("127.0.0.1") || host.endsWith(".localhost");
+}
+
+/**
+ * Continue the request, forwarding the share-page locale to the root layout so
+ * it can put the right language on <html>. Used in place of a bare
+ * NextResponse.next() everywhere below, including on localhost.
+ */
+function continueWithShareLocale(request: NextRequest) {
+  const shareLocale = getShareLocaleFromPathname(request.nextUrl.pathname);
+
+  if (!shareLocale) {
+    return NextResponse.next();
+  }
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set(shareLocaleHeaderName, shareLocale);
+
+  return NextResponse.next({ request: { headers: requestHeaders } });
 }
 
 function redirectToBase(request: NextRequest, baseUrl: string) {
@@ -17,7 +36,7 @@ export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   if (isLocalDevelopmentHost(host)) {
-    return NextResponse.next();
+    return continueWithShareLocale(request);
   }
 
   const isAdminPath = pathname === "/admin" || pathname.startsWith("/admin/");
@@ -39,7 +58,7 @@ export function proxy(request: NextRequest) {
     return redirectToBase(request, adminSiteUrl);
   }
 
-  return NextResponse.next();
+  return continueWithShareLocale(request);
 }
 
 export const config = {
